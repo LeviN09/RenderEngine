@@ -1,0 +1,5 @@
+OPENGLFLAGS = -lGL -lGLU -lglut -lm -lglfw -lGLEW -Lvendor -lstb
+
+out: main.cpp sources/*.cpp headers/*.hpp
+	g++ $^ -o out $(OPENGLFLAGS)
+
