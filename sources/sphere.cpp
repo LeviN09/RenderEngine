@@ -6,7 +6,7 @@ void Sphere::InitSphere() {
     const float deltaRowAngle = M_PI / rows;
     const float deltaColumnAngle = 2 * M_PI / cols;
 
-    PushToVerts({0.0f, radius, 0.0f,    1.0f, 1.0f, 1.0f});
+    PushToVerts({0.0f, radius, 0.0f,  0.0f, radius, 0.0f,  1.0f, 1.0f, 1.0f});
     for (int i = 0; i < rows - 1; i++) {
         float miniRadius = (float)sin((i + 1) * deltaRowAngle) * radius;
         for (int j = 0; j < cols; j++) {
@@ -14,11 +14,14 @@ void Sphere::InitSphere() {
                 (float)cos(j * deltaColumnAngle) * miniRadius,
                 (float)cos((i + 1) * deltaRowAngle) * radius,
                 (float)sin(j * deltaColumnAngle) * miniRadius,
+                (float)cos(j * deltaColumnAngle) * miniRadius,
+                (float)cos((i + 1) * deltaRowAngle) * radius,
+                (float)sin(j * deltaColumnAngle) * miniRadius,
                 i * 1.0f / rows, j * 1.0f / cols, 1.0f
             });
         }
     }
-    PushToVerts({0.0f, -radius, 0.0f,   1.0f, 1.0f, 1.0f});
+    PushToVerts({0.0f, -radius, 0.0f, 0.0f, -radius, 0.0f,  1.0f, 1.0f, 1.0f});
 
     for (int i = 0; i < cols - 1; i++) {
         PushToInds({0, i + 2, i + 1});
@@ -37,7 +40,7 @@ void Sphere::InitSphere() {
     }
     PushToInds({(rows - 1) * cols, (rows - 1) * cols + 1, (rows - 2) * cols + 1});
 
-    hasNormals = false;
+    hasNormals = true;
     hasColorTexture = false;
 }
 

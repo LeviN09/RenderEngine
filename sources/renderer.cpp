@@ -4,8 +4,10 @@
 
 void Renderer::Render() {
     for (auto&& obj : objects) {
-        if (obj != nullptr)
+        if (obj != nullptr) {
+            obj->SetLight(lights[0]);
             obj->Render(90.0f, 0.1f, 150.0f);
+        }
     }
 }
 
@@ -42,4 +44,9 @@ void Renderer::SetCurrCam(Camera* cam) {
     for (auto& obj : objects) {
         obj->SetCamera(currCam);
     }
+}
+
+Light* Renderer::AddLight(Light* light) {
+    lights.push_back(light);
+    return light;
 }

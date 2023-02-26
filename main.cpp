@@ -13,6 +13,7 @@
 #include <fstream>
 #include <sstream>
 
+#include "headers/light.hpp"
 #include "headers/renderer.hpp"
 #include "headers/shaderClass.hpp"
 #include "headers/VAO.hpp"
@@ -68,6 +69,10 @@ int main() {
     Renderer renderer(window, width, height);
     renderer.AddCurrCamera();
 
+    Light* lighty = new Light();
+    lighty->Translate(glm::vec3(0.0f, -0.1f, 0.0f));
+    renderer.AddLight(lighty);
+
 
     Cube* cubey = new Cube(10.0f);
     cubey->Translate(glm::vec3(10.0f, 5.0f, -10.0f));
@@ -90,10 +95,10 @@ int main() {
     renderer.AddObject(planey2);
 
     Sphere* spherey = new Sphere(3.0f, 10, 10);
-    renderer.AddObject(spherey);
+    //renderer.AddObject(spherey);
 
     Sphere* s2 = new Sphere(10.0f, 40, 40);
-    s2->Translate(glm::vec3(-10.f, 0.0f, 0.0f));
+    s2->Translate(glm::vec3(-15.f, 0.0f, 0.0f));
     renderer.AddObject(s2);
 
     double time = glfwGetTime();
@@ -106,7 +111,7 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         time = glfwGetTime();
 
-        glClearColor(0.0f, 0.5f, 0.5f, 1);
+        glClearColor(0.0f, 0.0f, 0.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glfwGetWindowSize(window, &width, &height);
@@ -114,6 +119,7 @@ int main() {
         renderer.Update();
         s2->Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         cubey->Rotate(glm::radians(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        lighty->Translate(glm::vec3(0.0f, 0.0f, 0.01f));
         renderer.Render();
 
         glfwSwapBuffers(window);

@@ -1,14 +1,14 @@
 #include "../headers/cube.hpp"
 
 void Cube::InitCube() {
-    PushToVerts({-0.5f * scale, -0.5f * scale,  0.5f * scale,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f});
-    PushToVerts({ 0.5f * scale, -0.5f * scale,  0.5f * scale,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f});
-    PushToVerts({ 0.5f * scale, -0.5f * scale, -0.5f * scale,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f});
-    PushToVerts({-0.5f * scale, -0.5f * scale, -0.5f * scale,   0.0f, 1.0f, 1.0f,   0.0f, 0.0f});
-    PushToVerts({-0.5f * scale,  0.5f * scale,  0.5f * scale,   1.0f, 0.0f, 1.0f,   0.0f, 1.0f});
-    PushToVerts({ 0.5f * scale,  0.5f * scale,  0.5f * scale,   1.0f, 1.0f, 0.0f,   1.0f, 1.0f});
-    PushToVerts({ 0.5f * scale,  0.5f * scale, -0.5f * scale,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f});
-    PushToVerts({-0.5f * scale,  0.5f * scale, -0.5f * scale,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f});
+    PushToVerts({-0.5f * scale, -0.5f * scale,  0.5f * scale,   -0.5f * scale, -0.5f * scale,  0.5f * scale,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f});
+    PushToVerts({ 0.5f * scale, -0.5f * scale,  0.5f * scale,    0.5f * scale, -0.5f * scale,  0.5f * scale,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f});
+    PushToVerts({ 0.5f * scale, -0.5f * scale, -0.5f * scale,    0.5f * scale, -0.5f * scale, -0.5f * scale,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f});
+    PushToVerts({-0.5f * scale, -0.5f * scale, -0.5f * scale,   -0.5f * scale, -0.5f * scale, -0.5f * scale,   0.0f, 1.0f, 1.0f,   0.0f, 0.0f});
+    PushToVerts({-0.5f * scale,  0.5f * scale,  0.5f * scale,   -0.5f * scale,  0.5f * scale,  0.5f * scale,   1.0f, 0.0f, 1.0f,   0.0f, 1.0f});
+    PushToVerts({ 0.5f * scale,  0.5f * scale,  0.5f * scale,    0.5f * scale,  0.5f * scale,  0.5f * scale,   1.0f, 1.0f, 0.0f,   1.0f, 1.0f});
+    PushToVerts({ 0.5f * scale,  0.5f * scale, -0.5f * scale,    0.5f * scale,  0.5f * scale, -0.5f * scale,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f});
+    PushToVerts({-0.5f * scale,  0.5f * scale, -0.5f * scale,   -0.5f * scale,  0.5f * scale, -0.5f * scale,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f});
 
     PushToInds({0, 1, 4});
     PushToInds({1, 5, 4});
@@ -23,7 +23,7 @@ void Cube::InitCube() {
     PushToInds({4, 5, 6});
     PushToInds({4, 6, 7});
 
-    hasNormals = false;
+    hasNormals = true;
     hasColorTexture = true;
 }
 

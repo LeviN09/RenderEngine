@@ -25,6 +25,7 @@ void RenderObject::Render(const float &fov, const float &near, const float &far)
     vao->Bind();
     ebo->Bind();
     camera->Matrix(fov, near, far, *shader, "camMatrix");
+    light->InitLight(shader);
     //std::cout << "vao " << vao->ID << " vbo " << vbo->ID << " ebo " << ebo->ID << " shader " << shader->ID << std::endl;
     glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_FALSE, glm::value_ptr(modelMat));
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

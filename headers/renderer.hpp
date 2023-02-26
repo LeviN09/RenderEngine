@@ -31,6 +31,7 @@ class Renderer {
         VAO* AddVAO();
         Camera* AddCurrCamera();
         Camera* AddCamera();
+        Light* AddLight(Light* light);
         void AddObject(RenderObject* object);
         Camera* GetCurrCam() { return currCam; }
         void SetCurrCam(Camera* cam);

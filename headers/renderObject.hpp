@@ -7,6 +7,7 @@
 #include "texture.hpp"
 #include "shaderClass.hpp"
 #include "camera.hpp"
+#include "light.hpp"
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_float4x4.hpp>
@@ -83,6 +84,7 @@ class RenderObject {
         std::vector<GLfloat> vertices;
         std::vector<GLuint> indices;
         Shader* shader;
+        Light* light;
         Camera* camera;
         VAO* vao;
         VBO* vbo;
@@ -112,6 +114,7 @@ class RenderObject {
         void Configure();
         void AddShader();
         void SetCamera(Camera* _camera) { camera = _camera; }
+        void SetLight(Light* _light) { light = _light; }
         void AddTexture(Texture* texture, std::string texUni);
         
         void Translate(glm::vec3 transform);

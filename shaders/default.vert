@@ -9,12 +9,17 @@ uniform mat4 camMatrix;
 
 out vec3 color;
 out vec2 texCoord;
+out vec3 normal;
+out vec3 worldPos;
 
 //uniform float scale;
 
 void main()
 {
     gl_Position = camMatrix * model * vec4(aPos, 1.0f);
+    worldPos = vec3(model * vec4(aPos, 1.0f));
+    //normal = aNorm;
+    normal = mat3(transpose(inverse(model))) * aNorm;
     color = aColor;
     texCoord = aTex;
 }
