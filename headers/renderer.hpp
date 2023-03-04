@@ -1,6 +1,7 @@
 #ifndef RENDERER_CLASS_HPP
 #define RENDERER_CLASS_HPP
 
+#include "physicsObject.hpp"
 #include "renderObject.hpp"
 #include "shaderClass.hpp"
 #include "VAO.hpp"
@@ -33,6 +34,7 @@ class Renderer {
         Camera* AddCamera();
         Light* AddLight(Light* light);
         void AddObject(RenderObject* object);
+        void AddObject(PhysicsObject* object);
         Camera* GetCurrCam() { return currCam; }
         void SetCurrCam(Camera* cam);
 

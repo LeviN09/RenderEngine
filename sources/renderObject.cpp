@@ -27,6 +27,7 @@ void RenderObject::Render(const float &fov, const float &near, const float &far)
     camera->Matrix(fov, near, far, *shader, "camMatrix");
     light->InitLight(shader);
     //std::cout << "vao " << vao->ID << " vbo " << vbo->ID << " ebo " << ebo->ID << " shader " << shader->ID << std::endl;
+    glUniform3fv(glGetUniformLocation(shader->ID, "viewPos"), 1, glm::value_ptr(camera->Position));
     glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_FALSE, glm::value_ptr(modelMat));
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     if (textures.size() > 0) {
@@ -71,6 +72,12 @@ void RenderObject::AddTexture(Texture *texture, std::string texUni) {
     hasColorTexture = true;
     textures.push_back(std::make_tuple(texture, texUni));
     texture->TexUnit(*shader, texUni.c_str(), 0);
+}
+
+void RenderObject::SetPos(glm::vec3 _pos) {
+    glm::vec3 pos = glm::vec3(modelMat[3]);
+
+    modelMat = glm::translate(modelMat, _pos - pos);
 }
 
 void RenderObject::Translate(glm::vec3 transform) {

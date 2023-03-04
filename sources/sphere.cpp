@@ -12,10 +12,10 @@ void Sphere::InitSphere() {
         for (int j = 0; j < cols; j++) {
             PushToVerts({
                 (float)cos(j * deltaColumnAngle) * miniRadius,
-                (float)cos((i + 1) * deltaRowAngle) * radius,
+                (float)cos((i + 1) * deltaRowAngle) * radius ,
                 (float)sin(j * deltaColumnAngle) * miniRadius,
                 (float)cos(j * deltaColumnAngle) * miniRadius,
-                (float)cos((i + 1) * deltaRowAngle) * radius,
+                (float)cos((i + 1) * deltaRowAngle) * radius ,
                 (float)sin(j * deltaColumnAngle) * miniRadius,
                 i * 1.0f / rows, j * 1.0f / cols, 1.0f
             });

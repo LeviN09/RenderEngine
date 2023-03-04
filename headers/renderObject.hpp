@@ -117,6 +117,7 @@ class RenderObject {
         void SetLight(Light* _light) { light = _light; }
         void AddTexture(Texture* texture, std::string texUni);
         
+        void SetPos(glm::vec3 _pos);
         void Translate(glm::vec3 transform);
         void Rotate(float rad, glm::vec3 rotate);
         void Scale(float scale);

@@ -11,7 +11,6 @@ uniform sampler2D tex0;
 uniform int hasColorTexture;
 //uniform sampler2D tex1;
 
-uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
 
@@ -22,25 +21,18 @@ void main() {
     //float diff = 1.0f;
     vec3 diffuse = diff * lightColor;
     //vec3 diffuse = lightColor;
-
     vec3 ambient = vec3(0.1f, 0.1f, 0.1f);
-
-    float specularStrength = 0.5;
-    vec3 viewDir = normalize(viewPos - worldPos);
-    vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength * spec * lightColor;  
 
     //FragColor = vec4(color, 1.0f);
     if (hasColorTexture == 1) {
-        vec3 result = (ambient + diffuse + specular) * color;
+        //vec3 result = (ambient + diffuse) * color;
         //FragColor = vec4(result, 1.0);
         //FragColor = vec4(diffuse, 1.0f);
-        FragColor = texture(tex0, texCoord) * vec4(result, 1.0f);
+        FragColor = texture(tex0, texCoord) * vec4(color, 1.0f);
     }
     else {
-        vec3 result = (ambient + diffuse + specular) * color;
-        FragColor = vec4(result, 1.0);
+        //vec3 result = (ambient + diffuse) * color;
+        FragColor = vec4(color, 1.0);
         //FragColor = vec4(color, 1.0f);
     }
 }

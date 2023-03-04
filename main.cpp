@@ -14,6 +14,7 @@
 #include <sstream>
 
 #include "headers/light.hpp"
+#include "headers/physicsEngine.hpp"
 #include "headers/renderer.hpp"
 #include "headers/shaderClass.hpp"
 #include "headers/VAO.hpp"
@@ -69,8 +70,23 @@ int main() {
     Renderer renderer(window, width, height);
     renderer.AddCurrCamera();
 
+    PhysicsEngine engine(&renderer);
+
+    SphereBody* planet1 = new SphereBody(glm::vec3(-50.0f, 30.0f, 0.0f), 3, 1);
+    SphereBody* planet2 = new SphereBody(glm::vec3(0.0f, 30.0f, 0.0f), 5, 1000);
+    //SphereBody* planet3 = new SphereBody(glm::vec3(-1.0f, 15.0f, 30.0f), 5, 500);
+    planet1->SetGravity(true);
+    planet2->SetGravity(true);
+    //planet3->SetGravity(true);
+
+    planet1->Push(glm::vec3(0.0f, 0.0f, -0.05f));
+
+    engine.AddObject(planet1);
+    engine.AddObject(planet2);
+    //engine.AddObject(planet3);
+
     Light* lighty = new Light();
-    lighty->Translate(glm::vec3(0.0f, -0.1f, 0.0f));
+    lighty->Translate(glm::vec3(0.0f, 0.5f, 0.0f));
     renderer.AddLight(lighty);
 
 
@@ -116,10 +132,12 @@ int main() {
 
         glfwGetWindowSize(window, &width, &height);
 
+        engine.Update();
+
         renderer.Update();
         s2->Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         cubey->Rotate(glm::radians(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        lighty->Translate(glm::vec3(0.0f, 0.0f, 0.01f));
+        //lighty->Translate(glm::vec3(0.0f, 0.0f, 0.01f));
         renderer.Render();
 
         glfwSwapBuffers(window);

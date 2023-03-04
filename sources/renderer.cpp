@@ -38,6 +38,11 @@ void Renderer::AddObject(RenderObject* object) {
     object->AddShader();
 }
 
+void Renderer::AddObject(PhysicsObject* object) {
+    RenderObject* renderObj = object->GetRenderObject();
+    AddObject(renderObj);
+}
+
 void Renderer::SetCurrCam(Camera* cam) {
     currCam = cam;
 
