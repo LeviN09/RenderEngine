@@ -10,13 +10,16 @@ void PhysicsObject::SetGravity(bool _hasGravity) { hasGravity = _hasGravity; }
 
 bool PhysicsObject::GetGravity() { return hasGravity; }
 
-glm::vec3 PhysicsObject::SumVelocity() {
-    glm::vec3 sum(constVelocity);
+glm::vec3 PhysicsObject::SumAcceleration() {
+    glm::vec3 sum(0.0f);
+
+    if (hasCollision)
+        sum += normalAcc;
 
     if (hasGravity)
-        velocity += gravity;
+        sum += gravityAcc;
 
-    return sum + velocity;
+    return sum;
 }
 
 void PhysicsObject::Push(glm::vec3 _push) { velocity += _push; }

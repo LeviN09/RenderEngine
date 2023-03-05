@@ -11,7 +11,9 @@ class PhysicsObject {
         glm::vec3 position;
         glm::vec3 constVelocity{0.0f};
         glm::vec3 velocity{0.0f};
-        glm::vec3 gravity{0.0f};
+        glm::vec3 gravityAcc{0.0f};
+        glm::vec3 normalAcc{0.0f};
+        glm::vec3 acceleration{0.0f};
         float mass;
         bool isColliding;
 
@@ -19,7 +21,7 @@ class PhysicsObject {
         position(_position), mass(_mass) {}
 
         RenderObject* GetRenderObject();
-        glm::vec3 SumVelocity();
+        glm::vec3 SumAcceleration();
         void Push(glm::vec3 _push);
         void SetVelocity(glm::vec3 _vel);
         void AddVelocity(glm::vec3 _vel);

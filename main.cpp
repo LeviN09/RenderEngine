@@ -72,18 +72,18 @@ int main() {
 
     PhysicsEngine engine(&renderer);
 
-    SphereBody* planet1 = new SphereBody(glm::vec3(-50.0f, 30.0f, 0.0f), 3, 1);
+    SphereBody* planet1 = new SphereBody(glm::vec3(-50.0f, 30.0f, 0.0f), 3, 10);
     SphereBody* planet2 = new SphereBody(glm::vec3(0.0f, 30.0f, 0.0f), 5, 1000);
-    //SphereBody* planet3 = new SphereBody(glm::vec3(-1.0f, 15.0f, 30.0f), 5, 500);
+    SphereBody* planet3 = new SphereBody(glm::vec3(-1.0f, 15.0f, 30.0f), 5, 1000);
     planet1->SetGravity(true);
     planet2->SetGravity(true);
-    //planet3->SetGravity(true);
+    planet3->SetGravity(true);
 
-    planet1->Push(glm::vec3(0.0f, 0.0f, -0.05f));
+    planet1->Push(glm::vec3(0.0f, 0.0f, -0.01f));
 
     engine.AddObject(planet1);
     engine.AddObject(planet2);
-    //engine.AddObject(planet3);
+    engine.AddObject(planet3);
 
     Light* lighty = new Light();
     lighty->Translate(glm::vec3(0.0f, 0.5f, 0.0f));
