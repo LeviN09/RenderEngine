@@ -13,7 +13,7 @@ void PhysicsEngine::Update() {
     CollisionUpdate();
 
     for (auto& obj : objects) {
-        std::cout << "veloc " << obj->velocity.x << " " << obj->velocity.y << " " << obj->velocity.z << std::endl;
+        //std::cout << "veloc " << obj->velocity.x << " " << obj->velocity.y << " " << obj->velocity.z << std::endl;
         //std::cout << "gravy " << obj->gravity.x << " " << obj->gravity.y << " " << obj->gravity.z << std::endl;
         
         if(!obj->isColliding) {
@@ -54,12 +54,12 @@ void PhysicsEngine::CalcCollision(SphereBody* a, SphereBody* b) {
         //a->velocity = glm::vec3(0.0f);
         //b->velocity = glm::vec3(0.0f);
         //a->isColliding = true;
-        std::cout << "collide" << std::endl;
+        //std::cout << "collide" << std::endl;
     }
 }
 
 void PhysicsEngine::GravityUpdate() {
-    float gravConstant{1 / 10000.0f};
+    static float gravConstant{1 / 10000.0f};
 
     for (auto& obj : objects) {
         if (!obj->GetGravity()) { continue; }
