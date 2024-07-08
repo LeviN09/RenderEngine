@@ -19,7 +19,7 @@ class SphereObject : public SceneObject
         void AddPhysicsObject() override;
 
     private:
-        float_t m_mass{ 1.0f };
+        float_t m_mass{ 10.0f };
         float_t m_radius{ 1.0f };
 };
 

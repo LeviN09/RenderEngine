@@ -15,6 +15,7 @@ class PhysicsObject : public IdTag
 
         const glm::vec3 SumAcceleration() const;
         void Push(const glm::vec3& push);
+        void SetPos(const glm::vec3& to_pos);
         void Translate(const glm::vec3& translation);
         void SetVelocity(const glm::vec3& vel);
         void AddVelocity(const glm::vec3& vel);
@@ -45,7 +46,7 @@ class PhysicsObject : public IdTag
         glm::vec3 m_normal_acc{ 0.0f };
         glm::vec3 m_acceleration{ 0.0f };
         float_t m_mass;
-        bool m_has_collision{ true }, m_has_gravity{ false };
+        bool m_has_collision{ true }, m_has_gravity{ true };
         bool m_is_colliding;
 };
 

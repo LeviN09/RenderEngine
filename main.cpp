@@ -84,8 +84,13 @@ int main()
 
     PhysicsEngine engine;
 
-    SphereObject planet1(renderer, engine, "planet1", glm::vec3(3.0f), 3.0f);
+    SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f);
     planet1.AddRenderObject();
+    planet1.AddPhysicsObject();
+
+    SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 3.0f);
+    planet2.AddRenderObject();
+    planet2.AddPhysicsObject();
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();

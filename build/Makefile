@@ -478,6 +478,78 @@ src/scene/primitives/cube.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.s
 .PHONY : src/scene/primitives/cube.cpp.s
 
+src/scene/primitives/object_builders/cubeParts.o: src/scene/primitives/object_builders/cubeParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/cubeParts.o
+
+# target to build an object file
+src/scene/primitives/object_builders/cubeParts.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/cubeParts.cpp.o
+
+src/scene/primitives/object_builders/cubeParts.i: src/scene/primitives/object_builders/cubeParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/cubeParts.i
+
+# target to preprocess a source file
+src/scene/primitives/object_builders/cubeParts.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/cubeParts.cpp.i
+
+src/scene/primitives/object_builders/cubeParts.s: src/scene/primitives/object_builders/cubeParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/cubeParts.s
+
+# target to generate assembly for a file
+src/scene/primitives/object_builders/cubeParts.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/cubeParts.cpp.s
+
+src/scene/primitives/object_builders/planeParts.o: src/scene/primitives/object_builders/planeParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/planeParts.o
+
+# target to build an object file
+src/scene/primitives/object_builders/planeParts.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/planeParts.cpp.o
+
+src/scene/primitives/object_builders/planeParts.i: src/scene/primitives/object_builders/planeParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/planeParts.i
+
+# target to preprocess a source file
+src/scene/primitives/object_builders/planeParts.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/planeParts.cpp.i
+
+src/scene/primitives/object_builders/planeParts.s: src/scene/primitives/object_builders/planeParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/planeParts.s
+
+# target to generate assembly for a file
+src/scene/primitives/object_builders/planeParts.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/planeParts.cpp.s
+
+src/scene/primitives/object_builders/sphereParts.o: src/scene/primitives/object_builders/sphereParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/sphereParts.o
+
+# target to build an object file
+src/scene/primitives/object_builders/sphereParts.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o
+.PHONY : src/scene/primitives/object_builders/sphereParts.cpp.o
+
+src/scene/primitives/object_builders/sphereParts.i: src/scene/primitives/object_builders/sphereParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/sphereParts.i
+
+# target to preprocess a source file
+src/scene/primitives/object_builders/sphereParts.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.i
+.PHONY : src/scene/primitives/object_builders/sphereParts.cpp.i
+
+src/scene/primitives/object_builders/sphereParts.s: src/scene/primitives/object_builders/sphereParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/sphereParts.s
+
+# target to generate assembly for a file
+src/scene/primitives/object_builders/sphereParts.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RenderEngine.dir/build.make CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.s
+.PHONY : src/scene/primitives/object_builders/sphereParts.cpp.s
+
 src/scene/primitives/plane.o: src/scene/primitives/plane.cpp.o
 .PHONY : src/scene/primitives/plane.o
 
@@ -650,6 +722,15 @@ help:
 	@echo "... src/scene/primitives/cube.o"
 	@echo "... src/scene/primitives/cube.i"
 	@echo "... src/scene/primitives/cube.s"
+	@echo "... src/scene/primitives/object_builders/cubeParts.o"
+	@echo "... src/scene/primitives/object_builders/cubeParts.i"
+	@echo "... src/scene/primitives/object_builders/cubeParts.s"
+	@echo "... src/scene/primitives/object_builders/planeParts.o"
+	@echo "... src/scene/primitives/object_builders/planeParts.i"
+	@echo "... src/scene/primitives/object_builders/planeParts.s"
+	@echo "... src/scene/primitives/object_builders/sphereParts.o"
+	@echo "... src/scene/primitives/object_builders/sphereParts.i"
+	@echo "... src/scene/primitives/object_builders/sphereParts.s"
 	@echo "... src/scene/primitives/plane.o"
 	@echo "... src/scene/primitives/plane.i"
 	@echo "... src/scene/primitives/plane.s"

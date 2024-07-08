@@ -91,6 +91,24 @@
 },
 {
   "directory": "/home/levi/Documents/home/projects/RenderEngine/build",
+  "command": "/usr/bin/g++  -I/home/levi/Documents/home/projects/RenderEngine/include -I/home/levi/Documents/home/projects/RenderEngine/src -I/home/levi/Documents/home/projects/RenderEngine/vendor/someLibrary/include -I/home/levi/Documents/home/projects/RenderEngine/vendor/include -g -std=gnu++20 -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp",
+  "file": "/home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp",
+  "output": "CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o"
+},
+{
+  "directory": "/home/levi/Documents/home/projects/RenderEngine/build",
+  "command": "/usr/bin/g++  -I/home/levi/Documents/home/projects/RenderEngine/include -I/home/levi/Documents/home/projects/RenderEngine/src -I/home/levi/Documents/home/projects/RenderEngine/vendor/someLibrary/include -I/home/levi/Documents/home/projects/RenderEngine/vendor/include -g -std=gnu++20 -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp",
+  "file": "/home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp",
+  "output": "CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o"
+},
+{
+  "directory": "/home/levi/Documents/home/projects/RenderEngine/build",
+  "command": "/usr/bin/g++  -I/home/levi/Documents/home/projects/RenderEngine/include -I/home/levi/Documents/home/projects/RenderEngine/src -I/home/levi/Documents/home/projects/RenderEngine/vendor/someLibrary/include -I/home/levi/Documents/home/projects/RenderEngine/vendor/include -g -std=gnu++20 -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp",
+  "file": "/home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp",
+  "output": "CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o"
+},
+{
+  "directory": "/home/levi/Documents/home/projects/RenderEngine/build",
   "command": "/usr/bin/g++  -I/home/levi/Documents/home/projects/RenderEngine/include -I/home/levi/Documents/home/projects/RenderEngine/src -I/home/levi/Documents/home/projects/RenderEngine/vendor/someLibrary/include -I/home/levi/Documents/home/projects/RenderEngine/vendor/include -g -std=gnu++20 -o CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/plane.cpp",
   "file": "/home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/plane.cpp",
   "output": "CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o"

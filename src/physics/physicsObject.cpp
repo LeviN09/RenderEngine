@@ -54,6 +54,13 @@ void PhysicsObject::Push(const glm::vec3& push)
     m_velocity += push;
 }
 
+void PhysicsObject::SetPos(const glm::vec3& to_pos)
+{
+    glm::vec3 pos = glm::vec3(m_model_mat[3]);
+
+    m_model_mat = glm::translate(m_model_mat, to_pos - pos);
+}
+
 void PhysicsObject::Translate(const glm::vec3& translation)
 {
     m_model_mat = glm::translate(m_model_mat, translation);

@@ -265,10 +265,52 @@ CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/cube.cpp -o CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.s
 
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp > CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.i
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/cubeParts.cpp -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.s
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp > CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.i
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/planeParts.cpp -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.s
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp > CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.i
+
+CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/object_builders/sphereParts.cpp -o CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.s
+
 CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
 CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/plane.cpp
 CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/plane.cpp
 
 CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.i: cmake_force
@@ -282,7 +324,7 @@ CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.s: cmake_force
 CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
 CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/sphere.cpp
 CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/primitives/sphere.cpp
 
 CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.i: cmake_force
@@ -296,7 +338,7 @@ CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.s: cmake_force
 CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
 CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/sceneObject.cpp
 CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/sceneObject.cpp
 
 CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.i: cmake_force
@@ -310,7 +352,7 @@ CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.s: cmake_force
 CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o: CMakeFiles/RenderEngine.dir/flags.make
 CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o: /home/levi/Documents/home/projects/RenderEngine/src/scene/sceneOrchestrator.cpp
 CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o: CMakeFiles/RenderEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o -MF CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o.d -o CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.o -c /home/levi/Documents/home/projects/RenderEngine/src/scene/sceneOrchestrator.cpp
 
 CMakeFiles/RenderEngine.dir/src/scene/sceneOrchestrator.cpp.i: cmake_force
@@ -337,6 +379,9 @@ RenderEngine_OBJECTS = \
 "CMakeFiles/RenderEngine.dir/src/render/renderer.cpp.o" \
 "CMakeFiles/RenderEngine.dir/src/scene/idTag.cpp.o" \
 "CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.o" \
+"CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o" \
+"CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o" \
+"CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o" \
 "CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o" \
 "CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o" \
 "CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o" \
@@ -359,6 +404,9 @@ RenderEngine: CMakeFiles/RenderEngine.dir/src/render/renderObject.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/render/renderer.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/idTag.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/cube.cpp.o
+RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/cubeParts.cpp.o
+RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/planeParts.cpp.o
+RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/object_builders/sphereParts.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/plane.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/primitives/sphere.cpp.o
 RenderEngine: CMakeFiles/RenderEngine.dir/src/scene/sceneObject.cpp.o
@@ -371,7 +419,7 @@ RenderEngine: /usr/lib/libGLEW.so
 RenderEngine: /usr/lib/libglm.a
 RenderEngine: libstb_image.a
 RenderEngine: CMakeFiles/RenderEngine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable RenderEngine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX executable RenderEngine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RenderEngine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -23,8 +23,8 @@ std::optional<std::reference_wrapper<IdTag>> PhysicsEngine::GetObject(const std:
 
 void PhysicsEngine::Update()
 {
-    //GravityUpdate();
-    //CollisionUpdate();
+    GravityUpdate();
+    CollisionUpdate();
 
     for (const auto& obj : m_objects)
     {
@@ -54,18 +54,21 @@ void PhysicsEngine::CollisionUpdate()
         {
             if (obj.get() == other.get()) { continue; }
             if (!other->HasCollision()) { continue; }
-            CalcCollision((SphereBody&)obj, (SphereBody&)other);
+            CalcCollision((SphereBody&)*obj, (SphereBody&)*other);
         }
     }
 }
 
-void PhysicsEngine::CalcCollision(SphereBody& a, const SphereBody& b) {
+void PhysicsEngine::CalcCollision(SphereBody& a, const SphereBody& b)
+{
     glm::vec3 diffV = (a.GetPosition() + a.GetVelocity()) - (b.GetPosition() + b.GetVelocity());
     float diffMag = glm::length(diffV);
 
     float diff = (a.GetRadius() + b.GetRadius()) - diffMag;
     glm::vec3 push = b.GetMass() * glm::normalize(diffV);
-    if (diff > 0.0f) {
+
+    if (diff > 0.0f)
+    {
         //std::cout << "push " << diffV.x << " " << diffV.y << " " << diffV.z << " " << a->isColliding << std::endl;
 
         //a->position += push;
