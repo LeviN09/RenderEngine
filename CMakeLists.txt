@@ -12,7 +12,6 @@ include_directories(${PROJECT_SOURCE_DIR}/vendor/someLibrary/include)
 
 # Libraries
 find_package(OpenGL REQUIRED)
-set(glm_DIR <installation prefix>/lib/cmake/glm)
 find_package(glm REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_search_module(GLFW REQUIRED glfw3)
