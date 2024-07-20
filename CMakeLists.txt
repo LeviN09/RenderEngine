@@ -5,6 +5,9 @@ project(RenderEngine VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_C_COMPILER $ENV{CC})
+set(CMAKE_CXX_COMPILER $ENV{CXX})
+
 # Includes
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
