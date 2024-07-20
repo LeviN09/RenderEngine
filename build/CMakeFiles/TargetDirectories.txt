@@ -1,4 +1,0 @@
-/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles/stb_image.dir
-/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles/RenderEngine.dir
-/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles/edit_cache.dir
-/home/levi/Documents/home/projects/RenderEngine/build/CMakeFiles/rebuild_cache.dir
