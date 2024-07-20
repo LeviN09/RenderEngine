@@ -1,4 +1,5 @@
 #include "scene/primitives/cube.hpp"
+#include "scene/primitives/object_builders/sphereParts.hpp"
 #include "scene/primitives/plane.hpp"
 #include "scene/primitives/sphere.hpp"
 #include <memory>
@@ -91,6 +92,9 @@ int main()
     SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 3.0f);
     planet2.AddRenderObject();
     planet2.AddPhysicsObject();
+
+    if (engine.GetObject("p_planet2").has_value())
+        dynamic_cast<SphereBody&>(engine.GetObject("p_planet2").value().get()).Push(glm::vec3(-0.05f));
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();

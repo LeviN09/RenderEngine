@@ -1,9 +1,5 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <iostream>
-#include <memory>
-#include <ostream>
-#include <tuple>
 
 #include "render/gpu_interface/EBO.hpp"
 #include "render/gpu_interface/VAO.hpp"
@@ -63,7 +59,6 @@ void RenderObject::ConfigureVAO(const std::vector<VAOInfo>& attrs)
 
 void RenderObject::Configure()
 {
-    std::cout << "bin hier" << std::endl;
     ConfigureVBO();
     ConfigureVAO(VAOInfo::GetVAOInfo(m_has_color, m_has_normals, m_has_color_texture));
     ConfigureEBO();

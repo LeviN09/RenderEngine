@@ -9,7 +9,7 @@ class IdTag
     public:
         IdTag();
         IdTag(const std::string& uid);
-        ~IdTag();
+        virtual ~IdTag();
 
         const std::string& GetUid();
         void SetUid(const std::string& uid);
