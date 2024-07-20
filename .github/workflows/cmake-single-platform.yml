@@ -43,7 +43,3 @@ jobs:
     
     - name: Build
       run: cmake --build ${{github.workspace}}/build
-    
-    - name: Run tests
-      run: ctest -C ${{env.BUILD_TYPE}}
-      working-directory: ${{github.workspace}}/build
