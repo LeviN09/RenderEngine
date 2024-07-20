@@ -96,10 +96,7 @@ int main()
     planet2.AddRenderObject();
     planet2.AddPhysicsObject();
 
-    if (engine.GetObject("p_planet2").has_value())
-    {
-        dynamic_cast<SphereBody&>(engine.GetObject("p_planet2").value().get()).Push(glm::vec3(-0.01f));
-    }
+    engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(-0.01f));
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();
@@ -107,18 +104,12 @@ int main()
     std::unique_ptr<Texture> cirno = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
     std::unique_ptr<Texture> caco = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 
-    if (renderer.GetObject("r_cubey1").has_value())
-    {
-        dynamic_cast<CubeRender&>(renderer.GetObject("r_cubey1").value().get()).AddTexture(std::move(cirno), "tex0");
-    }
+    renderer.GetObject<CubeRender>("r_cubey1").AddTexture(std::move(cirno), "tex0");
 
     PlaneObject planey(renderer, engine, "planey1", glm::vec3(-5.0f), 1.0f);
     planey.AddRenderObject();
 
-    if (renderer.GetObject("r_planey1").has_value())
-    {
-        dynamic_cast<PlaneRender&>(renderer.GetObject("r_planey1").value().get()).AddTexture(std::move(caco), "tex0");
-    }
+    renderer.GetObject<PlaneRender>("r_planey1").AddTexture(std::move(caco), "tex0");
 
     double time = glfwGetTime();
     double prevTime = time;

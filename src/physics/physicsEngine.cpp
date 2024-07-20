@@ -4,13 +4,14 @@
 
 #include "physics/physicsEngine.hpp"
 #include "physics/physicsObject.hpp"
+#include "scene/primitives/object_builders/sphereParts.hpp"
 
 void PhysicsEngine::AddObject(std::unique_ptr<PhysicsObject> object)
 {
     m_objects.push_back(std::move(object));
 }
 
-std::optional<std::reference_wrapper<IdTag>> PhysicsEngine::GetObject(const std::string& uid) const
+std::optional<std::reference_wrapper<IdTag>> PhysicsEngine::SearchObject(const std::string& uid) const
 {
     const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<PhysicsObject>& item){ return item->GetUid() == uid; });
     if (search != m_objects.end())

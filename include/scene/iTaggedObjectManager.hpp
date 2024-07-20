@@ -8,7 +8,7 @@
 class ITaggedObjectManager
 {
     public:
-        virtual std::optional<std::reference_wrapper<IdTag>> GetObject(const std::string& uid) const = 0;
+        virtual std::optional<std::reference_wrapper<IdTag>> SearchObject(const std::string& uid) const = 0;
 };
 
 #endif

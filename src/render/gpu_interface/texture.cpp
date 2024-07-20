@@ -10,7 +10,7 @@ Texture::Texture(const std::string& image, GLenum tex_type, GLenum slot, GLenum 
 	m_type = tex_type;
 
 	int widthImg, heightImg, numColCh;
-	//stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* bytes = stbi_load(image.c_str(), &widthImg, &heightImg, &numColCh, 0);
 
 	glGenTextures(1, &m_id);

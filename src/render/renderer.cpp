@@ -6,7 +6,7 @@
 #include "render/renderer.hpp"
 #include "scene/idTag.hpp"
 
-std::optional<std::reference_wrapper<IdTag>> Renderer::GetObject(const std::string& uid) const
+std::optional<std::reference_wrapper<IdTag>> Renderer::SearchObject(const std::string& uid) const
 {
     const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<RenderObject>& item){ return item->GetUid() == uid; });
     if (search != m_objects.end())

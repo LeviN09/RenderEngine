@@ -19,7 +19,10 @@ class Renderer : public ITaggedObjectManager
             m_window{window}, m_width{width}, m_height{height}
         {}
 
-        std::optional<std::reference_wrapper<IdTag>> GetObject(const std::string& uid) const override;
+        std::optional<std::reference_wrapper<IdTag>> SearchObject(const std::string& uid) const override;
+
+        template <typename T>
+        T& GetObject(const std::string& uid);
 
         void AddCurrCamera(const std::string& uid);
         void AddCamera(const std::string& uid);
@@ -42,5 +45,23 @@ class Renderer : public ITaggedObjectManager
         std::vector<std::shared_ptr<Camera>> m_cameras;
         std::vector<std::shared_ptr<Light>> m_lights;
 };
+
+template<typename T>
+T& Renderer::GetObject(const std::string& uid)
+{
+    for (const auto& item : m_objects)
+    {
+        if (item->GetUid() == uid)
+        {
+            T* castedItem = dynamic_cast<T*>(item.get());
+            if (castedItem)
+            {
+                return *castedItem;
+            }
+            throw std::runtime_error("Item [" + uid + "] found but cast failed");
+        }
+    }
+    throw std::runtime_error("Item [" + uid + "] not found");
+}
 
 #endif
