@@ -37,6 +37,7 @@ void say(const std::string& msg)
 }
 
 static int width = 1200, height = 1000;
+static const std::string res_prefix{ "../res/" };
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -101,8 +102,8 @@ int main()
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();
 
-    std::unique_ptr<Texture> cirno = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    std::unique_ptr<Texture> caco = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    std::unique_ptr<Texture> cirno = std::make_unique<Texture>(res_prefix + "textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    std::unique_ptr<Texture> caco = std::make_unique<Texture>(res_prefix + "textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
 
     renderer.GetObject<CubeRender>("r_cubey1").AddTexture(std::move(cirno), "tex0");
 
