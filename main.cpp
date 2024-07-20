@@ -1,8 +1,3 @@
-#include "scene/primitives/cube.hpp"
-#include "scene/primitives/object_builders/sphereParts.hpp"
-#include "scene/primitives/plane.hpp"
-#include "scene/primitives/sphere.hpp"
-#include <memory>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -13,10 +8,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/trigonometric.hpp>
+#include <memory>
 #include <string>
 
 #include "physics/physicsEngine.hpp"
 #include "render/renderer.hpp"
+#include "render/gpu_interface/texture.hpp"
+#include "scene/primitives/cube.hpp"
+#include "scene/primitives/object_builders/cubeParts.hpp"
+#include "scene/primitives/object_builders/planeParts.hpp"
+#include "scene/primitives/object_builders/sphereParts.hpp"
+#include "scene/primitives/plane.hpp"
+#include "scene/primitives/sphere.hpp"
 
 #include "stb_image.h"
 
@@ -33,7 +36,7 @@ void say(const std::string& msg)
     std::cout << msg << std::endl;
 }
 
-static int width = 800, height = 800;
+static int width = 1200, height = 1000;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -94,57 +97,28 @@ int main()
     planet2.AddPhysicsObject();
 
     if (engine.GetObject("p_planet2").has_value())
-        dynamic_cast<SphereBody&>(engine.GetObject("p_planet2").value().get()).Push(glm::vec3(-0.05f));
+    {
+        dynamic_cast<SphereBody&>(engine.GetObject("p_planet2").value().get()).Push(glm::vec3(-0.01f));
+    }
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();
 
+    std::unique_ptr<Texture> cirno = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    std::unique_ptr<Texture> caco = std::make_unique<Texture>("/home/levi/Documents/home/projects/RenderEngine/res/textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+
+    if (renderer.GetObject("r_cubey1").has_value())
+    {
+        dynamic_cast<CubeRender&>(renderer.GetObject("r_cubey1").value().get()).AddTexture(std::move(cirno), "tex0");
+    }
+
     PlaneObject planey(renderer, engine, "planey1", glm::vec3(-5.0f), 1.0f);
     planey.AddRenderObject();
 
-    /*SphereBody* planet1 = new SphereBody(glm::vec3(-50.0f, 30.0f, 0.0f), 3, 10);
-    SphereBody* planet2 = new SphereBody(glm::vec3(0.0f, 30.0f, 0.0f), 5, 1000);
-    SphereBody* planet3 = new SphereBody(glm::vec3(-1.0f, 15.0f, 30.0f), 5, 1000);
-    planet1->SetGravity(true);
-    planet2->SetGravity(true);
-    planet3->SetGravity(true);
-
-    planet1->Push(glm::vec3(0.0f, 0.0f, -0.01f));
-
-    engine.AddObject(*planet1);
-    engine.AddObject(*planet2);
-    engine.AddObject(*planet3);
-
-    Light* lighty = new Light();
-    lighty->Translate(glm::vec3(0.0f, 0.5f, 0.0f));
-    renderer.AddLight(*lighty);
-
-    Cube* cubey = new Cube(10.0f);
-    cubey->Translate(glm::vec3(10.0f, 5.0f, -10.0f));
-    renderer.AddObject(*cubey);
-
-    Cube* cubey2 = new Cube(3.0f);
-    cubey2->Rotate(glm::radians(30.0f), glm::vec3(1.0f));
-    cubey2->Translate(glm::vec3(15.0f));
-    cubey2->AddTexture(new Texture("/home/levi/Documents/home/projects/RenderEngine/res/textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE), "tex0");
-    renderer.AddObject(*cubey2);
-
-    Plane* planey = new Plane();
-    planey->Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    planey->AddTexture(new Texture("/home/levi/Documents/home/projects/RenderEngine/res/textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE), "tex0");
-    renderer.AddObject(*planey);
-
-    Plane* planey2 = new Plane();
-    planey->Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    planey2->Translate(glm::vec3(10.0f));
-    renderer.AddObject(*planey2);
-
-    Sphere* spherey = new Sphere(3.0f, 10, 10);
-    renderer.AddObject(*spherey);
-
-    Sphere* s2 = new Sphere(10.0f, 40, 40);
-    s2->Translate(glm::vec3(-15.f, 0.0f, 0.0f));
-    renderer.AddObject(*s2);*/
+    if (renderer.GetObject("r_planey1").has_value())
+    {
+        dynamic_cast<PlaneRender&>(renderer.GetObject("r_planey1").value().get()).AddTexture(std::move(caco), "tex0");
+    }
 
     double time = glfwGetTime();
     double prevTime = time;
@@ -169,9 +143,7 @@ int main()
         
         cubey1.Rotate(glm::radians(1.0f), glm::vec3(-0.01f));
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        //s2->Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        //cubey->Rotate(glm::radians(1.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        //lighty->Translate(glm::vec3(0.0f, 0.0f, 0.01f));
+
         renderer.Render();
 
         glfwSwapBuffers(window);

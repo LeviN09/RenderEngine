@@ -79,7 +79,7 @@ void RenderObject::AddShader()
     m_shader = std::make_unique<Shader>("/home/levi/Documents/home/projects/RenderEngine/shaders/default.vert", "/home/levi/Documents/home/projects/RenderEngine/shaders/default.frag");
 }
 
-void RenderObject::AddTexture(std::unique_ptr<Texture>& texture, const std::string& texUni)
+void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::string& texUni)
 {
     m_vao->Bind();
     m_has_color_texture = true;

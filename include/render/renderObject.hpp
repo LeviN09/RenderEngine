@@ -104,7 +104,7 @@ class RenderObject : public IdTag
         void AddShader();
         void SetCamera(const std::shared_ptr<Camera>& camera);
         void SetLight(const std::shared_ptr<Light>& light);
-        void AddTexture(std::unique_ptr<Texture>& texture, const std::string& tex_uni);
+        void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
         
         void PushToVerts(const std::initializer_list<float_t>& coords);
         void PushToInds(const std::initializer_list<int64_t>& coords);
