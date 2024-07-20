@@ -43,7 +43,7 @@ void IdTag::GenerateNewUid()
 {
     auto now = std::chrono::system_clock::now();
     std::stringstream ss{"object_"};
-    ss << now.time_since_epoch();
+    //ss << now.time_since_epoch();
 
     SetUid(ss.str());
 }
