@@ -16,7 +16,7 @@ class Texture
 		const GLuint& GetID() const;
 		const GLenum& GetType() const;
 
-		void TexUnit(const Shader& shader, const std::string& uniform, GLuint unit);
+		void TexUnit(Shader& shader, const std::string& uniform, GLuint unit);
 		void Bind(GLuint slot);
 		void Unbind();
 		void Delete();

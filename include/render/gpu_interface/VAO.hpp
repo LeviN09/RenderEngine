@@ -8,7 +8,8 @@
 
 #include "VBO.hpp"
 
-class VAO {
+class VAO
+{
     public:
         VAO();
 

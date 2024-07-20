@@ -5,7 +5,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-class EBO {
+class EBO
+{
     public:
         EBO(GLuint* indices, GLsizeiptr size);
 

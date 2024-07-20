@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 
 #include "render/gpu_interface/texture.hpp"
@@ -39,12 +38,11 @@ const GLuint& Texture::GetType() const
 	return m_type;
 }
 
-void Texture::TexUnit(const Shader& shader, const std::string& uniform, GLuint unit)
+void Texture::TexUnit(Shader& shader, const std::string& uniform, GLuint unit)
 {
-	std::cout << shader.GetID() << " : " << uniform << " <> " << unit << std::endl;
-	//GLuint texUni = glGetUniformLocation(shader.ID, uniform);
-	//shader.Activate();
-	//glUniform1i(texUni, unit);
+	GLuint texUni = glGetUniformLocation(shader.GetID(), uniform.c_str());
+	shader.Activate();
+	glUniform1i(texUni, unit);
 }
 
 void Texture::Bind(GLuint slot)
