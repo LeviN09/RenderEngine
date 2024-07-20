@@ -9,6 +9,8 @@ set(CMAKE_CXX_EXTENSIONS False)
 set(CMAKE_C_COMPILER $ENV{CC})
 set(CMAKE_CXX_COMPILER $ENV{CXX})
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+
 # Includes
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
