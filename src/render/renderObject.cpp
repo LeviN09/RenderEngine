@@ -76,7 +76,7 @@ void RenderObject::SetLight(const std::shared_ptr<Light>& light)
 
 void RenderObject::AddShader()
 {
-    m_shader = std::make_unique<Shader>("/home/levi/Documents/home/projects/RenderEngine/shaders/default.vert", "/home/levi/Documents/home/projects/RenderEngine/shaders/default.frag");
+    m_shader = std::make_unique<Shader>("../shaders/default.vert", "../shaders/default.frag");
 }
 
 void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::string& texUni)

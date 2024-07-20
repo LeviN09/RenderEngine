@@ -11,6 +11,7 @@ uniform sampler2D tex0;
 uniform int hasColorTexture;
 //uniform sampler2D tex1;
 
+uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
 
