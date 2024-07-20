@@ -1,6 +1,5 @@
 #include <cmath>
 #include <cstdint>
-#include <iostream>
 
 #include "render/camera.hpp"
 #include "scene/idTag.hpp"
