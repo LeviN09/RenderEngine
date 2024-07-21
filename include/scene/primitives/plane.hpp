@@ -15,6 +15,7 @@ class PlaneObject : public SceneObject
         {}
         ~PlaneObject() {}
 
+        void AddRenderObject(const std::string& vert_shader, const std::string& frag_shader) override;
         void AddRenderObject() override;
         void AddPhysicsObject() override;
 

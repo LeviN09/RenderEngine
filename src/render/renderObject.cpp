@@ -74,9 +74,9 @@ void RenderObject::SetLight(const std::shared_ptr<Light>& light)
     m_light = light;
 }
 
-void RenderObject::AddShader()
+void RenderObject::AddShader(const std::string& vert_shader, const std::string& frag_shader)
 {
-    m_shader = std::make_unique<Shader>("../shaders/default.vert", "../shaders/default.frag");
+    m_shader = std::make_unique<Shader>(vert_shader, frag_shader);
 }
 
 void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::string& texUni)

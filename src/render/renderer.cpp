@@ -73,11 +73,16 @@ void Renderer::DeleteCamera(const std::string& uid)
     std::erase_if(m_cameras, [&](std::shared_ptr<Camera>& item){ return item->GetUid() == uid; });
 }
 
+void Renderer::AddObject(std::unique_ptr<RenderObject> object, const std::string& vert_shader, const std::string& frag_shader)
+{
+    object->AddShader(vert_shader, frag_shader);
+    object->SetCamera(m_curr_cam);
+    m_objects.push_back(std::move(object));
+}
+
 void Renderer::AddObject(std::unique_ptr<RenderObject> object)
 {
-    object->SetCamera(m_curr_cam);
-    object->AddShader();
-    m_objects.push_back(std::move(object));
+    AddObject(std::move(object), "../shaders/default.vert", "../shaders/default.frag");
 }
 
 void Renderer::SetCurrCam(const std::shared_ptr<Camera>& cam)

@@ -98,10 +98,8 @@ class RenderObject : public IdTag
         const VAO& GetVAO();
         const VBO& GetVBO();
 
-        //void AddChildren(std::initializer_list<RenderObject*>);
-
         void Configure();
-        void AddShader();
+        void AddShader(const std::string& vert_shader, const std::string& frag_shader);
         void SetCamera(const std::shared_ptr<Camera>& camera);
         void SetLight(const std::shared_ptr<Light>& light);
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
@@ -129,8 +127,6 @@ class RenderObject : public IdTag
 
         bool m_has_color{ true }, m_has_normals, m_has_color_texture{ false };
 
-        //RenderObject* parent{nullptr};
-        //std::vector<RenderObject*> children;
         //bool isVisible{true};
         //bool isLocked{false};
 

@@ -90,11 +90,11 @@ int main()
     PhysicsEngine engine;
 
     SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f);
-    planet1.AddRenderObject();
+    planet1.AddRenderObject("../shaders/default.vert", "../shaders/default.frag");
     planet1.AddPhysicsObject();
 
     SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 3.0f);
-    planet2.AddRenderObject();
+    planet2.AddRenderObject("../shaders/light.vert", "../shaders/light.frag");
     planet2.AddPhysicsObject();
 
     engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(-0.01f));
