@@ -28,7 +28,7 @@ void CubeRender::Init()
     m_has_color_texture = true;
 }
 
-void CubeRender::Update()
+void CubeRender::Update(const double_t& delta_time)
 {
 
 }

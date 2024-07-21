@@ -29,21 +29,21 @@ std::optional<std::reference_wrapper<IdTag>> Renderer::SearchObject(const std::s
     return std::nullopt;
 }
 
-void Renderer::Render()
+void Renderer::Render(const double_t& delta_time)
 {
     for (const auto& obj : m_objects)
     {
         obj->SetLight(m_lights[0]);
-        obj->Render(90.0f, 0.1f, 150.0f);
+        obj->Render(delta_time, 90.0f, 0.1f, 150.0f);
     }
 }
 
-void Renderer::Update(const double_t& xpos, const double_t& ypos)
+void Renderer::Update(const double_t& delta_time, const double_t& xpos, const double_t& ypos)
 {
     m_curr_cam->Inputs(m_window, xpos, ypos);
     for (const auto& obj : m_objects)
     {
-        obj->Update();
+        obj->Update(delta_time);
     }
 }
 

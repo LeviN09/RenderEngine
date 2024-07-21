@@ -4,12 +4,22 @@
 #include "render/gpu_interface/EBO.hpp"
 #include "render/gpu_interface/VAO.hpp"
 #include "render/gpu_interface/VBO.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/gpu_interface/texture.hpp"
 #include "render/renderObject.hpp"
 
-void RenderObject::Render(const float& fov, const float& near, const float& far)
+void RenderObject::Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far)
 {
     m_shader->Activate();
+
+    if (m_shader->GetType() == ShaderType::Fun)
+    {
+        glm::vec2 size = glm::vec2(1200, 1000);
+        glUniform2fv(glGetUniformLocation(m_shader->GetID(), "windowSize"), 1, glm::value_ptr(size));
+
+        GLfloat dt = delta_time;
+        glUniform1f(glGetUniformLocation(m_shader->GetID(), "deltaTime"), dt);
+    }
 
     if (m_textures.size() > 0)
     {

@@ -22,7 +22,7 @@ std::optional<std::reference_wrapper<IdTag>> PhysicsEngine::SearchObject(const s
     return std::nullopt;
 }
 
-void PhysicsEngine::Update()
+void PhysicsEngine::Update(const double_t& delta_time)
 {
     GravityUpdate();
     CollisionUpdate();

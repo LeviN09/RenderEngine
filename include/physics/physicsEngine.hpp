@@ -22,7 +22,7 @@ class PhysicsEngine : public ITaggedObjectManager
         T& GetObject(const std::string& uid);
 
         void AddObject(std::unique_ptr<PhysicsObject> object);
-        void Update();
+        void Update(const double_t& delta_time);
 
     private:
         void CollisionUpdate();

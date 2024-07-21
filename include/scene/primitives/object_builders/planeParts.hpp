@@ -14,7 +14,7 @@ class PlaneRender : public RenderObject
         }
 
         void Init() override;
-        void Update() override {}
+        void Update(const double_t& delta_time) override {}
 };
 
 #endif

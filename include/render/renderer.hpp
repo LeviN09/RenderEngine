@@ -35,8 +35,8 @@ class Renderer : public ITaggedObjectManager
         void SetCurrCam(const std::shared_ptr<Camera>& cam);
         Light& GetLight() const;
 
-        void Render();
-        void Update(const double_t& xpos, const double_t& ypos);
+        void Render(const double_t& delta_time);
+        void Update(const double_t& delta_time, const double_t& xpos, const double_t& ypos);
 
     private:
         std::shared_ptr<Camera> m_curr_cam;

@@ -49,10 +49,9 @@ void SphereRender::Init()
     m_has_color_texture = false;
 }
 
-void SphereRender::Update()
+void SphereRender::Update(const double_t& delta_time)
 {
-    //Rotate(glm::radians(1.0f), glm::vec3(1.0f));
-    //SetPos(m_position);
+
 }
 
 float_t SphereBody::GetRadius() const

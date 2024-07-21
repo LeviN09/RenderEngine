@@ -2,6 +2,7 @@
 #define CUBEPARTS_CLASS_HPP
 
 #include "render/renderObject.hpp"
+#include <cmath>
 
 class CubeRender : public RenderObject
 {
@@ -16,7 +17,7 @@ class CubeRender : public RenderObject
 
     private:
         void Init() override;
-        void Update() override;
+        void Update(const double_t& delta_time) override;
 
         float_t m_scale;
 };

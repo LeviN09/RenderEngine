@@ -89,10 +89,10 @@ class RenderObject : public IdTag
     public:
         ~RenderObject() = default;
 
-        void Render(const float_t& fov, const float_t& near, const float_t& far);
+        void Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far);
 
         virtual void Init() = 0;
-        virtual void Update() = 0;
+        virtual void Update(const double_t& delta_time) = 0;
 
         
         const VAO& GetVAO();

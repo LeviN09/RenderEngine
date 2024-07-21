@@ -20,7 +20,7 @@ class SphereRender : public RenderObject
 
     private:
         void Init() override;
-        void Update() override;
+        void Update(const double_t& delta_time) override;
 };
 
 class SphereBody : public PhysicsObject
@@ -28,10 +28,7 @@ class SphereBody : public PhysicsObject
     public:
         SphereBody(const std::string& uid, glm::mat4& model_mat, float radius, float mass):
             PhysicsObject(uid, model_mat, mass), m_radius(radius)
-        {
-            //renderObj = new Sphere(radius, (int)radius * 5, (int)radius * 5);
-            //renderObj->Translate(position);
-        }
+        {}
 
         float_t GetRadius() const;
 

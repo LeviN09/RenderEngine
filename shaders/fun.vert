@@ -11,6 +11,7 @@ out vec3 color;
 out vec2 texCoord;
 out vec3 normal;
 out vec3 worldPos;
+out vec2 screenCenter;
 
 //uniform float scale;
 
@@ -22,4 +23,5 @@ void main()
     normal = mat3(transpose(inverse(model))) * aNorm;
     color = aColor;
     texCoord = aTex;
+    screenCenter = vec2(0.0f, 0.0f);
 }

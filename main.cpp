@@ -129,15 +129,15 @@ int main()
 
         glfwGetWindowSize(window, &width, &height);
 
-        engine.Update();
+        engine.Update(time);
 
-        renderer.Update(mouse_pos_x, mouse_pos_y);
+        renderer.Update(time, mouse_pos_x, mouse_pos_y);
         renderer.GetLight().Translate(glm::vec3(0.001f, 0.0f, -0.01f));
         
         cubey1.Rotate(glm::radians(1.0f), glm::vec3(-0.01f));
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-        renderer.Render();
+        renderer.Render(time);
 
         glfwSwapBuffers(window);
 

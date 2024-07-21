@@ -15,7 +15,8 @@ uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
 
-void main() {
+void main()
+{
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - worldPos);
     float diff = max(dot(norm, lightDir), 0.0f);
@@ -32,13 +33,15 @@ void main() {
     vec3 specular = specularStrength * spec * lightColor;  
 
     //FragColor = vec4(color, 1.0f);
-    if (hasColorTexture == 1) {
+    if (hasColorTexture == 1)
+    {
         vec3 result = (ambient + diffuse + specular) * color;
         //FragColor = vec4(result, 1.0);
         //FragColor = vec4(diffuse, 1.0f);
         FragColor = texture(tex0, texCoord) * vec4(result, 1.0f);
     }
-    else {
+    else
+    {
         vec3 result = (ambient + diffuse + specular) * color;
         FragColor = vec4(result, 1.0);
         //FragColor = vec4(color, 1.0f);
