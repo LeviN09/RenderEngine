@@ -1,6 +1,7 @@
 #ifndef PLANE_CLASS_HPP
 #define PLANE_CLASS_HPP
 
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/renderer.hpp"
 #include "scene/sceneObject.hpp"
 
@@ -15,7 +16,7 @@ class PlaneObject : public SceneObject
         {}
         ~PlaneObject() {}
 
-        void AddRenderObject(const std::string& vert_shader, const std::string& frag_shader) override;
+        void AddRenderObject(const ShaderType& type) override;
         void AddRenderObject() override;
         void AddPhysicsObject() override;
 

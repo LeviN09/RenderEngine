@@ -5,6 +5,7 @@
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include "render/gpu_interface/shaderClass.hpp"
 #include "scene/idTag.hpp"
 
 class PhysicsEngine;
@@ -15,7 +16,7 @@ class SceneObject : public IdTag
     public:
         ~SceneObject() = default;
 
-        virtual void AddRenderObject(const std::string& vert_shader, const std::string& frag_shader) = 0;
+        virtual void AddRenderObject(const ShaderType& type) = 0;
         virtual void AddRenderObject() = 0;
         virtual void AddPhysicsObject() = 0;
 

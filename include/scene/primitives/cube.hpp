@@ -2,6 +2,7 @@
 #define CUBE_CLASS_HPP
 
 #include "physics/physicsEngine.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/renderer.hpp"
 #include "scene/sceneObject.hpp"
 
@@ -16,7 +17,7 @@ class CubeObject : public SceneObject
         {}
         ~CubeObject() {}
 
-        void AddRenderObject(const std::string& vert_shader, const std::string& frag_shader) override;
+        void AddRenderObject(const ShaderType& type) override;
         void AddRenderObject() override;
         void AddPhysicsObject() override;
 

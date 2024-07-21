@@ -21,10 +21,10 @@ std::string get_file_contents(const std::string& filename)
 	throw(errno);
 }
 
-Shader::Shader(const std::string& vertexFile, const std::string& fragmentFile)
+Shader::Shader(const ShaderType type): m_type(type)
 {
-	std::string vertexCode = get_file_contents(vertexFile);
-	std::string fragmentCode = get_file_contents(fragmentFile);
+	std::string vertexCode = get_file_contents(s_shader_files.at(m_type).vert_shader);
+	std::string fragmentCode = get_file_contents(s_shader_files.at(m_type).frag_shader);
 
 	const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
@@ -54,15 +54,15 @@ Shader::Shader(const std::string& vertexFile, const std::string& fragmentFile)
 	    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
 	}
 
-	ID = glCreateProgram();
-	glAttachShader(ID, vertex);
-	glAttachShader(ID, fragment);
-	glLinkProgram(ID);
+	m_id = glCreateProgram();
+	glAttachShader(m_id, vertex);
+	glAttachShader(m_id, fragment);
+	glLinkProgram(m_id);
 
-	glGetProgramiv(ID, GL_LINK_STATUS, &success);
+	glGetProgramiv(m_id, GL_LINK_STATUS, &success);
 	if(!success)
 	{
-	    glGetProgramInfoLog(ID, 512, NULL, infoLog);
+	    glGetProgramInfoLog(m_id, 512, NULL, infoLog);
 	    std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
 	}
 
@@ -73,15 +73,20 @@ Shader::Shader(const std::string& vertexFile, const std::string& fragmentFile)
 
 const GLuint Shader::GetID() const
 {
-	return ID;
+	return m_id;
+}
+
+const ShaderType Shader::GetType() const
+{
+	return m_type;
 }
 
 void Shader::Activate()
 {
-	glUseProgram(ID);
+	glUseProgram(m_id);
 }
 
 void Shader::Delete()
 {
-	glDeleteProgram(ID);
+	glDeleteProgram(m_id);
 }

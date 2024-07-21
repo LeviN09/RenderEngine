@@ -1,10 +1,10 @@
 #include "scene/primitives/cube.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
 
-void CubeObject::AddRenderObject(const std::string& vert_shader, const std::string& frag_shader)
+void CubeObject::AddRenderObject(const ShaderType& type)
 {
     std::unique_ptr<CubeRender> temp = std::make_unique<CubeRender>(m_render_uid, m_model_mat, m_scale);
-    m_renderer.AddObject(std::move(temp), vert_shader, frag_shader);
+    m_renderer.AddObject(std::move(temp), type);
 }
 
 void CubeObject::AddRenderObject()

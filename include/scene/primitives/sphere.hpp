@@ -4,6 +4,7 @@
 #include <glm/ext/matrix_float4x4.hpp>
 
 #include "physics/physicsEngine.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/renderer.hpp"
 #include "scene/sceneObject.hpp"
 
@@ -15,7 +16,7 @@ class SphereObject : public SceneObject
         {}
         ~SphereObject() {}
 
-        void AddRenderObject(const std::string& vert_shader, const std::string& frag_shader) override;
+        void AddRenderObject(const ShaderType& type) override;
         void AddRenderObject() override;
         void AddPhysicsObject() override;
 

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "render/camera.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/light.hpp"
 #include "render/renderObject.hpp"
 #include "scene/iTaggedObjectManager.hpp"
@@ -28,7 +29,7 @@ class Renderer : public ITaggedObjectManager
         void AddCamera(const std::string& uid);
         void DeleteCamera(const std::string& uid);
         void AddLight(const std::shared_ptr<Light>& light);
-        void AddObject(std::unique_ptr<RenderObject> object, const std::string& vert_shader, const std::string& frag_shader);
+        void AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type);
         void AddObject(std::unique_ptr<RenderObject> object);
         Camera& GetCurrCam() const;
         void SetCurrCam(const std::shared_ptr<Camera>& cam);

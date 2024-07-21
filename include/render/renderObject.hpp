@@ -99,7 +99,7 @@ class RenderObject : public IdTag
         const VBO& GetVBO();
 
         void Configure();
-        void AddShader(const std::string& vert_shader, const std::string& frag_shader);
+        void AddShader(const ShaderType& type);
         void SetCamera(const std::shared_ptr<Camera>& camera);
         void SetLight(const std::shared_ptr<Light>& light);
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
