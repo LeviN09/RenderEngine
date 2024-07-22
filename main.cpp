@@ -91,15 +91,19 @@ int main()
 
     PhysicsEngine engine;
 
-    SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f);
+    SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f, 100.0f);
     planet1.AddRenderObject(ShaderType::Fun);
     planet1.AddPhysicsObject();
 
-    SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 3.0f);
+    SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 2.5f, 20.0f);
     planet2.AddRenderObject(ShaderType::Light);
     planet2.AddPhysicsObject();
 
-    engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(-0.02f));
+    SphereObject planet3(renderer, engine, "planet3", glm::vec3(-5.0f, 0.0f, 5.0f), 2.0f, 1000.0f);
+    planet3.AddRenderObject(ShaderType::Default);
+    planet3.AddPhysicsObject();
+
+    engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(0.02f));
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();

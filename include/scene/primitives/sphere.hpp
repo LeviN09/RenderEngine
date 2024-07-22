@@ -11,8 +11,16 @@
 class SphereObject : public SceneObject
 {
     public:
+        SphereObject(Renderer& renderer, PhysicsEngine& physics_engine, const std::string& uid, const glm::vec3& pos):
+            SceneObject(renderer, physics_engine, uid, pos)
+        {}
+
         SphereObject(Renderer& renderer, PhysicsEngine& physics_engine, const std::string& uid, const glm::vec3& pos, float_t radius):
             SceneObject(renderer, physics_engine, uid, pos), m_radius{ radius }
+        {}
+
+        SphereObject(Renderer& renderer, PhysicsEngine& physics_engine, const std::string& uid, const glm::vec3& pos, float_t radius, float_t mass):
+            SceneObject(renderer, physics_engine, uid, pos), m_radius{ radius }, m_mass{ mass }
         {}
         ~SphereObject() {}
 
