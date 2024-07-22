@@ -30,7 +30,7 @@ void RenderObject::Render(const double_t& delta_time, const float_t& fov, const 
     m_vao->Bind();
     m_ebo->Bind();
 
-    m_camera->Matrix(fov, near, far, *m_shader, "camMatrix");
+    m_camera->Matrix(fov, near, far, *m_shader, "view", "projection");
     m_light->ExportLight(*m_shader);
 
     glUniform3fv(glGetUniformLocation(m_shader->GetID(), "viewPos"), 1, glm::value_ptr(m_camera->GetPosition()));
@@ -105,7 +105,7 @@ void RenderObject::PushToVerts(const std::initializer_list<float_t>& coords)
     }
 }
 
-void RenderObject::PushToInds(const std::initializer_list<int64_t>& coords)
+void RenderObject::PushToInds(const std::initializer_list<uint64_t>& coords)
 {
     for (const auto& coord : coords)
     {

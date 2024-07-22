@@ -3,13 +3,13 @@
 
 void PlaneObject::AddRenderObject(const ShaderType& type)
 {
-    std::unique_ptr<PlaneRender> temp = std::make_unique<PlaneRender>(m_render_uid, m_model_mat);
+    std::unique_ptr<PlaneRender> temp = std::make_unique<PlaneRender>(m_render_uid, m_model_mat, m_scale);
     m_renderer.AddObject(std::move(temp), type);
 }
 
 void PlaneObject::AddRenderObject()
 {
-    std::unique_ptr<PlaneRender> temp = std::make_unique<PlaneRender>(m_render_uid, m_model_mat);
+    std::unique_ptr<PlaneRender> temp = std::make_unique<PlaneRender>(m_render_uid, m_model_mat, m_scale);
     m_renderer.AddObject(std::move(temp));
 }
 

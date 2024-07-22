@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/vector_float3.hpp>
 #include <glm/fwd.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -98,7 +99,7 @@ int main()
     planet2.AddRenderObject(ShaderType::Light);
     planet2.AddPhysicsObject();
 
-    engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(-0.01f));
+    engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(-0.02f));
 
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();
@@ -108,10 +109,27 @@ int main()
 
     renderer.GetObject<CubeRender>("r_cubey1").AddTexture(std::move(cirno), "tex0");
 
-    PlaneObject planey(renderer, engine, "planey1", glm::vec3(-5.0f), 1.0f);
+    PlaneObject planey(renderer, engine, "planey1", glm::vec3(-5.0f), 10.0f);
     planey.AddRenderObject();
 
     renderer.GetObject<PlaneRender>("r_planey1").AddTexture(std::move(caco), "tex0");
+
+    SphereObject testS(renderer, engine, "testS", glm::vec3(0.0f), 0.5f);
+    testS.AddRenderObject();
+
+    PlaneObject axis1(renderer, engine, "axis1", glm::vec3(0.0f), 1.0f);
+    axis1.AddRenderObject();
+
+    PlaneObject axis2(renderer, engine, "axis2", glm::vec3(0.0f), 1.0f);
+    axis2.AddRenderObject();
+
+    axis2.Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+    PlaneObject axis3(renderer, engine, "axis3", glm::vec3(0.0f), 1.0f);
+    axis3.AddRenderObject();
+
+    axis3.Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    axis3.Rotate(glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
     double time = glfwGetTime();
     double prevTime = time;

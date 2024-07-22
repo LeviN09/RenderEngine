@@ -5,7 +5,8 @@ layout (location = 2) in vec3 aColor;
 layout (location = 3) in vec2 aTex;
 
 uniform mat4 model;
-uniform mat4 camMatrix;
+uniform mat4 view;
+uniform mat4 projection;
 
 out vec3 color;
 out vec2 texCoord;
@@ -16,7 +17,7 @@ out vec3 worldPos;
 
 void main()
 {
-    gl_Position = camMatrix * model * vec4(aPos, 1.0f);
+    gl_Position = projection * view * model * vec4(aPos, 1.0f);
     worldPos = vec3(model * vec4(aPos, 1.0f));
     //normal = aNorm;
     normal = mat3(transpose(inverse(model))) * aNorm;

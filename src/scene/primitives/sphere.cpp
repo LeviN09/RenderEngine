@@ -5,13 +5,25 @@
 
 void SphereObject::AddRenderObject(const ShaderType& type)
 {
-    std::unique_ptr<SphereRender> temp = std::make_unique<SphereRender>(m_render_uid, m_model_mat, m_radius, (int64_t)m_radius * 5, (int64_t)m_radius * 5);
+    uint64_t detail_level = s_min_detail;
+    if (m_radius * s_scale_ratio > s_min_detail)
+    {
+        detail_level = m_radius * s_scale_ratio;
+    }
+
+    std::unique_ptr<SphereRender> temp = std::make_unique<SphereRender>(m_render_uid, m_model_mat, m_radius, detail_level, detail_level);
     m_renderer.AddObject(std::move(temp), type);
 }
 
 void SphereObject::AddRenderObject()
 {
-    std::unique_ptr<SphereRender> temp = std::make_unique<SphereRender>(m_render_uid, m_model_mat, m_radius, (int64_t)m_radius * 5, (int64_t)m_radius * 5);
+    uint64_t detail_level = s_min_detail;
+    if (m_radius * s_scale_ratio > s_min_detail)
+    {
+        detail_level = m_radius * s_scale_ratio;
+    }
+
+    std::unique_ptr<SphereRender> temp = std::make_unique<SphereRender>(m_render_uid, m_model_mat, m_radius, detail_level, detail_level);
     m_renderer.AddObject(std::move(temp));
 }
 

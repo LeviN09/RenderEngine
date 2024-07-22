@@ -52,7 +52,7 @@ const float_t& Camera::GetSensitivity() const
 	return m_sensitivity;
 }
 
-void Camera::Matrix(const float_t& fov_deg, const float_t& near_plane, const float_t& far_plane, const Shader& shader, const std::string& uniform)
+void Camera::Matrix(const float_t& fov_deg, const float_t& near_plane, const float_t& far_plane, const Shader& shader, const std::string& view_uniform, const std::string& projection_uniform)
 {
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
@@ -61,7 +61,8 @@ void Camera::Matrix(const float_t& fov_deg, const float_t& near_plane, const flo
 	projection = glm::perspective(glm::radians(fov_deg), (float)m_width / m_height, near_plane, far_plane);
 
 	//std::cout << "coords " << m_position.x << " " << m_position.y << " " << m_position.z << std::endl;
-	glUniformMatrix4fv(glGetUniformLocation(shader.GetID(), uniform.c_str()), 1, GL_FALSE, glm::value_ptr(projection * view));
+	glUniformMatrix4fv(glGetUniformLocation(shader.GetID(), view_uniform.c_str()), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shader.GetID(), projection_uniform.c_str()), 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 void Camera::Inputs(GLFWwindow& window, const double_t& xpos, const double_t& ypos)

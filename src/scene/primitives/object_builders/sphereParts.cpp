@@ -1,3 +1,5 @@
+#include <cstdint>
+
 #include "scene/primitives/object_builders/sphereParts.hpp"
 
 void SphereRender::Init()
@@ -24,7 +26,7 @@ void SphereRender::Init()
     }
     PushToVerts({0.0f, -m_radius, 0.0f, 0.0f, -m_radius, 0.0f,  1.0f, 1.0f, 1.0f});
 
-    for (int i = 0; i < m_cols - 1; i++)
+    for (uint64_t i = 0; i < m_cols - 1; i++)
     {
         PushToInds({0, i + 2, i + 1});
     }

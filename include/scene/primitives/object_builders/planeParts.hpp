@@ -6,8 +6,8 @@
 class PlaneRender : public RenderObject
 {
     public:
-        PlaneRender(const std::string& uid, const glm::mat4& model_mat):
-            RenderObject(uid, model_mat)
+        PlaneRender(const std::string& uid, const glm::mat4& model_mat, const float_t& scale):
+            RenderObject(uid, model_mat), m_scale{ scale }
         {
             Init();
             Configure();
@@ -15,6 +15,9 @@ class PlaneRender : public RenderObject
 
         void Init() override;
         void Update(const double_t& delta_time) override {}
+
+    private:
+        float_t m_scale;
 };
 
 #endif

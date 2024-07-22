@@ -105,7 +105,7 @@ class RenderObject : public IdTag
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
         
         void PushToVerts(const std::initializer_list<float_t>& coords);
-        void PushToInds(const std::initializer_list<int64_t>& coords);
+        void PushToInds(const std::initializer_list<uint64_t>& coords);
 
     protected:
         RenderObject(const std::string& uid, const glm::mat4& model_mat):

@@ -21,7 +21,7 @@ class PlaneObject : public SceneObject
         void AddPhysicsObject() override;
 
     private:
-        float_t m_scale;
+        float_t m_scale{ 1.0f };
 };
 
 #endif

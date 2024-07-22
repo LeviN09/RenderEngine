@@ -23,6 +23,8 @@ class SphereObject : public SceneObject
     private:
         float_t m_mass{ 100.0f };
         float_t m_radius{ 1.0f };
+
+        static const uint64_t s_scale_ratio{ 10 }, s_min_detail{ 8 };
 };
 
 #endif

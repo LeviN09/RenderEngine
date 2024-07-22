@@ -35,7 +35,7 @@ class Camera : public IdTag
 		const float_t& GetSpeed() const;
 		const float_t& GetSensitivity() const;
 
-	    void Matrix(const float_t& fov_deg, const float_t& near_plane, const float_t& far_plane, const Shader& shader, const std::string& uniform);
+	    void Matrix(const float_t& fov_deg, const float_t& near_plane, const float_t& far_plane, const Shader& shader, const std::string& view_uniform, const std::string& projection_uniform);
 	    void Inputs(GLFWwindow& window, const double_t& xpos, const double_t& ypos);
 
 	private:
