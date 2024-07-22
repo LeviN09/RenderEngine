@@ -1,4 +1,5 @@
 #define GLM_ENABLE_EXPERIMENTAL
+#include <chrono>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/ext/matrix_clip_space.hpp>
@@ -135,8 +136,13 @@ int main()
     axis3.Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     axis3.Rotate(glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-    double time = glfwGetTime();
-    double prevTime = time;
+    double_t time = glfwGetTime();
+    double_t prevTime = time;
+
+    const uint64_t fpsUpdateInterval = 1000;
+    uint64_t frameCount = 0;
+    auto lastTime = std::chrono::high_resolution_clock::now();
+    auto fpsLastUpdate = lastTime;
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
@@ -144,6 +150,10 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+        lastTime = currentTime;
+
         time = glfwGetTime();
 
         glClearColor(0.3f, 0.15f, 0.0f, 1);
@@ -166,6 +176,17 @@ int main()
         glfwPollEvents();
 
         prevTime = time;
+
+        frameCount++;
+        auto timeSinceLastUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - fpsLastUpdate).count();
+        if (timeSinceLastUpdate >= fpsUpdateInterval)
+        {
+            float_t fps = frameCount * 1000.0f / timeSinceLastUpdate;
+            //std::cout << std::fixed << std::setprecision(1) << "FPS: " << fps << std::endl;
+
+            frameCount = 0;
+            fpsLastUpdate = currentTime;
+        }
     }
 
     glfwDestroyWindow(window);
