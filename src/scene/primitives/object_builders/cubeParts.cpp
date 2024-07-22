@@ -2,14 +2,14 @@
 
 void CubeRender::Init()
 {
-    PushToVerts({-0.5f * m_scale, -0.5f * m_scale,  0.5f * m_scale,   -0.5f * m_scale, -0.5f * m_scale,  0.5f * m_scale,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f});
-    PushToVerts({ 0.5f * m_scale, -0.5f * m_scale,  0.5f * m_scale,    0.5f * m_scale, -0.5f * m_scale,  0.5f * m_scale,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f});
-    PushToVerts({ 0.5f * m_scale, -0.5f * m_scale, -0.5f * m_scale,    0.5f * m_scale, -0.5f * m_scale, -0.5f * m_scale,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f});
-    PushToVerts({-0.5f * m_scale, -0.5f * m_scale, -0.5f * m_scale,   -0.5f * m_scale, -0.5f * m_scale, -0.5f * m_scale,   0.0f, 1.0f, 1.0f,   0.0f, 0.0f});
-    PushToVerts({-0.5f * m_scale,  0.5f * m_scale,  0.5f * m_scale,   -0.5f * m_scale,  0.5f * m_scale,  0.5f * m_scale,   1.0f, 0.0f, 1.0f,   0.0f, 1.0f});
-    PushToVerts({ 0.5f * m_scale,  0.5f * m_scale,  0.5f * m_scale,    0.5f * m_scale,  0.5f * m_scale,  0.5f * m_scale,   1.0f, 1.0f, 0.0f,   1.0f, 1.0f});
-    PushToVerts({ 0.5f * m_scale,  0.5f * m_scale, -0.5f * m_scale,    0.5f * m_scale,  0.5f * m_scale, -0.5f * m_scale,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f});
-    PushToVerts({-0.5f * m_scale,  0.5f * m_scale, -0.5f * m_scale,   -0.5f * m_scale,  0.5f * m_scale, -0.5f * m_scale,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f});
+    PushToVerts({-0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   -0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f});
+    PushToVerts({ 0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,    0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f});
+    PushToVerts({ 0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z,    0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f});
+    PushToVerts({-0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z,   -0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z,   0.0f, 1.0f, 1.0f,   0.0f, 0.0f});
+    PushToVerts({-0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z,   -0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z,   1.0f, 0.0f, 1.0f,   0.0f, 1.0f});
+    PushToVerts({ 0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z,    0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z,   1.0f, 1.0f, 0.0f,   1.0f, 1.0f});
+    PushToVerts({ 0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z,    0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z,   1.0f, 1.0f, 1.0f,   1.0f, 0.0f});
+    PushToVerts({-0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z,   -0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z,   0.0f, 0.0f, 0.0f,   0.0f, 0.0f});
 
     PushToInds({0, 1, 4});
     PushToInds({1, 5, 4});

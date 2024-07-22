@@ -1,14 +1,15 @@
 #ifndef CUBEPARTS_CLASS_HPP
 #define CUBEPARTS_CLASS_HPP
 
-#include "render/renderObject.hpp"
 #include <cmath>
+
+#include "render/renderObject.hpp"
 
 class CubeRender : public RenderObject
 {
 
     public:
-        CubeRender(const std::string& uid, const glm::mat4& model_mat, float_t scale):
+        CubeRender(const std::string& uid, const glm::mat4& model_mat, const glm::vec3& scale):
             RenderObject(uid, model_mat), m_scale{ scale }
         {
             Init();
@@ -19,7 +20,7 @@ class CubeRender : public RenderObject
         void Init() override;
         void Update(const double_t& delta_time) override;
 
-        float_t m_scale;
+        glm::vec3 m_scale;
 };
 
 #endif

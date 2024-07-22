@@ -136,6 +136,9 @@ int main()
     axis3.Rotate(glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     axis3.Rotate(glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
+    CubeObject brick(renderer, engine, "brick1", glm::vec3(10.0f, 0.0f, 5.0f), glm::vec3(0.75f, 1.25f, 1.75f));
+    brick.AddRenderObject(ShaderType::Fun);
+
     double_t time = glfwGetTime();
     double_t prevTime = time;
 
