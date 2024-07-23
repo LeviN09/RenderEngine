@@ -32,6 +32,9 @@ class SphereBody : public PhysicsObject
 
         float_t GetRadius() const;
 
+        void CalcCollision(PhysicsObject& other) override;
+        void CalcCollision(SphereBody& other) override;
+
     private:
         float_t m_radius;
 };

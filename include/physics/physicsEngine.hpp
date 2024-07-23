@@ -8,7 +8,6 @@
 
 #include "physics/physicsObject.hpp"
 #include "scene/iTaggedObjectManager.hpp"
-#include "scene/primitives/object_builders/sphereParts.hpp"
 
 class PhysicsEngine : public ITaggedObjectManager
 {
@@ -25,8 +24,7 @@ class PhysicsEngine : public ITaggedObjectManager
         void Update(const double_t& delta_time);
 
     private:
-        void CollisionUpdate();
-        void CalcCollision(SphereBody& a, const SphereBody& b);
+        void CollisionUpdate(const double_t& delta_time);
         void GravityUpdate();
 
         std::vector<std::unique_ptr<PhysicsObject>> m_objects;

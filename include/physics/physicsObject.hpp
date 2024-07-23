@@ -7,12 +7,13 @@
 
 #include "scene/idTag.hpp"
 
+class SphereBody;
+class CubeBody;
+class PlaneBody;
+
 class PhysicsObject : public IdTag
 {
     public:
-        PhysicsObject(const std::string& uid, glm::mat4& model_mat, float_t mass):
-            IdTag(uid), m_model_mat(model_mat), m_mass(mass) {}
-
         const glm::vec3 SumAcceleration() const;
         void Push(const glm::vec3& push);
         void SetPos(const glm::vec3& to_pos);
@@ -22,31 +23,48 @@ class PhysicsObject : public IdTag
         void SetCollision(bool has_collision);
         void SetColliding(bool is_colliding);
         void SetGravity(bool has_gravity);
+        void SetUniversalGravity(bool has_universal_gravity);
         void SetAcc(const glm::vec3& acceleration);
         void SetNormalAcc(const glm::vec3& acc);
         void SetGravityAcc(const glm::vec3& acc);
+
         bool HasCollision() const;
         bool HasGravity() const;
+        bool HasUniversalGravity() const;
+
         const glm::vec3 GetPosition() const;
         const glm::vec3 GetConstVelocity() const;
         const glm::vec3 GetVelocity() const;
+        const glm::vec3 GetAngularVelocity() const;
         const glm::vec3 GetGravityAcc() const;
         const glm::vec3 GetNormalAcc() const;
         const glm::vec3 GetAcc() const;
         const float_t GetMass() const;
         const bool IsColliding() const;
 
-    private:
-    
+        virtual void CalcCollision(PhysicsObject& other) = 0;
+        virtual void CalcCollision(SphereBody& other) = 0;
+        void Update(const double_t& delta_time);
+
+    protected:
+        PhysicsObject(const std::string& uid, glm::mat4& model_mat, float_t mass):
+            IdTag(uid), m_model_mat(model_mat), m_mass(mass)
+        {}
+
         glm::mat4& m_model_mat;
 
         glm::vec3 m_const_velocity{ 0.0f };
         glm::vec3 m_velocity{ 0.0f };
+        glm::vec3 m_angular_velocity{ 0.0f };
+
         glm::vec3 m_gravity_acc{ 0.0f };
         glm::vec3 m_normal_acc{ 0.0f };
         glm::vec3 m_acceleration{ 0.0f };
+
         float_t m_mass;
-        bool m_has_collision{ true }, m_has_gravity{ true };
+        float_t m_spring_constant { 10000.0f }; 
+
+        bool m_has_collision{ true }, m_has_gravity{ false }, m_has_universal_gravity{ true };
         bool m_is_colliding;
 };
 

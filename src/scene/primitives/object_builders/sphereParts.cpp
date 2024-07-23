@@ -60,3 +60,30 @@ float_t SphereBody::GetRadius() const
 {
     return m_radius;
 }
+
+void SphereBody::CalcCollision(PhysicsObject& other)
+{
+    other.CalcCollision(*this);
+}
+
+void SphereBody::CalcCollision(SphereBody& other)
+{
+    glm::vec3 direction = other.GetPosition() - GetPosition();
+    float_t distance = length(direction);
+    float_t totalRadius = m_radius + other.m_radius;
+
+    if (distance >= totalRadius)
+    {
+        return;
+    }
+
+    direction /= distance;
+
+    float_t overlap = totalRadius - distance;
+
+    float_t normalForceMagnitude = m_spring_constant * overlap;
+    glm::vec3 normalForce = direction * normalForceMagnitude;
+
+    glm::vec3 acceleration1 = normalForce / m_mass;
+    m_normal_acc -= acceleration1;
+}

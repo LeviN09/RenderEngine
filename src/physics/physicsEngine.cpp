@@ -4,7 +4,6 @@
 
 #include "physics/physicsEngine.hpp"
 #include "physics/physicsObject.hpp"
-#include "scene/primitives/object_builders/sphereParts.hpp"
 
 void PhysicsEngine::AddObject(std::unique_ptr<PhysicsObject> object)
 {
@@ -25,25 +24,15 @@ std::optional<std::reference_wrapper<IdTag>> PhysicsEngine::SearchObject(const s
 void PhysicsEngine::Update(const double_t& delta_time)
 {
     GravityUpdate();
-    CollisionUpdate();
+    CollisionUpdate(delta_time);
 
     for (const auto& obj : m_objects)
     {
-        //std::cout << "veloc " << obj->velocity.x << " " << obj->velocity.y << " " << obj->velocity.z << std::endl;
-        //std::cout << "gravy " << obj->gravity.x << " " << obj->gravity.y << " " << obj->gravity.z << std::endl;
-        
-        if(!obj->IsColliding())
-        {
-            obj->SetAcc(obj->SumAcceleration());
-            obj->Push(obj->GetAcc());
-            obj->Translate(obj->GetVelocity());
-        }
-
-        //(obj->GetRenderObject()).SetPos(obj.get().position);
+        obj->Update(delta_time);
     }
 }
 
-void PhysicsEngine::CollisionUpdate()
+void PhysicsEngine::CollisionUpdate(const double_t& delta_time)
 {
     for (auto& obj : m_objects)
     {
@@ -55,31 +44,8 @@ void PhysicsEngine::CollisionUpdate()
         {
             if (obj.get() == other.get()) { continue; }
             if (!other->HasCollision()) { continue; }
-            CalcCollision((SphereBody&)*obj, (SphereBody&)*other);
+            obj->CalcCollision(*other);
         }
-    }
-}
-
-void PhysicsEngine::CalcCollision(SphereBody& a, const SphereBody& b)
-{
-    glm::vec3 diffV = (a.GetPosition() + a.GetVelocity()) - (b.GetPosition() + b.GetVelocity());
-    float diffMag = glm::length(diffV);
-
-    float diff = (a.GetRadius() + b.GetRadius()) - diffMag;
-    glm::vec3 push = b.GetMass() * glm::normalize(diffV);
-
-    if (diff > 0.0f)
-    {
-        //std::cout << "push " << diffV.x << " " << diffV.y << " " << diffV.z << " " << a->isColliding << std::endl;
-
-        //a->position += push;
-        //b->position -= push;
-        a.SetNormalAcc(a.GetNormalAcc() + push / 10000.0f);
-        //b->normalAcc -= push / 10000.0f;
-        //a->velocity = glm::vec3(0.0f);
-        //b->velocity = glm::vec3(0.0f);
-        //a->isColliding = true;
-        //std::cout << "collide" << std::endl;
     }
 }
 
@@ -89,19 +55,16 @@ void PhysicsEngine::GravityUpdate()
 
     for (auto& obj : m_objects)
     {
-        if (!obj->HasGravity())
+        obj->SetGravityAcc(glm::vec3(0.0f));
+
+        if (!obj->HasGravity() && !obj->HasUniversalGravity())
         {
             continue;
         }
 
-        obj->SetGravityAcc(glm::vec3(0.0f));
-    }
-
-    for (auto& obj : m_objects)
-    {
-        if (!obj->HasGravity())
+        if (obj->HasUniversalGravity())
         {
-            continue;
+            obj->SetGravityAcc(obj->GetGravityAcc() + glm::vec3(0.0f, -9.8f, 0.0f));
         }
 
         for (auto& other : m_objects)

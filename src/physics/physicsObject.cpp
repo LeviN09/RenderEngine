@@ -32,21 +32,19 @@ bool PhysicsObject::HasGravity() const
     return m_has_gravity;
 }
 
+void PhysicsObject::SetUniversalGravity(bool has_universal_gravity)
+{
+    m_has_universal_gravity = has_universal_gravity;
+}
+
+bool PhysicsObject::HasUniversalGravity() const
+{
+    return m_has_universal_gravity;
+}
+
 const glm::vec3 PhysicsObject::SumAcceleration() const
 {
-    glm::vec3 sum(0.0f);
-
-    if (m_has_collision)
-    {
-        sum += m_normal_acc;
-    }
-
-    if (m_has_gravity)
-    {
-        sum += m_gravity_acc;
-    }
-
-    return sum;
+    return m_normal_acc + m_gravity_acc;
 }
 
 void PhysicsObject::Push(const glm::vec3& push)
@@ -91,6 +89,11 @@ const glm::vec3 PhysicsObject::GetVelocity() const
     return m_velocity;
 }
 
+const glm::vec3 PhysicsObject::GetAngularVelocity() const
+{
+    return m_angular_velocity;
+}
+
 const glm::vec3 PhysicsObject::GetGravityAcc() const
 {
     return m_gravity_acc;
@@ -124,4 +127,11 @@ void PhysicsObject::SetGravityAcc(const glm::vec3& acc)
 const float_t PhysicsObject::GetMass() const
 {
     return m_mass;
+}
+
+void PhysicsObject::Update(const double_t& delta_time)
+{
+    m_acceleration = SumAcceleration();
+    m_velocity += m_acceleration * (float_t)delta_time;
+    Translate(m_velocity * (float_t)delta_time);
 }

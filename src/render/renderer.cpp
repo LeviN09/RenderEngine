@@ -34,7 +34,7 @@ void Renderer::Render(const double_t& delta_time)
     for (const auto& obj : m_objects)
     {
         obj->SetLight(m_lights[0]);
-        obj->Render(delta_time, 90.0f, 0.1f, 150.0f);
+        obj->Render(delta_time, 90.0f, 0.1f, 1000.0f);
     }
 }
 

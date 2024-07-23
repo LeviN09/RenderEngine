@@ -92,7 +92,7 @@ int main()
 
     PhysicsEngine engine;
 
-    SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f, 100.0f);
+    SphereObject planet1(renderer, engine, "planet1", glm::vec3(5.0f), 3.0f, 10.0f);
     planet1.AddRenderObject(ShaderType::Fun);
     planet1.AddPhysicsObject();
 
@@ -100,7 +100,7 @@ int main()
     planet2.AddRenderObject(ShaderType::Light);
     planet2.AddPhysicsObject();
 
-    SphereObject planet3(renderer, engine, "planet3", glm::vec3(-5.0f, 0.0f, 5.0f), 2.0f, 1000.0f);
+    SphereObject planet3(renderer, engine, "planet3", glm::vec3(-5.0f, 0.0f, 5.0f), 2.0f, 5.0f);
     planet3.AddRenderObject(ShaderType::Default);
     planet3.AddPhysicsObject();
 
@@ -139,13 +139,23 @@ int main()
     CubeObject brick(renderer, engine, "brick1", glm::vec3(10.0f, 0.0f, 5.0f), glm::vec3(0.75f, 1.25f, 1.75f));
     brick.AddRenderObject(ShaderType::Fun);
 
+    SphereObject earth(renderer, engine, "earth1", glm::vec3(0.0f, -210.0f, 0.0f), 200.0f, 10000000.0f);
+    earth.AddRenderObject(ShaderType::Default);
+    earth.AddPhysicsObject();
+
+    engine.GetObject<SphereBody>("p_earth1").SetUniversalGravity(false);
+
     double_t time = glfwGetTime();
     double_t prevTime = time;
 
-    const uint64_t fpsUpdateInterval = 1000;
+    const uint64_t updateInterval = 1000;
     uint64_t frameCount = 0;
     auto lastTime = std::chrono::high_resolution_clock::now();
     auto fpsLastUpdate = lastTime;
+    
+    float_t accumulator{ 0.0f };
+    float_t lastTimeFloat{ 0.0f };
+    float_t fixedDeltaTime = 1.0f / 60.0f;
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
@@ -155,7 +165,16 @@ int main()
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
         auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+        lastTimeFloat = std::chrono::duration<float_t>(currentTime - lastTime).count();
         lastTime = currentTime;
+
+
+        if (lastTimeFloat > 0.25f)
+        {
+            lastTimeFloat = 0.25f;
+        }
+
+        accumulator += lastTimeFloat;
 
         time = glfwGetTime();
 
@@ -164,7 +183,11 @@ int main()
 
         glfwGetWindowSize(window, &width, &height);
 
-        engine.Update(time);
+        while (accumulator >= fixedDeltaTime)
+        {
+            engine.Update(fixedDeltaTime);
+            accumulator -= fixedDeltaTime;
+        }
 
         renderer.Update(time, mouse_pos_x, mouse_pos_y);
         renderer.GetLight().Translate(glm::vec3(0.001f, 0.0f, -0.01f));
@@ -182,11 +205,10 @@ int main()
 
         frameCount++;
         auto timeSinceLastUpdate = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - fpsLastUpdate).count();
-        if (timeSinceLastUpdate >= fpsUpdateInterval)
+        if (timeSinceLastUpdate >= updateInterval)
         {
             float_t fps = frameCount * 1000.0f / timeSinceLastUpdate;
             //std::cout << std::fixed << std::setprecision(1) << "FPS: " << fps << std::endl;
-
             frameCount = 0;
             fpsLastUpdate = currentTime;
         }

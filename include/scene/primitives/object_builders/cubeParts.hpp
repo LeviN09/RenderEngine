@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+#include "physics/physicsObject.hpp"
 #include "render/renderObject.hpp"
 
 class CubeRender : public RenderObject
@@ -21,6 +22,17 @@ class CubeRender : public RenderObject
         void Update(const double_t& delta_time) override;
 
         glm::vec3 m_scale;
+};
+
+class CubeBody : public PhysicsObject
+{
+    public:
+        CubeBody(const std::string& uid, glm::mat4& model_mat, float_t mass):
+            PhysicsObject(uid, model_mat, mass)
+        {}
+
+        void CalcCollision(PhysicsObject& other) override;
+        void CalcCollision(SphereBody& other) override;
 };
 
 #endif
