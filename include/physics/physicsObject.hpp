@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <glm/vec3.hpp>
 
 #include "scene/idTag.hpp"
@@ -40,6 +41,7 @@ class PhysicsObject : public IdTag
         const glm::vec3 GetNormalAcc() const;
         const glm::vec3 GetAcc() const;
         const float_t GetMass() const;
+
         const bool IsColliding() const;
 
         virtual void CalcCollision(PhysicsObject& other) = 0;
@@ -53,14 +55,19 @@ class PhysicsObject : public IdTag
 
         glm::mat4& m_model_mat;
 
+        glm::mat3 m_inertia_tensor{ 1.0f };
+        glm::mat3 m_inverse_inertia_tensor{ 1.0f };
+
         glm::vec3 m_const_velocity{ 0.0f };
         glm::vec3 m_velocity{ 0.0f };
         glm::vec3 m_angular_velocity{ 0.0f };
 
+        glm::vec3 m_torque{ 0.0f };
         glm::vec3 m_gravity_acc{ 0.0f };
         glm::vec3 m_normal_acc{ 0.0f };
         glm::vec3 m_acceleration{ 0.0f };
 
+        glm::quat orientation{ 0.0f, 0.0f, 0.0f, 0.0f };
         float_t m_mass;
         float_t m_spring_constant { 10000.0f }; 
 

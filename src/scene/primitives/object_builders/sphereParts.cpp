@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <glm/gtc/quaternion.hpp>
 
 #include "scene/primitives/object_builders/sphereParts.hpp"
 
@@ -76,6 +77,29 @@ void SphereBody::CalcCollision(SphereBody& other)
     {
         return;
     }
+
+/*
+    glm::vec3 collision_point = GetPosition() + direction / 2.0f;
+    glm::vec3 normal = glm::normalize(direction);
+
+    glm::vec3 ra = collision_point - GetPosition();
+    glm::vec3 rb = collision_point - other.GetPosition();
+    glm::vec3 relativeVelocity = (other.m_velocity + glm::cross(other.m_angular_velocity, rb)) - 
+                               (m_velocity + glm::cross(m_angular_velocity, ra));
+
+    float elasticity = 0.8f; // Coefficient of restitution
+    float j = -(1 + elasticity) * glm::dot(relativeVelocity, normal);
+    j /= glm::dot(normal, normal * (1/m_mass + 1/other.m_mass)) + 
+         glm::dot(normal, glm::cross(m_inverse_inertia_tensor * glm::cross(ra, normal), ra) + 
+                     glm::cross(other.m_inverse_inertia_tensor * glm::cross(rb, normal), rb));
+
+    glm::vec3 impulse = j * normal;
+    m_velocity -= impulse / m_mass;
+    other.m_velocity += impulse / other.m_mass;
+
+    m_angular_velocity -= m_inverse_inertia_tensor * glm::cross(ra, impulse);
+    other.m_angular_velocity += other.m_inverse_inertia_tensor * glm::cross(rb, impulse);
+*/
 
     direction /= distance;
 

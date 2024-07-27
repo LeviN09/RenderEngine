@@ -1,6 +1,8 @@
 #ifndef SPHEREPARTS_CLASS_HPP
 #define SPHEREPARTS_CLASS_HPP
 
+#include <glm/matrix.hpp>
+
 #include "physics/physicsObject.hpp"
 #include "render/renderObject.hpp"
 
@@ -28,7 +30,10 @@ class SphereBody : public PhysicsObject
     public:
         SphereBody(const std::string& uid, glm::mat4& model_mat, float radius, float mass):
             PhysicsObject(uid, model_mat, mass), m_radius(radius)
-        {}
+        {
+            m_inertia_tensor = glm::mat3(m_mass * m_radius * m_radius * 2.0f / 5.0f);
+            m_inverse_inertia_tensor = glm::inverse(m_inertia_tensor);
+        }
 
         float_t GetRadius() const;
 

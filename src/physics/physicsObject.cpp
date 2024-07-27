@@ -1,4 +1,7 @@
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/ext/quaternion_common.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/matrix.hpp>
 
 #include "physics/physicsObject.hpp"
 
@@ -131,6 +134,20 @@ const float_t PhysicsObject::GetMass() const
 
 void PhysicsObject::Update(const double_t& delta_time)
 {
+    //TODO: Accureate physics simulation with rotation
+/*
+    float_t dt = (float_t)delta_time;
+    m_velocity += m_acceleration * dt;
+    Translate(m_velocity * dt);
+
+    m_angular_velocity += m_inertia_tensor * m_torque * dt;
+    glm::quat spin = glm::quat(0, m_angular_velocity.x * dt * 0.5f, m_angular_velocity.y * dt * 0.5f, m_angular_velocity.z * dt * 0.5f);
+    orientation = glm::normalize(orientation + spin * orientation);
+
+    glm::mat3 rotationMatrix = glm::mat4_cast(orientation);
+    m_inertia_tensor = rotationMatrix * m_inertia_tensor * glm::transpose(rotationMatrix);
+    m_inverse_inertia_tensor = glm::inverse(m_inertia_tensor);
+ */
     m_acceleration = SumAcceleration();
     m_velocity += m_acceleration * (float_t)delta_time;
     Translate(m_velocity * (float_t)delta_time);
