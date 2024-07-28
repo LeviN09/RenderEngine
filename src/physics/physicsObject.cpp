@@ -15,6 +15,16 @@ bool PhysicsObject::HasCollision() const
     return m_has_collision;
 }
 
+void PhysicsObject::SetNormalForce(bool has_normal_force)
+{
+    m_has_normal_force = has_normal_force;
+}
+
+bool PhysicsObject::HasNormalForce() const
+{
+    return m_has_normal_force;
+}
+
 const bool PhysicsObject::IsColliding() const
 {
     return m_is_colliding;
@@ -143,6 +153,7 @@ void PhysicsObject::Update(const double_t& delta_time)
     m_inertia_tensor = rotationMatrix * m_inertia_tensor * glm::transpose(rotationMatrix);
     m_inverse_inertia_tensor = glm::inverse(m_inertia_tensor);
  */
+
     m_acceleration = SumAcceleration();
     m_velocity += m_acceleration * (float_t)delta_time;
     Translate(m_velocity * (float_t)delta_time);

@@ -151,6 +151,7 @@ int main()
     ground1.AddPhysicsObject();
 
     engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
+    engine.GetObject<CubeBody>("p_ground1").SetNormalForce(false);
 
     double_t time = glfwGetTime();
     double_t prevTime = time;

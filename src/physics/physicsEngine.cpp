@@ -43,6 +43,7 @@ void PhysicsEngine::CollisionUpdate(const double_t& delta_time)
         for (const auto& other : m_objects)
         {
             if (obj.get() == other.get()) { continue; }
+            if (!other->HasNormalForce()) { continue; }
             if (!other->HasCollision()) { continue; }
 
             if (obj->IsCollidingWith(*other))

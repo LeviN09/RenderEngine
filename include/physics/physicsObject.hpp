@@ -24,11 +24,13 @@ class PhysicsObject : public IdTag
         void SetCollision(bool has_collision);
         void SetGravity(bool has_gravity);
         void SetUniversalGravity(bool has_universal_gravity);
+        void SetNormalForce(bool has_normal_force);
         void SetAcc(const glm::vec3& acceleration);
         void SetNormalAcc(const glm::vec3& acc);
         void SetGravityAcc(const glm::vec3& acc);
 
         bool HasCollision() const;
+        bool HasNormalForce() const;
         bool HasGravity() const;
         bool HasUniversalGravity() const;
 
@@ -75,7 +77,7 @@ class PhysicsObject : public IdTag
         float_t m_mass;
         float_t m_spring_constant { 10000.0f }; 
 
-        bool m_has_collision{ true }, m_has_gravity{ false }, m_has_universal_gravity{ true };
+        bool m_has_collision{ true }, m_has_gravity{ false }, m_has_universal_gravity{ true }, m_has_normal_force{ true };
         bool m_is_colliding;
 };
 

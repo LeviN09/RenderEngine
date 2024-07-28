@@ -14,12 +14,14 @@ out vec3 normal;
 out vec3 worldPos;
 
 //uniform float scale;
+uniform float deltaTime;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(aPos, 1.0f);
-    worldPos = vec3(model * vec4(aPos, 1.0f));
-    //normal = aNorm;
+    vec3 newPos = aPos + sin(aPos * 20.0f + deltaTime) * 0.05f;
+
+    gl_Position = projection * view * model * vec4(newPos, 1.0f);
+    worldPos = vec3(model * vec4(newPos, 1.0f));
     normal = mat3(transpose(inverse(model))) * aNorm;
     color = aColor;
     texCoord = aTex;

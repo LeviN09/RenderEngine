@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <glm/geometric.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 #include "scene/primitives/object_builders/cubeParts.hpp"
@@ -203,6 +204,11 @@ void SphereBody::CalcCollision(CubeBody& other)
 
     glm::vec3 impulse = normal * impulseScalar;
     m_velocity += impulse / m_mass;
+
+    if (glm::length(m_velocity) < 0.05f)
+    {
+        m_velocity = glm::vec3(0.0f);
+    }
 
     float percent = 0.8f;
     float slop = 0.01f;
