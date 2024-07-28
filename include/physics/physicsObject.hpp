@@ -22,7 +22,6 @@ class PhysicsObject : public IdTag
         void SetVelocity(const glm::vec3& vel);
         void AddVelocity(const glm::vec3& vel);
         void SetCollision(bool has_collision);
-        void SetColliding(bool is_colliding);
         void SetGravity(bool has_gravity);
         void SetUniversalGravity(bool has_universal_gravity);
         void SetAcc(const glm::vec3& acceleration);
@@ -43,9 +42,14 @@ class PhysicsObject : public IdTag
         const float_t GetMass() const;
 
         const bool IsColliding() const;
+        virtual const bool IsCollidingWith(const PhysicsObject& other) const = 0;
+        virtual const bool IsCollidingWith(const SphereBody& other) const = 0;
+        virtual const bool IsCollidingWith(const PlaneBody& other) const = 0;
+        virtual const bool IsCollidingWith(const CubeBody& other) const = 0;
 
         virtual void CalcCollision(PhysicsObject& other) = 0;
         virtual void CalcCollision(SphereBody& other) = 0;
+        virtual void CalcCollision(CubeBody& other) = 0;
         void Update(const double_t& delta_time);
 
     protected:

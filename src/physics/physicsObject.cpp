@@ -15,11 +15,6 @@ bool PhysicsObject::HasCollision() const
     return m_has_collision;
 }
 
-void PhysicsObject::SetColliding(bool is_colliding)
-{
-    m_is_colliding = is_colliding;
-}
-
 const bool PhysicsObject::IsColliding() const
 {
     return m_is_colliding;

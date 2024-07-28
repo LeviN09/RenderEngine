@@ -138,12 +138,19 @@ int main()
 
     CubeObject brick(renderer, engine, "brick1", glm::vec3(10.0f, 0.0f, 5.0f), glm::vec3(0.75f, 1.25f, 1.75f));
     brick.AddRenderObject(ShaderType::Fun);
+    brick.AddPhysicsObject();
 
-    SphereObject earth(renderer, engine, "earth1", glm::vec3(0.0f, -210.0f, 0.0f), 200.0f, 10000000.0f);
+/*     SphereObject earth(renderer, engine, "earth1", glm::vec3(0.0f, -210.0f, 0.0f), 200.0f, 10000000.0f);
     earth.AddRenderObject(ShaderType::Default);
     earth.AddPhysicsObject();
 
-    engine.GetObject<SphereBody>("p_earth1").SetUniversalGravity(false);
+    engine.GetObject<SphereBody>("p_earth1").SetUniversalGravity(false); */
+
+    CubeObject ground1(renderer, engine, "ground1", glm::vec3(0.0f, -15.0f, 0.0f), glm::vec3(100.0f, 1.0f, 100.0f), 1000000.0f);
+    ground1.AddRenderObject();
+    ground1.AddPhysicsObject();
+
+    engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
 
     double_t time = glfwGetTime();
     double_t prevTime = time;

@@ -1,4 +1,6 @@
+#include "scene/primitives/object_builders/cubeParts.hpp"
 #include "scene/primitives/object_builders/planeParts.hpp"
+#include "scene/primitives/object_builders/sphereParts.hpp"
 
 void PlaneRender::Init()
 {
@@ -12,4 +14,39 @@ void PlaneRender::Init()
 
     m_has_normals = true;
     m_has_color_texture = true;
+}
+
+const bool PlaneBody::IsCollidingWith(const PhysicsObject& other) const
+{
+    return other.IsCollidingWith(*this);
+}
+
+const bool PlaneBody::IsCollidingWith(const SphereBody& other) const
+{
+    return false;
+}
+
+const bool PlaneBody::IsCollidingWith(const PlaneBody& other) const
+{
+    return false;
+}
+
+const bool PlaneBody::IsCollidingWith(const CubeBody& other) const
+{
+    return false;
+}
+
+void PlaneBody::CalcCollision(PhysicsObject& other)
+{
+
+}
+
+void PlaneBody::CalcCollision(SphereBody& other)
+{
+
+}
+
+void PlaneBody::CalcCollision(CubeBody& other)
+{
+
 }

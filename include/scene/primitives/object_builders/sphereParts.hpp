@@ -37,8 +37,14 @@ class SphereBody : public PhysicsObject
 
         float_t GetRadius() const;
 
+        const bool IsCollidingWith(const PhysicsObject& other) const override;
+        const bool IsCollidingWith(const SphereBody& other) const override;
+        const bool IsCollidingWith(const PlaneBody& other) const override;
+        const bool IsCollidingWith(const CubeBody& other) const override;
+
         void CalcCollision(PhysicsObject& other) override;
         void CalcCollision(SphereBody& other) override;
+        void CalcCollision(CubeBody& other) override;
 
     private:
         float_t m_radius;

@@ -15,6 +15,6 @@ void CubeObject::AddRenderObject()
 
 void CubeObject::AddPhysicsObject()
 {
-    //std::unique_ptr<CubeBody> temp = std::make_unique<CubeBody>(m_uid, );
-    //m_physics_engine.AddObject(std::move(temp));
+    std::unique_ptr<CubeBody> temp = std::make_unique<CubeBody>(m_physics_uid, m_model_mat, m_scale, m_mass);
+    m_physics_engine.AddObject(std::move(temp));
 }

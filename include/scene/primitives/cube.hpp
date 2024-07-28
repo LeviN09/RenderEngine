@@ -11,6 +11,9 @@
 class CubeObject : public SceneObject
 {
     public:
+        CubeObject(Renderer& renderer, PhysicsEngine& physics_engine, const std::string& uid, const glm::vec3& pos, const glm::vec3& scale, const float_t& mass):
+            SceneObject(renderer, physics_engine, uid, pos), m_scale{ scale }, m_mass{ mass }
+        {}
         CubeObject(Renderer& renderer, PhysicsEngine& physics_engine, const std::string& uid, const glm::vec3& pos, const glm::vec3& scale):
             SceneObject(renderer, physics_engine, uid, pos), m_scale{ scale }
         {}
@@ -30,7 +33,8 @@ class CubeObject : public SceneObject
         void AddPhysicsObject() override;
 
     private:
-        glm::vec3 m_scale;
+        glm::vec3 m_scale{ 1.0f };
+        float_t m_mass{ 1.0f };
 };
 
 #endif

@@ -1,6 +1,8 @@
 #include <cstdint>
 #include <glm/gtc/quaternion.hpp>
 
+#include "scene/primitives/object_builders/cubeParts.hpp"
+#include "scene/primitives/object_builders/planeParts.hpp"
 #include "scene/primitives/object_builders/sphereParts.hpp"
 
 void SphereRender::Init()
@@ -62,6 +64,52 @@ float_t SphereBody::GetRadius() const
     return m_radius;
 }
 
+const bool SphereBody::IsCollidingWith(const PhysicsObject& other) const
+{
+    return other.IsCollidingWith(*this);
+}
+
+const bool SphereBody::IsCollidingWith(const SphereBody& other) const
+{
+    glm::vec3 direction = other.GetPosition() - GetPosition();
+    float_t distance = length(direction);
+    float_t totalRadius = m_radius + other.m_radius;
+
+    return distance < totalRadius;
+}
+
+const bool SphereBody::IsCollidingWith(const PlaneBody& other) const
+{
+    return false;
+}
+
+const bool SphereBody::IsCollidingWith(const CubeBody& other) const
+{
+    glm::vec3 closest_point;
+    
+    for (int i = 0; i < 3; i++)
+    {
+        float coordinate = GetPosition()[i];
+        if (coordinate < other.GetPosition()[i] - other.GetHalfExtent()[i])
+        {
+            closest_point[i] = other.GetPosition()[i] - other.GetHalfExtent()[i];
+        }
+        else if (coordinate > other.GetPosition()[i] + other.GetHalfExtent()[i])
+        {
+            closest_point[i] = other.GetPosition()[i] + other.GetHalfExtent()[i];
+        }
+        else
+        {
+            closest_point[i] = coordinate;
+        }
+    }
+    
+    glm::vec3 difference = closest_point - GetPosition();
+    float distanceSquared = glm::length2(difference);
+    
+    return distanceSquared <= (m_radius * m_radius);
+}
+
 void SphereBody::CalcCollision(PhysicsObject& other)
 {
     other.CalcCollision(*this);
@@ -110,4 +158,54 @@ void SphereBody::CalcCollision(SphereBody& other)
 
     glm::vec3 acceleration1 = normalForce / m_mass;
     m_normal_acc -= acceleration1;
+}
+
+void SphereBody::CalcCollision(CubeBody& other)
+{
+    glm::vec3 normal;
+    float penetrationDepth;
+
+    glm::vec3 closest_point;
+
+    for (int i = 0; i < 3; i++)
+    {
+        float coordinate = GetPosition()[i];
+        closest_point[i] = glm::clamp(coordinate, 
+                                     other.GetPosition()[i] - other.GetHalfExtent()[i], 
+                                     other.GetPosition()[i] + other.GetHalfExtent()[i]);
+    }
+
+    glm::vec3 difference = GetPosition() - closest_point;
+    float distanceSquared = glm::length2(difference);
+
+    if (distanceSquared > m_radius * m_radius)
+    {
+        return;
+    }
+
+    float distance = std::sqrt(distanceSquared);
+    normal = distance > 0 ? difference / distance : glm::vec3(1, 0, 0);
+    penetrationDepth = m_radius - distance;
+
+    glm::vec3 relativeVelocity = m_velocity - other.GetVelocity();
+
+    float velocityAlongNormal = glm::dot(relativeVelocity, normal);
+
+    if (velocityAlongNormal > 0)
+    {
+        return;
+    }
+
+    float restitution = 0.5f;
+
+    float impulseScalar = -(1 + restitution) * velocityAlongNormal;
+    impulseScalar /= 1/m_mass + 1/other.GetMass();
+
+    glm::vec3 impulse = normal * impulseScalar;
+    m_velocity += impulse / m_mass;
+
+    float percent = 0.8f;
+    float slop = 0.01f;
+    glm::vec3 correction = std::max(penetrationDepth - slop, 0.0f) / (1/m_mass + 1/other.GetMass()) * percent * normal;
+    Translate(correction * (1/m_mass));
 }

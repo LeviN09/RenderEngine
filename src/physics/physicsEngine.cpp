@@ -40,11 +40,15 @@ void PhysicsEngine::CollisionUpdate(const double_t& delta_time)
 
         obj->SetNormalAcc(glm::vec3(0.0f));
 
-        for (auto& other : m_objects)
+        for (const auto& other : m_objects)
         {
             if (obj.get() == other.get()) { continue; }
             if (!other->HasCollision()) { continue; }
-            obj->CalcCollision(*other);
+
+            if (obj->IsCollidingWith(*other))
+            {
+                obj->CalcCollision(*other);
+            }
         }
     }
 }
@@ -87,6 +91,5 @@ void PhysicsEngine::GravityUpdate()
 
             obj->SetGravityAcc(obj->GetGravityAcc() - push);
         }
-        //std::cout << "gravyc " << obj->gravity.x << " " << obj->gravity.y << " " << obj->gravity.z << std::endl;
     }
 }
