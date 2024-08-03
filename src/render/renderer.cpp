@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <memory>
 #include <optional>
+#include <stdexcept>
 #include <vector>
 
 #include "render/renderer.hpp"
@@ -33,8 +34,12 @@ void Renderer::Render(const double_t& delta_time)
 {
     for (const auto& obj : m_objects)
     {
-        obj->SetLight(m_lights[0]);
-        obj->Render(delta_time, 90.0f, 0.1f, 1000.0f);
+        if (!obj->GetVisible())
+        {
+            continue;
+        }
+
+        obj->Render(delta_time, 90.0f, 0.1f, 500.0f);
     }
 }
 
@@ -58,9 +63,16 @@ Camera& Renderer::GetCurrCam() const
     return *m_curr_cam;
 }
 
-Light& Renderer::GetLight() const
+Light& Renderer::GetLight(const std::string& uid) const
 {
-    return *m_lights[0];
+    const auto& search = std::find_if(m_lights.begin(), m_lights.end(), [&](const std::shared_ptr<Light>& item){ return item->GetUid() == uid; });
+
+    if (search == m_lights.end())
+    {
+        throw std::invalid_argument("No light [" + uid + "] found.");
+    }
+
+    return *search->get();
 }
 
 void Renderer::AddCamera(const std::string& uid)
@@ -77,6 +89,12 @@ void Renderer::AddObject(std::unique_ptr<RenderObject> object, const ShaderType&
 {
     object->AddShader(type);
     object->SetCamera(m_curr_cam);
+
+    for (const auto& light : m_lights)
+    {
+        object->AddLight(light);
+    }
+
     m_objects.push_back(std::move(object));
 }
 
@@ -98,4 +116,26 @@ void Renderer::SetCurrCam(const std::shared_ptr<Camera>& cam)
 void Renderer::AddLight(const std::shared_ptr<Light>& light)
 {
     m_lights.push_back(light);
+
+    for (const auto& obj : m_objects)
+    {
+        obj->AddLight(m_lights.back());
+    }
+}
+
+void Renderer::RemoveLight(const std::string& uid)
+{
+    const auto& search = std::find_if(m_lights.begin(), m_lights.end(), [&](const std::shared_ptr<Light>& item){ return item->GetUid() == uid; });
+
+    if (search == m_lights.end())
+    {
+        return;
+    }
+
+    for (const auto& obj : m_objects)
+    {
+        obj->RemoveLight(*search);
+    }
+
+    m_lights.erase(search);
 }

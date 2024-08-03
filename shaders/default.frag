@@ -14,25 +14,29 @@ uniform int hasColorTexture;
 uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
+uniform float lightIntensity;
 
 uniform vec3 dirLightColor;
-uniform vec3 dirLightIntensity;
+uniform float dirLightIntensity;
 uniform vec3 dirLightDir;
 
 vec3 getDiffuse(vec3 norm, vec3 lightDir)
 {
     float diff = max(dot(norm, lightDir), 0.0f);
     float dirLightDiff = max(dot(norm, dirLightDir), 0.0f);
-    return diff * lightColor + dirLightDiff * dirLightColor;
+    return lightIntensity * diff * lightColor + dirLightIntensity * dirLightDiff * dirLightColor;
 }
 
 vec3 getSpecular(vec3 norm, vec3 lightDir)
 {
-    float specularStrength = 0.5;
+    float specularStrength = 0.5f;
+
     vec3 viewDir = normalize(viewPos - worldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    return specularStrength * spec * lightColor;  
+    vec3 dirReflectDir = reflect(-dirLightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
+    float dirSpec = pow(max(dot(viewDir, dirReflectDir), 0.0f), 32);
+    return specularStrength * spec * lightColor + specularStrength * dirSpec * dirLightColor;  
 }
 
 void main()

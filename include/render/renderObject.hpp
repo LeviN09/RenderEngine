@@ -101,8 +101,12 @@ class RenderObject : public IdTag
         void Configure();
         void AddShader(const ShaderType& type);
         void SetCamera(const std::shared_ptr<Camera>& camera);
-        void SetLight(const std::shared_ptr<Light>& light);
+        void AddLight(const std::shared_ptr<Light>& light);
+        void RemoveLight(const std::shared_ptr<Light>& light);
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
+
+        const bool& GetVisible() const;
+        void SetVisible(const bool& is_visible);
         
         void PushToVerts(const std::initializer_list<float_t>& coords);
         void PushToInds(const std::initializer_list<uint64_t>& coords);
@@ -121,13 +125,13 @@ class RenderObject : public IdTag
         std::unique_ptr<EBO> m_ebo;
 
         std::shared_ptr<Camera> m_camera;
-        std::shared_ptr<Light> m_light;
+        std::vector<std::shared_ptr<Light>> m_lights;
         std::unique_ptr<Shader> m_shader;
         std::vector<std::tuple<std::unique_ptr<Texture>, std::string>> m_textures;
 
         bool m_has_color{ true }, m_has_normals, m_has_color_texture{ false };
 
-        //bool isVisible{true};
+        bool m_is_visible{ true };
         //bool isLocked{false};
 
     private:

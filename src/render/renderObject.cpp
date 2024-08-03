@@ -1,5 +1,6 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
 
 #include "render/gpu_interface/EBO.hpp"
 #include "render/gpu_interface/VAO.hpp"
@@ -31,7 +32,11 @@ void RenderObject::Render(const double_t& delta_time, const float_t& fov, const 
     m_ebo->Bind();
 
     m_camera->Matrix(fov, near, far, *m_shader, "view", "projection");
-    m_light->ExportLight(*m_shader);
+
+    for (const auto& light : m_lights)
+    {
+        light->ExportLight(*m_shader);
+    }
 
     glUniform3fv(glGetUniformLocation(m_shader->GetID(), "viewPos"), 1, glm::value_ptr(m_camera->GetPosition()));
     glUniformMatrix4fv(glGetUniformLocation(m_shader->GetID(), "model"), 1, GL_FALSE, glm::value_ptr(m_model_mat));
@@ -79,9 +84,14 @@ void RenderObject::SetCamera(const std::shared_ptr<Camera>& camera)
     m_camera = camera;
 }
 
-void RenderObject::SetLight(const std::shared_ptr<Light>& light)
+void RenderObject::AddLight(const std::shared_ptr<Light>& light)
 {
-    m_light = light;
+    m_lights.push_back(light);
+}
+
+void RenderObject::RemoveLight(const std::shared_ptr<Light>& light)
+{
+    std::erase(m_lights, light);
 }
 
 void RenderObject::AddShader(const ShaderType& type)
@@ -95,6 +105,16 @@ void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::strin
     m_has_color_texture = true;
     m_textures.push_back(std::make_tuple(std::move(texture), texUni));
     texture->TexUnit(*m_shader, texUni.c_str(), 0);
+}
+
+const bool& RenderObject::GetVisible() const
+{
+    return m_is_visible;
+}
+
+void RenderObject::SetVisible(const bool& is_visible)
+{
+    m_is_visible = is_visible;
 }
 
 void RenderObject::PushToVerts(const std::initializer_list<float_t>& coords)

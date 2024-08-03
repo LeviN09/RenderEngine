@@ -89,8 +89,8 @@ int main()
 
     Renderer renderer(*window, width, height);
     renderer.AddCurrCamera("cam1");
-    //renderer.AddLight(std::make_shared<PointLight>());
-    renderer.AddLight(std::make_shared<DirectionalLight>(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f)));
+    renderer.AddLight(std::make_shared<PointLight>("pointLight", glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f));
+    renderer.AddLight(std::make_shared<DirectionalLight>("dirLight", glm::vec3(1.0f), glm::vec3(1.0f), 1.0f));
 
     PhysicsEngine engine;
 
@@ -204,7 +204,6 @@ int main()
         }
 
         renderer.Update(time, mouse_pos_x, mouse_pos_y);
-        renderer.GetLight().Translate(glm::vec3(0.001f, 0.0f, -0.01f));
         
         cubey1.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
