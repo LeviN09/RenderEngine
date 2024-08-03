@@ -2,6 +2,8 @@
 #define CUBEPARTS_CLASS_HPP
 
 #include <cmath>
+#include <cstdint>
+#include <vector>
 
 #include "physics/physicsObject.hpp"
 #include "render/renderObject.hpp"
@@ -10,8 +12,8 @@ class CubeRender : public RenderObject
 {
 
     public:
-        CubeRender(const std::string& uid, const glm::mat4& model_mat, const glm::vec3& scale):
-            RenderObject(uid, model_mat), m_scale{ scale }
+        CubeRender(const std::string& uid, const glm::mat4& model_mat, const glm::vec3& scale, bool is_shared):
+            RenderObject(uid, model_mat), m_scale{ scale }, m_is_shared{ is_shared }
         {
             Init();
             Configure();
@@ -19,9 +21,16 @@ class CubeRender : public RenderObject
 
     private:
         void Init() override;
+        void InitSixSided();
+        void InitPlane(const uint64_t plane_num);
+        void InitShared();
         void Update(const double_t& delta_time) override;
 
+        bool m_is_shared{ false };
         glm::vec3 m_scale;
+        std::vector<glm::vec3> m_points;
+        std::vector<glm::uvec4> m_inds;
+        std::vector<glm::vec3> m_norms;
 };
 
 class CubeBody : public PhysicsObject

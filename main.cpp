@@ -142,6 +142,10 @@ int main()
     brick.AddRenderObject(ShaderType::Fun);
     brick.AddPhysicsObject();
 
+    CubeObject brick2(renderer, engine, "brick2", glm::vec3(5.0f, 0.0f, 15.0f), glm::vec3(1.0f));
+    brick2.AddRenderObject(ShaderType::Default);
+    brick2.AddPhysicsObject();
+
 /*     SphereObject earth(renderer, engine, "earth1", glm::vec3(0.0f, -210.0f, 0.0f), 200.0f, 10000000.0f);
     earth.AddRenderObject(ShaderType::Default);
     earth.AddPhysicsObject();
@@ -202,7 +206,7 @@ int main()
         renderer.Update(time, mouse_pos_x, mouse_pos_y);
         renderer.GetLight().Translate(glm::vec3(0.001f, 0.0f, -0.01f));
         
-        cubey1.Rotate(glm::radians(1.0f), glm::vec3(-0.01f));
+        cubey1.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         renderer.Render(time);

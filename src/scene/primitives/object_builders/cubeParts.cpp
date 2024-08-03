@@ -1,9 +1,23 @@
+#include <cstdint>
+#include <iostream>
+
 #include "render/camera.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
 #include "scene/primitives/object_builders/planeParts.hpp"
 #include "scene/primitives/object_builders/sphereParts.hpp"
 
 void CubeRender::Init()
+{
+    if (m_is_shared)
+    {
+        InitShared();
+    }
+    else {
+        InitSixSided();
+    }
+}
+
+void CubeRender::InitShared()
 {
     PushToVerts({-0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   -0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f});
     PushToVerts({ 0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,    0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f});
@@ -29,6 +43,63 @@ void CubeRender::Init()
 
     m_has_normals = true;
     m_has_color_texture = true;
+}
+
+void CubeRender::InitSixSided()
+{
+    m_points.push_back(glm::vec3(-0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z));
+    m_points.push_back(glm::vec3( 0.5f * m_scale.x, -0.5f * m_scale.y,  0.5f * m_scale.z));
+    m_points.push_back(glm::vec3( 0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z));
+    m_points.push_back(glm::vec3(-0.5f * m_scale.x, -0.5f * m_scale.y, -0.5f * m_scale.z));
+    m_points.push_back(glm::vec3(-0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z));
+    m_points.push_back(glm::vec3( 0.5f * m_scale.x,  0.5f * m_scale.y,  0.5f * m_scale.z));
+    m_points.push_back(glm::vec3( 0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z));
+    m_points.push_back(glm::vec3(-0.5f * m_scale.x,  0.5f * m_scale.y, -0.5f * m_scale.z));
+
+    m_inds.push_back(glm::ivec4(0, 1, 2, 3));
+    m_inds.push_back(glm::ivec4(0, 4, 5, 1));
+    m_inds.push_back(glm::ivec4(1, 5, 6, 2));
+    m_inds.push_back(glm::ivec4(2, 6, 7, 3));
+    m_inds.push_back(glm::ivec4(3, 7, 4, 0));
+    m_inds.push_back(glm::ivec4(4, 7, 6, 5));
+
+    m_norms.push_back(glm::vec3( 0.0f, -1.0f,  0.0f));
+    m_norms.push_back(glm::vec3( 0.0f,  0.0f,  1.0f));
+    m_norms.push_back(glm::vec3( 1.0f,  0.0f,  0.0f));
+    m_norms.push_back(glm::vec3( 0.0f,  0.0f, -1.0f));
+    m_norms.push_back(glm::vec3(-1.0f,  0.0f,  0.0f));
+    m_norms.push_back(glm::vec3( 0.0f,  1.0f,  0.0f));
+
+    for (uint64_t i = 0; i < 6; ++i)
+    {
+        InitPlane(i);
+    }
+
+    m_has_normals = true;
+    m_has_color_texture = true;
+}
+
+void CubeRender::InitPlane(const uint64_t plane_num)
+{
+    const glm::uvec4& plane_inds = m_inds[plane_num];
+    const glm::vec3& norm = m_norms[plane_num];
+
+    std::cout << plane_inds.x << " " << plane_inds.y << " " << plane_inds.z << " " << plane_inds.w << std::endl;
+    const glm::vec3& curr_points_0 = m_points[plane_inds.x];
+    const glm::vec3& curr_points_1 = m_points[plane_inds.y];
+    const glm::vec3& curr_points_2 = m_points[plane_inds.z];
+    const glm::vec3& curr_points_3 = m_points[plane_inds.w];
+
+    PushToVerts({curr_points_0.x, curr_points_0.y, curr_points_0.z,    norm.x, norm.y, norm.z,    1.0f, 0.0f, 0.0f,    0.0f, 0.0f});
+    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
+    PushToVerts({curr_points_3.x, curr_points_3.y, curr_points_3.z,    norm.x, norm.y, norm.z,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f});
+
+    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
+    PushToVerts({curr_points_2.x, curr_points_2.y, curr_points_2.z,    norm.x, norm.y, norm.z,    1.0f, 0.0f, 1.0f,    1.0f, 1.0f});
+    PushToVerts({curr_points_3.x, curr_points_3.y, curr_points_3.z,    norm.x, norm.y, norm.z,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f});
+
+    PushToInds({plane_num * 6 + 0, plane_num * 6 + 1, plane_num * 6 + 2});
+    PushToInds({plane_num * 6 + 3, plane_num * 6 + 4, plane_num * 6 + 5});
 }
 
 void CubeRender::Update(const double_t& delta_time)
