@@ -1,5 +1,4 @@
 #include <cstdint>
-#include <iostream>
 
 #include "render/camera.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
@@ -84,7 +83,6 @@ void CubeRender::InitPlane(const uint64_t plane_num)
     const glm::uvec4& plane_inds = m_inds[plane_num];
     const glm::vec3& norm = m_norms[plane_num];
 
-    std::cout << plane_inds.x << " " << plane_inds.y << " " << plane_inds.z << " " << plane_inds.w << std::endl;
     const glm::vec3& curr_points_0 = m_points[plane_inds.x];
     const glm::vec3& curr_points_1 = m_points[plane_inds.y];
     const glm::vec3& curr_points_2 = m_points[plane_inds.z];

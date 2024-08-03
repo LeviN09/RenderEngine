@@ -205,9 +205,17 @@ void SphereBody::CalcCollision(CubeBody& other)
     glm::vec3 impulse = normal * impulseScalar;
     m_velocity += impulse / m_mass;
 
-    if (glm::length(m_velocity) < 0.05f)
+    if (m_velocity.x < m_error_margin)
     {
-        m_velocity = glm::vec3(0.0f);
+        m_velocity.x = 0.0f;
+    }
+    if (m_velocity.y < m_error_margin)
+    {
+        m_velocity.y = 0.0f;
+    }
+    if (m_velocity.z < m_error_margin)
+    {
+        m_velocity.z = 0.0f;
     }
 
     float percent = 0.8f;

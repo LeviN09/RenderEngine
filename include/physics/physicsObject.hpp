@@ -54,6 +54,8 @@ class PhysicsObject : public IdTag
         virtual void CalcCollision(CubeBody& other) = 0;
         void Update(const double_t& delta_time);
 
+        const float_t m_error_margin{ 0.05f };
+
     protected:
         PhysicsObject(const std::string& uid, glm::mat4& model_mat, float_t mass):
             IdTag(uid), m_model_mat(model_mat), m_mass(mass)
