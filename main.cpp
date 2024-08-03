@@ -15,8 +15,9 @@
 
 #include "physics/physicsEngine.hpp"
 #include "render/gpu_interface/shaderClass.hpp"
-#include "render/renderer.hpp"
 #include "render/gpu_interface/texture.hpp"
+#include "render/light.hpp"
+#include "render/renderer.hpp"
 #include "scene/primitives/cube.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
 #include "scene/primitives/object_builders/planeParts.hpp"
@@ -88,7 +89,8 @@ int main()
 
     Renderer renderer(*window, width, height);
     renderer.AddCurrCamera("cam1");
-    renderer.AddLight(std::make_shared<Light>());
+    //renderer.AddLight(std::make_shared<PointLight>());
+    renderer.AddLight(std::make_shared<DirectionalLight>(glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f)));
 
     PhysicsEngine engine;
 
@@ -96,7 +98,7 @@ int main()
     planet1.AddRenderObject(ShaderType::Fun);
     planet1.AddPhysicsObject();
 
-    SphereObject planet2(renderer, engine, "planet2", glm::vec3(0.0f), 2.5f, 20.0f);
+    SphereObject planet2(renderer, engine, "planet2", glm::vec3(-2.0f), 2.5f, 20.0f);
     planet2.AddRenderObject(ShaderType::Light);
     planet2.AddPhysicsObject();
 
@@ -186,7 +188,7 @@ int main()
 
         time = glfwGetTime();
 
-        glClearColor(0.3f, 0.15f, 0.0f, 1);
+        glClearColor(0.6f, 0.6f, 1.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glfwGetWindowSize(window, &width, &height);

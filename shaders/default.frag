@@ -15,35 +15,40 @@ uniform vec3 viewPos;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
 
-void main()
+uniform vec3 dirLightColor;
+uniform vec3 dirLightIntensity;
+uniform vec3 dirLightDir;
+
+vec3 getDiffuse(vec3 norm, vec3 lightDir)
 {
-    vec3 norm = normalize(normal);
-    vec3 lightDir = normalize(lightPos - worldPos);
     float diff = max(dot(norm, lightDir), 0.0f);
-    //float diff = 1.0f;
-    vec3 diffuse = diff * lightColor;
-    //vec3 diffuse = lightColor;
+    float dirLightDiff = max(dot(norm, dirLightDir), 0.0f);
+    return diff * lightColor + dirLightDiff * dirLightColor;
+}
 
-    vec3 ambient = vec3(0.1f, 0.1f, 0.1f);
-
+vec3 getSpecular(vec3 norm, vec3 lightDir)
+{
     float specularStrength = 0.5;
     vec3 viewDir = normalize(viewPos - worldPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength * spec * lightColor;  
+    return specularStrength * spec * lightColor;  
+}
 
-    //FragColor = vec4(color, 1.0f);
+void main()
+{
+    vec3 ambient = vec3(0.1f, 0.1f, 0.1f);
+
+    vec3 norm = normalize(normal);
+    vec3 lightDir = normalize(lightPos - worldPos);
+
+    vec3 result = (ambient + getDiffuse(norm, lightDir) + getSpecular(norm, lightDir)) * color;
     if (hasColorTexture == 1)
     {
-        vec3 result = (ambient + diffuse + specular) * color;
-        //FragColor = vec4(result, 1.0);
-        //FragColor = vec4(diffuse, 1.0f);
         FragColor = texture(tex0, texCoord) * vec4(result, 1.0f);
     }
     else
     {
-        vec3 result = (ambient + diffuse + specular) * color;
         FragColor = vec4(result, 1.0);
-        //FragColor = vec4(color, 1.0f);
     }
 }

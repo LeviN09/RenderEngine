@@ -10,22 +10,48 @@
 class Light : public IdTag
 {
     public:
-        Light() = default;
         ~Light() = default;
-        void ExportLight(const Shader& shader);
+
         void Translate(const glm::vec3& translate);
+
+        virtual void ExportLight(const Shader& shader) = 0;
     
     protected:
-        glm::vec3 position{ glm::vec3(0.0f, 0.0f, 0.0f) };
-        glm::vec3 color{ glm::vec3(1.0f, 1.0f, 1.0f) };
+        Light(const glm::vec3& position, const glm::vec3& color, const glm::vec3& intentsity):
+            m_position{ position }, m_color{ color }, m_intensity{ intentsity }
+        {}
+        Light() = default;
+
+        glm::vec3 m_position{ 0.0f };
+        glm::vec3 m_color{ 1.0f };
+        glm::vec3 m_intensity{ 1.0f };
 };
 
-/*class PointLight : public Light {
+class DirectionalLight : public Light
+{
     public:
-        PointLight(): Light() {
-            position = glm::vec3(1.0f);
-            color = glm::vec3(1.0f);
+        DirectionalLight(const glm::vec3& direction, const glm::vec3& color, const glm::vec3& intentsity):
+            Light(glm::vec3{ 0.0f }, color, intentsity)
+        {
+            SetDirection(direction);
         }
-};*/
+
+    void ExportLight(const Shader& shader) override;
+
+    void SetDirection(const glm::vec3& direction);
+    const glm::vec3& GetDirection() const;
+
+    private:
+        glm::vec3 m_direction;
+};
+
+class PointLight : public Light
+{
+    public:
+        PointLight(): Light()
+        {}
+    
+    void ExportLight(const Shader& shader) override;
+};
 
 #endif
