@@ -43,6 +43,7 @@ class DirectionalLight : public Light
         void ExportLight(Shader& shader) override;
 
         void SetDirection(const glm::vec3& direction);
+        void Rotate(float_t rad, const glm::vec3& rotate);
         const glm::vec3& GetDirection() const;
 
     private:

@@ -1,3 +1,4 @@
+#include <glm/ext/quaternion_transform.hpp>
 #include <glm/geometric.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -44,6 +45,13 @@ void DirectionalLight::ExportLight(Shader& shader)
 void DirectionalLight::SetDirection(const glm::vec3& direction)
 {
     m_direction = glm::normalize(direction);
+    m_light_view = glm::lookAt(20.0f * m_direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    m_light_projection = m_orthogonal_projection * m_light_view;
+}
+
+void DirectionalLight::Rotate(float_t rad, const glm::vec3& rotate)
+{
+    SetDirection(glm::rotate(glm::mat4(1.0f), rad, rotate) * glm::vec4(m_direction, 1.0f));
 }
 
 const glm::vec3& DirectionalLight::GetDirection() const
@@ -72,7 +80,7 @@ void DirectionalLight::InitShadowMap()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     m_orthogonal_projection = glm::ortho(-35.0f, 35.0f, -35.0f, 35.0f, 0.1f, 75.0f);
-    m_light_view = glm::lookAt(10.0f * m_direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    m_light_view = glm::lookAt(20.0f * m_direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     m_light_projection = m_orthogonal_projection * m_light_view;
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
