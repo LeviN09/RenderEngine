@@ -13,6 +13,7 @@ enum class ShaderType {
     Default,
     Light,
     Fun,
+    Cellshade,
     Shadow,
     Test
 };
@@ -32,6 +33,9 @@ static const std::unordered_map<const ShaderType, const ShaderPath> s_shader_fil
     },
     {
         ShaderType::Fun, ShaderPath("../shaders/fun.vert", "../shaders/fun.frag")
+    },
+    {
+        ShaderType::Cellshade, ShaderPath("../shaders/default.vert", "../shaders/cellshade.frag")
     },
     {
         ShaderType::Shadow, ShaderPath("../shaders/shadow.vert", "../shaders/shadow.frag")

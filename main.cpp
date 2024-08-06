@@ -105,7 +105,7 @@ int main()
     planet2.AddPhysicsObject();
 
     SphereObject planet3(renderer, engine, "planet3", glm::vec3(-5.0f, 0.0f, 5.0f), 2.0f, 5.0f);
-    planet3.AddRenderObject(ShaderType::Default);
+    planet3.AddRenderObject(ShaderType::Cellshade);
     planet3.AddPhysicsObject();
 
     engine.GetObject<SphereBody>("p_planet2").Push(glm::vec3(0.02f));
