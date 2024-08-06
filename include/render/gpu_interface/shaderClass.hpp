@@ -12,7 +12,9 @@ std::string get_file_contents(const std::string& filename);
 enum class ShaderType {
     Default,
     Light,
-    Fun
+    Fun,
+    Shadow,
+    Test
 };
 
 struct ShaderPath {
@@ -30,6 +32,12 @@ static const std::unordered_map<const ShaderType, const ShaderPath> s_shader_fil
     },
     {
         ShaderType::Fun, ShaderPath("../shaders/fun.vert", "../shaders/fun.frag")
+    },
+    {
+        ShaderType::Shadow, ShaderPath("../shaders/shadow.vert", "../shaders/shadow.frag")
+    },
+    {
+        ShaderType::Test, ShaderPath("../shaders/default.vert", "../shaders/test.frag")
     }
 };
 

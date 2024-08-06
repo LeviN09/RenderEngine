@@ -1,6 +1,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <chrono>
 #include <GL/glew.h>
+#include <GL/glext.h>
+#include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
@@ -89,8 +91,8 @@ int main()
 
     Renderer renderer(*window, width, height);
     renderer.AddCurrCamera("cam1");
+    renderer.AddLight(std::make_shared<DirectionalLight>("dirLight", glm::vec3(1.0f), glm::vec3(0.7f, 0.9f, 1.0f), 1.0f));
     renderer.AddLight(std::make_shared<PointLight>("pointLight", glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f));
-    renderer.AddLight(std::make_shared<DirectionalLight>("dirLight", glm::vec3(1.0f), glm::vec3(1.0f), 1.0f));
 
     PhysicsEngine engine;
 
@@ -111,8 +113,8 @@ int main()
     CubeObject cubey1(renderer, engine, "cubey1", glm::vec3(5.0f), 1.0f);
     cubey1.AddRenderObject();
 
-    std::unique_ptr<Texture> cirno = std::make_unique<Texture>(res_prefix + "textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-    std::unique_ptr<Texture> caco = std::make_unique<Texture>(res_prefix + "textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
+    std::unique_ptr<Texture> cirno = std::make_unique<Texture>(res_prefix + "textures/cirnofumo.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
+    std::unique_ptr<Texture> caco = std::make_unique<Texture>(res_prefix + "textures/cacopog.png", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGB, GL_UNSIGNED_BYTE);
 
     renderer.GetObject<CubeRender>("r_cubey1").AddTexture(std::move(cirno), "tex0");
 
@@ -120,6 +122,9 @@ int main()
     planey.AddRenderObject();
 
     renderer.GetObject<PlaneRender>("r_planey1").AddTexture(std::move(caco), "tex0");
+
+    PlaneObject depthMapMap(renderer, engine, "depthMapMap", glm::vec3(-5.0f, 3.0f, 0.0f), 5.0f);
+    depthMapMap.AddRenderObject(ShaderType::Test);
 
     SphereObject testS(renderer, engine, "testS", glm::vec3(0.0f), 0.5f);
     testS.AddRenderObject();
@@ -142,7 +147,7 @@ int main()
     brick.AddRenderObject(ShaderType::Fun);
     brick.AddPhysicsObject();
 
-    CubeObject brick2(renderer, engine, "brick2", glm::vec3(5.0f, 0.0f, 15.0f), glm::vec3(1.0f));
+    CubeObject brick2(renderer, engine, "brick2", glm::vec3(5.0f, -10.0f, 15.0f), glm::vec3(1.0f));
     brick2.AddRenderObject(ShaderType::Default);
     brick2.AddPhysicsObject();
 
@@ -192,7 +197,7 @@ int main()
 
         time = glfwGetTime();
 
-        glClearColor(0.6f, 0.6f, 1.0f, 1);
+        glClearColor(0.7f, 0.9f, 1.0f, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glfwGetWindowSize(window, &width, &height);
@@ -205,8 +210,9 @@ int main()
 
         renderer.Update(time, mouse_pos_x, mouse_pos_y);
         
-        cubey1.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        cubey1.Rotate(glm::radians(1.0f), glm::vec3(1.0f, 1.0f, -1.0f));
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        brick2.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         renderer.Render(time);
 

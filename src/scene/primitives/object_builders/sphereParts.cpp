@@ -39,17 +39,17 @@ void SphereRender::Init()
     {
         for (int j = 0; j < m_cols - 1; j++)
         {
-            PushToInds({i * m_cols + j + 1, (i + 1) * m_cols + j + 1, (i + 1) * m_cols + j + 2});
-            PushToInds({i * m_cols + j + 1, (i + 1) * m_cols + j + 2, i * m_cols + j + 2});
+            PushToInds({i * m_cols + j + 1, (i + 1) * m_cols + j + 2, (i + 1) * m_cols + j + 1});
+            PushToInds({i * m_cols + j + 2, (i + 1) * m_cols + j + 2, i * m_cols + j + 1});
         }
         PushToInds({i * m_cols + 1, (i + 1) * m_cols + 1, (i + 1) * m_cols});
         PushToInds({(i + 1) * m_cols + 1, (i + 2) * m_cols, (i + 1) * m_cols});
     }
     for (int i = 0; i < m_cols - 1; i++)
     {
-        PushToInds({(m_rows - 2) * m_cols + i + 1, (m_rows - 1) * m_cols + 1, (m_rows - 2) * m_cols + i + 2});
+        PushToInds({(m_rows - 2) * m_cols + i + 1, (m_rows - 2) * m_cols + i + 2, (m_rows - 1) * m_cols + 1});
     }
-    PushToInds({(m_rows - 1) * m_cols, (m_rows - 1) * m_cols + 1, (m_rows - 2) * m_cols + 1});
+    PushToInds({(m_rows - 1) * m_cols, (m_rows - 2) * m_cols + 1, (m_rows - 1) * m_cols + 1});
 
     m_has_normals = true;
     m_has_color_texture = false;

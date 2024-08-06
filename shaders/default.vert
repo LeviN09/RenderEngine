@@ -13,10 +13,24 @@ out vec2 texCoord;
 out vec3 normal;
 out vec3 worldPos;
 
+out VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoords;
+    vec4 FragPosLightSpace;
+} vs_out;
+
 //uniform float scale;
+
+uniform mat4 lightProjection;
 
 void main()
 {
+    vs_out.FragPos = vec3(model * vec4(aPos, 1.0));
+    vs_out.Normal = transpose(inverse(mat3(model))) * aNorm;
+    vs_out.TexCoords = aTex;
+    vs_out.FragPosLightSpace = lightProjection * vec4(vs_out.FragPos, 1.0);
+
     gl_Position = projection * view * model * vec4(aPos, 1.0f);
     worldPos = vec3(model * vec4(aPos, 1.0f));
     //normal = aNorm;

@@ -5,7 +5,11 @@
 #include <vector>
 
 #include "render/renderer.hpp"
+#include "render/light.hpp"
+#include "render/renderObject.hpp"
 #include "scene/idTag.hpp"
+
+#include <GL/gl.h>
 
 std::optional<std::reference_wrapper<IdTag>> Renderer::SearchObject(const std::string& uid) const
 {
@@ -32,13 +36,38 @@ std::optional<std::reference_wrapper<IdTag>> Renderer::SearchObject(const std::s
 
 void Renderer::Render(const double_t& delta_time)
 {
+    DirectionalLight* light = dynamic_cast<DirectionalLight*>(m_lights[0].get());
+
+    light->RenderShadowMap();
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
     for (const auto& obj : m_objects)
     {
         if (!obj->GetVisible())
         {
             continue;
         }
+        obj->Render(delta_time, 90.0f, 0.1f, 500.0f, light->GetShadowShader());
+    }
 
+    glCullFace(GL_BACK);
+    glDisable(GL_CULL_FACE);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, m_width, m_height);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    for (const auto& obj : m_objects)
+    {
+        if (!obj->GetVisible())
+        {
+            continue;
+        }
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, light->GetShadowMap());
         obj->Render(delta_time, 90.0f, 0.1f, 500.0f);
     }
 }

@@ -15,6 +15,7 @@ class Texture
 
 		const GLuint& GetID() const;
 		const GLenum& GetType() const;
+		const GLenum& GetSlot() const;
 
 		void TexUnit(Shader& shader, const std::string& uniform, GLuint unit);
 		void Bind(GLuint slot);
@@ -24,5 +25,6 @@ class Texture
 	private:
 		GLuint m_id;
 		GLenum m_type;
+		GLenum m_slot;
 };
 #endif

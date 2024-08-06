@@ -89,12 +89,12 @@ void CubeRender::InitPlane(const uint64_t plane_num)
     const glm::vec3& curr_points_3 = m_points[plane_inds.w];
 
     PushToVerts({curr_points_0.x, curr_points_0.y, curr_points_0.z,    norm.x, norm.y, norm.z,    1.0f, 0.0f, 0.0f,    0.0f, 0.0f});
-    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
     PushToVerts({curr_points_3.x, curr_points_3.y, curr_points_3.z,    norm.x, norm.y, norm.z,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f});
+    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
 
-    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
-    PushToVerts({curr_points_2.x, curr_points_2.y, curr_points_2.z,    norm.x, norm.y, norm.z,    1.0f, 0.0f, 1.0f,    1.0f, 1.0f});
     PushToVerts({curr_points_3.x, curr_points_3.y, curr_points_3.z,    norm.x, norm.y, norm.z,    0.0f, 0.0f, 1.0f,    0.0f, 1.0f});
+    PushToVerts({curr_points_2.x, curr_points_2.y, curr_points_2.z,    norm.x, norm.y, norm.z,    1.0f, 0.0f, 1.0f,    1.0f, 1.0f});
+    PushToVerts({curr_points_1.x, curr_points_1.y, curr_points_1.z,    norm.x, norm.y, norm.z,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f});
 
     PushToInds({plane_num * 6 + 0, plane_num * 6 + 1, plane_num * 6 + 2});
     PushToInds({plane_num * 6 + 3, plane_num * 6 + 4, plane_num * 6 + 5});

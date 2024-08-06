@@ -3,6 +3,7 @@
 
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <memory>
 
 #include "render/gpu_interface/shaderClass.hpp"
 #include "scene/idTag.hpp"
@@ -14,7 +15,7 @@ class Light : public IdTag
 
         void Translate(const glm::vec3& translate);
 
-        virtual void ExportLight(const Shader& shader) = 0;
+        virtual void ExportLight(Shader& shader) = 0;
     
     protected:
         Light(const std::string& uid, const glm::vec3& position, const glm::vec3& color, const float_t& intentsity):
@@ -30,18 +31,33 @@ class DirectionalLight : public Light
 {
     public:
         DirectionalLight(const std::string& uid, const glm::vec3& direction, const glm::vec3& color, const float_t& intentsity):
-            Light(uid, glm::vec3{ 0.0f }, color, intentsity)
+            Light(uid, glm::vec3{ 0.0f }, color, intentsity), m_shadow_shader{ std::make_unique<Shader>(ShaderType::Shadow) }
         {
             SetDirection(direction);
+            InitShadowMap();
         }
 
-    void ExportLight(const Shader& shader) override;
+        void RenderShadowMap();
+        const GLuint& GetShadowMap();
+        Shader& GetShadowShader();
+        void ExportLight(Shader& shader) override;
 
-    void SetDirection(const glm::vec3& direction);
-    const glm::vec3& GetDirection() const;
+        void SetDirection(const glm::vec3& direction);
+        const glm::vec3& GetDirection() const;
 
     private:
+        void InitShadowMap();
+
         glm::vec3 m_direction;
+
+        glm::mat4 m_orthogonal_projection;
+        glm::mat4 m_light_view;
+        glm::mat4 m_light_projection;
+
+        GLuint m_shadowmap_fbo;
+        GLuint m_shadowmap_width = 2048, m_shadowmap_height = 2048;
+        GLuint m_shadowmap;
+        std::unique_ptr<Shader> m_shadow_shader;
 };
 
 class PointLight : public Light
@@ -51,7 +67,7 @@ class PointLight : public Light
             Light(uid, position, color, intentsity)
         {}
     
-    void ExportLight(const Shader& shader) override;
+        void ExportLight(Shader& shader) override;
 };
 
 #endif

@@ -6,7 +6,15 @@ in vec2 texCoord;
 in vec3 normal;
 in vec3 worldPos;
 
+in VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoords;
+    vec4 FragPosLightSpace;
+} fs_in;
+
 //uniform vec2 windowSize;
+uniform sampler2D shadowTex;
 uniform sampler2D tex0;
 uniform int hasColorTexture;
 //uniform sampler2D tex1;
@@ -39,6 +47,36 @@ vec3 getSpecular(vec3 norm, vec3 lightDir)
     return specularStrength * spec * lightColor + specularStrength * dirSpec * dirLightColor;  
 }
 
+float ShadowCalculation(vec3 norm, vec4 fragPosLightSpace)
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    projCoords = projCoords * 0.5f + 0.5f;
+
+    float closestDepth = texture(shadowTex, projCoords.xy).r; 
+    float currentDepth = projCoords.z;
+
+    float bias = max(-0.05f * (dot(norm, dirLightDir)), 0.0f); 
+
+    float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(shadowTex, 0);
+    for(int x = -1; x <= 1; ++x)
+    {
+        for(int y = -1; y <= 1; ++y)
+        {
+            float pcfDepth = texture(shadowTex, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth - bias > pcfDepth ? 1.0f : 0.0f;        
+        }    
+    }
+    shadow /= 9.0f;
+
+    if(projCoords.z > 1.0f)
+    {
+        shadow = 0.0f;
+    }
+
+    return shadow;
+} 
+
 void main()
 {
     vec3 ambient = vec3(0.1f, 0.1f, 0.1f);
@@ -46,7 +84,8 @@ void main()
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - worldPos);
 
-    vec3 result = (ambient + getDiffuse(norm, lightDir) + getSpecular(norm, lightDir)) * color;
+    float shadow = ShadowCalculation(norm, fs_in.FragPosLightSpace); 
+    vec3 result = (ambient + (1.0f - shadow) * (getDiffuse(norm, lightDir) + getSpecular(norm, lightDir))) * color;
     if (hasColorTexture == 1)
     {
         FragColor = texture(tex0, texCoord) * vec4(result, 1.0f);

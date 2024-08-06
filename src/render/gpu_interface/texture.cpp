@@ -4,10 +4,9 @@
 
 #include "stb_image.h"
 
-Texture::Texture(const std::string& image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type)
+Texture::Texture(const std::string& image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type):
+	m_type{ tex_type }, m_slot{ slot }
 {
-	m_type = tex_type;
-
 	int widthImg, heightImg, numColCh;
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* bytes = stbi_load(image.c_str(), &widthImg, &heightImg, &numColCh, 0);

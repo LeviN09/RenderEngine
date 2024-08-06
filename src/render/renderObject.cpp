@@ -9,43 +9,51 @@
 #include "render/gpu_interface/texture.hpp"
 #include "render/renderObject.hpp"
 
-void RenderObject::Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far)
+void RenderObject::Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far, Shader& used_shader)
 {
-    m_shader->Activate();
+    used_shader.Activate();
+    
+    glUniform1i(glGetUniformLocation(used_shader.GetID(), "shadowMap"), 0);
 
-    if (m_shader->GetType() == ShaderType::Fun)
+    if (used_shader.GetType() == ShaderType::Fun)
     {
         glm::vec2 size = glm::vec2(1200, 1000);
-        glUniform2fv(glGetUniformLocation(m_shader->GetID(), "windowSize"), 1, glm::value_ptr(size));
+        glUniform2fv(glGetUniformLocation(used_shader.GetID(), "windowSize"), 1, glm::value_ptr(size));
 
         GLfloat dt = delta_time;
-        glUniform1f(glGetUniformLocation(m_shader->GetID(), "deltaTime"), dt);
+        glUniform1f(glGetUniformLocation(used_shader.GetID(), "deltaTime"), dt);
     }
 
-    if (m_textures.size() > 0)
+    if (m_textures.size() > 0 && used_shader.GetType() != ShaderType::Shadow)
     {
-        glUniform1i(glGetUniformLocation(m_shader->GetID(), "hasColorTexture"), m_has_color_texture ? 1 : 0);
-        std::get<0>(m_textures[0])->Bind(GL_TEXTURE0);
+        glUniform1i(glGetUniformLocation(used_shader.GetID(), "hasColorTexture"), m_has_color_texture ? 1 : 0);
+        std::get<0>(m_textures[0])->Bind(GL_TEXTURE1);
+        glUniform1i(glGetUniformLocation(used_shader.GetID(), "tex0"), 1);
     }
 
     m_vao->Bind();
     m_ebo->Bind();
 
-    m_camera->Matrix(fov, near, far, *m_shader, "view", "projection");
+    m_camera->Matrix(fov, near, far, used_shader, "view", "projection");
 
     for (const auto& light : m_lights)
     {
-        light->ExportLight(*m_shader);
+        light->ExportLight(used_shader);
     }
 
-    glUniform3fv(glGetUniformLocation(m_shader->GetID(), "viewPos"), 1, glm::value_ptr(m_camera->GetPosition()));
-    glUniformMatrix4fv(glGetUniformLocation(m_shader->GetID(), "model"), 1, GL_FALSE, glm::value_ptr(m_model_mat));
+    glUniform3fv(glGetUniformLocation(used_shader.GetID(), "viewPos"), 1, glm::value_ptr(m_camera->GetPosition()));
+    glUniformMatrix4fv(glGetUniformLocation(used_shader.GetID(), "model"), 1, GL_FALSE, glm::value_ptr(m_model_mat));
     glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
 
-    if (m_textures.size() > 0)
+    if (m_textures.size() > 0 && used_shader.GetType() != ShaderType::Shadow)
     {
         std::get<0>(m_textures[0])->Unbind();
     }
+}
+
+void RenderObject::Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far)
+{
+    Render(delta_time, fov, near, far, *m_shader.get());
 }
 
 void RenderObject::ConfigureVBO()

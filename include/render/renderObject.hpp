@@ -90,6 +90,7 @@ class RenderObject : public IdTag
         ~RenderObject() = default;
 
         void Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far);
+        void Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far, Shader& used_shader);
 
         virtual void Init() = 0;
         virtual void Update(const double_t& delta_time) = 0;
