@@ -215,6 +215,7 @@ int main()
         brick2.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         //dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->Rotate(glm::radians(0.1f), glm::vec3(1.0f, 0.0f, -1.0f));
+        dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->SetPosition(renderer.GetCurrCam().GetPosition());
 
         renderer.Render(time);
 

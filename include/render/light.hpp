@@ -14,6 +14,7 @@ class Light : public IdTag
         ~Light() = default;
 
         void Translate(const glm::vec3& translate);
+        void SetPosition(const glm::vec3& position);
 
         virtual void ExportLight(Shader& shader) = 0;
     
@@ -48,6 +49,7 @@ class DirectionalLight : public Light
 
     private:
         void InitShadowMap();
+        void UpdateLightProjection();
 
         glm::vec3 m_direction;
 
@@ -55,8 +57,10 @@ class DirectionalLight : public Light
         glm::mat4 m_light_view;
         glm::mat4 m_light_projection;
 
+        GLuint m_shadowmap_width = 4096, m_shadowmap_height = 4096;
+        const float_t m_projection_size{ 40.0f };
+
         GLuint m_shadowmap_fbo;
-        GLuint m_shadowmap_width = 2048, m_shadowmap_height = 2048;
         GLuint m_shadowmap;
         std::unique_ptr<Shader> m_shadow_shader;
 };

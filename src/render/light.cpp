@@ -13,6 +13,11 @@ void Light::Translate(const glm::vec3& translate)
     m_position += translate;
 }
 
+void Light::SetPosition(const glm::vec3& position)
+{
+    m_position = position;
+}
+
 void DirectionalLight::RenderShadowMap()
 {
     m_shadow_shader->Activate();
@@ -36,6 +41,7 @@ Shader& DirectionalLight::GetShadowShader()
 
 void DirectionalLight::ExportLight(Shader& shader)
 {
+    UpdateLightProjection();
     glUniform3fv(glGetUniformLocation(shader.GetID(), "dirLightDir"), 1, glm::value_ptr(m_direction));
     glUniform3fv(glGetUniformLocation(shader.GetID(), "dirLightColor"), 1, glm::value_ptr(m_color));
     glUniform1f(glGetUniformLocation(shader.GetID(), "dirLightIntensity"), m_intensity);
@@ -45,8 +51,6 @@ void DirectionalLight::ExportLight(Shader& shader)
 void DirectionalLight::SetDirection(const glm::vec3& direction)
 {
     m_direction = glm::normalize(direction);
-    m_light_view = glm::lookAt(20.0f * m_direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    m_light_projection = m_orthogonal_projection * m_light_view;
 }
 
 void DirectionalLight::Rotate(float_t rad, const glm::vec3& rotate)
@@ -79,14 +83,18 @@ void DirectionalLight::InitShadowMap()
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    m_orthogonal_projection = glm::ortho(-35.0f, 35.0f, -35.0f, 35.0f, 0.1f, 75.0f);
-    m_light_view = glm::lookAt(20.0f * m_direction, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    m_light_projection = m_orthogonal_projection * m_light_view;
+    m_orthogonal_projection = glm::ortho(-m_projection_size, m_projection_size, -m_projection_size, m_projection_size, 0.1f, m_projection_size * 2.0f);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
 	    std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     }
+}
+
+void DirectionalLight::UpdateLightProjection()
+{
+    m_light_view = glm::lookAt(20.0f * m_direction + m_position, m_position, glm::vec3(0.0f, 1.0f, 0.0f));
+    m_light_projection = m_orthogonal_projection * m_light_view;
 }
 
 void PointLight::ExportLight(Shader& shader)
