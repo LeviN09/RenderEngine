@@ -49,7 +49,20 @@ void Renderer::Render(const double_t& delta_time)
         {
             continue;
         }
+
+        if (obj->IsConcave())
+        {
+            glCullFace(GL_BACK);
+            glDisable(GL_CULL_FACE);
+        }
+
         obj->Render(delta_time, 90.0f, 0.1f, 500.0f, light->GetShadowShader());
+
+        if (obj->IsConcave())
+        {
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_FRONT);
+        }
     }
 
     glCullFace(GL_BACK);

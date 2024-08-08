@@ -107,6 +107,7 @@ class RenderObject : public IdTag
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
 
         const bool& GetVisible() const;
+        const bool& IsConcave() const;
         void SetVisible(const bool& is_visible);
         
         void PushToVerts(const std::initializer_list<float_t>& coords);
@@ -131,6 +132,7 @@ class RenderObject : public IdTag
         std::vector<std::tuple<std::unique_ptr<Texture>, std::string>> m_textures;
 
         bool m_has_color{ true }, m_has_normals, m_has_color_texture{ false };
+        bool m_is_concave{ false };
 
         bool m_is_visible{ true };
         //bool isLocked{false};

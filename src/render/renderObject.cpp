@@ -115,6 +115,11 @@ void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::strin
     texture->TexUnit(*m_shader, texUni.c_str(), 0);
 }
 
+const bool& RenderObject::IsConcave() const
+{
+    return m_is_concave;
+}
+
 const bool& RenderObject::GetVisible() const
 {
     return m_is_visible;

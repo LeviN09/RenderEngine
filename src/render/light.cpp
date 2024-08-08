@@ -83,7 +83,7 @@ void DirectionalLight::InitShadowMap()
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    m_orthogonal_projection = glm::ortho(-m_projection_size, m_projection_size, -m_projection_size, m_projection_size, 0.1f, m_projection_size * 2.0f);
+    m_orthogonal_projection = glm::ortho(-m_projection_size, m_projection_size, -m_projection_size, m_projection_size, 0.01f, m_projection_size * 2.0f);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
@@ -93,7 +93,7 @@ void DirectionalLight::InitShadowMap()
 
 void DirectionalLight::UpdateLightProjection()
 {
-    m_light_view = glm::lookAt(20.0f * m_direction + m_position, m_position, glm::vec3(0.0f, 1.0f, 0.0f));
+    m_light_view = glm::lookAt(20.0f * m_direction + m_position, m_position, glm::vec3(0.0f, 1.0f, 0.0000001f));
     m_light_projection = m_orthogonal_projection * m_light_view;
 }
 

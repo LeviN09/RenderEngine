@@ -34,7 +34,7 @@ class CubeObject : public SceneObject
 
     private:
         glm::vec3 m_scale{ 1.0f };
-        float_t m_mass{ 1.0f };
+        float_t m_mass{ 10.0f };
 };
 
 #endif
