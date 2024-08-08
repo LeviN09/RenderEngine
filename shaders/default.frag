@@ -32,7 +32,7 @@ vec3 getDiffuse(vec3 norm, vec3 lightDir)
 {
     float diff = max(dot(norm, lightDir), 0.0f);
     float dirLightDiff = max(dot(norm, dirLightDir), 0.0f);
-    return lightIntensity * diff * lightColor + dirLightIntensity * dirLightDiff * dirLightColor;
+    return clamp(lightIntensity * diff * lightColor + dirLightIntensity * dirLightDiff * dirLightColor, 0.0f, 1.0f);
 }
 
 vec3 getSpecular(vec3 norm, vec3 lightDir)
@@ -55,7 +55,7 @@ float ShadowCalculation(vec3 norm, vec4 fragPosLightSpace)
     float closestDepth = texture(shadowTex, projCoords.xy).r; 
     float currentDepth = projCoords.z;
 
-    float bias = max(-0.05f * dot(norm, dirLightDir), 0.0f) + 0.00015f; 
+    float bias = max(-0.005f * (1.0f - dot(norm, dirLightDir)), 0.0005f); 
 
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowTex, 0);
@@ -79,7 +79,7 @@ float ShadowCalculation(vec3 norm, vec4 fragPosLightSpace)
 
 void main()
 {
-    vec3 ambient = vec3(0.1f, 0.1f, 0.1f);
+    vec3 ambient = vec3(0.2f);
 
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - worldPos);

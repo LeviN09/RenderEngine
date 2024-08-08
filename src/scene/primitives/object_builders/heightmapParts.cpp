@@ -51,13 +51,19 @@ void HeightmapRender::Init()
 
 glm::vec3 HeightmapRender::GetNormal(float_t x, float_t y)
 {
-    uint64_t corrected_res = m_resolution + 2;
-    float_t tile_size = m_scale / static_cast<float_t>(corrected_res);
+    float_t epsilon = 0.0001f;
 
-    glm::vec3 vert_diff = glm::normalize(glm::vec3(-tile_size * 2.0f, m_sampler(x - tile_size, y) - m_sampler(x + tile_size, y), 0.0f));
-    glm::vec3 hori_diff = glm::normalize(glm::vec3(0.0f, m_sampler(x, y - tile_size) - m_sampler(x, y + tile_size), -tile_size * 2.0f));
+    float_t h0 = m_sampler(x - epsilon, y - epsilon);
+    float_t h1 = m_sampler(x + epsilon, y - epsilon);
+    float_t h2 = m_sampler(x - epsilon, y + epsilon);
+    float_t h3 = m_sampler(x + epsilon, y + epsilon);
 
-    return glm::normalize(glm::cross(hori_diff, vert_diff));
+    float_t dhdx = (h1 - h0) / (epsilon * 2.0f);
+    float_t dhdy = (h2 - h0) / (epsilon * 2.0f);
+
+    glm::vec3 normal = glm::normalize(glm::vec3(dhdx, 1.0f, dhdy));
+
+    return normal;
 }
 
 const bool HeightmapBody::IsCollidingWith(const PhysicsObject& other) const

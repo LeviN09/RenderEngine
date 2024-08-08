@@ -34,7 +34,7 @@ void main()
     gl_Position = projection * view * model * vec4(aPos, 1.0f);
     worldPos = vec3(model * vec4(aPos, 1.0f));
     //normal = aNorm;
-    normal = mat3(transpose(inverse(model))) * aNorm;
+    normal = transpose(inverse(mat3(model))) * aNorm;
     color = aColor;
     texCoord = aTex;
 }

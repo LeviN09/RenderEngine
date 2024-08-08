@@ -40,9 +40,6 @@ void Renderer::Render(const double_t& delta_time)
 
     light->RenderShadowMap();
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-
     for (const auto& obj : m_objects)
     {
         if (!obj->GetVisible())
@@ -50,23 +47,8 @@ void Renderer::Render(const double_t& delta_time)
             continue;
         }
 
-        if (obj->IsConcave())
-        {
-            glCullFace(GL_BACK);
-            glDisable(GL_CULL_FACE);
-        }
-
         obj->Render(delta_time, 90.0f, 0.1f, 500.0f, light->GetShadowShader());
-
-        if (obj->IsConcave())
-        {
-            glEnable(GL_CULL_FACE);
-            glCullFace(GL_FRONT);
-        }
     }
-
-    glCullFace(GL_BACK);
-    glDisable(GL_CULL_FACE);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, m_width, m_height);

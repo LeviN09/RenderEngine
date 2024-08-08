@@ -93,7 +93,7 @@ int main()
     Renderer renderer(*window, width, height);
     renderer.AddCurrCamera("cam1");
     renderer.AddLight(std::make_shared<DirectionalLight>("dirLight", glm::vec3(1.0f), glm::vec3(0.7f, 0.9f, 1.0f), 1.0f));
-    renderer.AddLight(std::make_shared<PointLight>("pointLight", glm::vec3(-15.0f, 15.0f, 15.0f), glm::vec3(1.0f, 1.0f, 0.0f), 1.0f));
+    //renderer.AddLight(std::make_shared<PointLight>("pointLight", glm::vec3(-15.0f, 15.0f, 15.0f), glm::vec3(1.0f, 1.0f, 0.0f), 1.0f));
 
     PhysicsEngine engine;
 
@@ -228,7 +228,7 @@ int main()
         planey.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         //brick2.Rotate(glm::radians(1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         //brick2.Translate(glm::vec3(0.0f, -0.001f, 0.0f));
-        //map1.Rotate(glm::radians(0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
+        map1.Rotate(glm::radians(0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
         //dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->Rotate(glm::radians(0.1f), glm::vec3(1.0f, 0.0f, -1.0f));
         dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->SetPosition(renderer.GetCurrCam().GetPosition());
