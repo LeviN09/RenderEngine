@@ -15,16 +15,16 @@ void HeightmapRender::Init()
 
     float_t percent = 1.0f / static_cast<float_t>(corrected_res);
 
-    auto to_tile = [&](uint64_t var){ return static_cast<float_t>(var) * tile_size; };
+    auto to_tile = [&](uint64_t var){ return static_cast<float_t>(var) * tile_size - displacement; };
 
     for (uint64_t i = 0; i < corrected_res; ++i)
     {
         for (uint64_t j = 0; j < corrected_res; ++j)
         {
-            glm::vec3 top_l{to_tile(i    ) - displacement, m_sampler(to_tile(i    ) - displacement, to_tile(j    ) - displacement), to_tile(j    ) - displacement};
-            glm::vec3 bot_l{to_tile(i    ) - displacement, m_sampler(to_tile(i    ) - displacement, to_tile(j + 1) - displacement), to_tile(j + 1) - displacement};
-            glm::vec3 top_r{to_tile(i + 1) - displacement, m_sampler(to_tile(i + 1) - displacement, to_tile(j    ) - displacement), to_tile(j    ) - displacement};
-            glm::vec3 bot_r{to_tile(i + 1) - displacement, m_sampler(to_tile(i + 1) - displacement, to_tile(j + 1) - displacement), to_tile(j + 1) - displacement};
+            glm::vec3 top_l{to_tile(i    ), m_sampler(to_tile(i    ), to_tile(j    )), to_tile(j    )};
+            glm::vec3 bot_l{to_tile(i    ), m_sampler(to_tile(i    ), to_tile(j + 1)), to_tile(j + 1)};
+            glm::vec3 top_r{to_tile(i + 1), m_sampler(to_tile(i + 1), to_tile(j    )), to_tile(j    )};
+            glm::vec3 bot_r{to_tile(i + 1), m_sampler(to_tile(i + 1), to_tile(j + 1)), to_tile(j + 1)};
 
             glm::vec3 top_l_norm = GetNormal(to_tile(i    ), to_tile(j    ));
             glm::vec3 bot_l_norm = GetNormal(to_tile(i    ), to_tile(j + 1));
@@ -61,7 +61,7 @@ glm::vec3 HeightmapRender::GetNormal(float_t x, float_t y)
     float_t dhdx = (h1 - h0) / (epsilon * 2.0f);
     float_t dhdy = (h2 - h0) / (epsilon * 2.0f);
 
-    glm::vec3 normal = glm::normalize(glm::vec3(dhdx, 1.0f, dhdy));
+    glm::vec3 normal = glm::normalize(glm::vec3(-dhdx, 1.0f, -dhdy));
 
     return normal;
 }

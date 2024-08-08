@@ -164,6 +164,7 @@ int main()
 
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
+        //return -(i * i + j * j) / 20.0f;
         //return tan(static_cast<float_t>(i) / j);
         return (sin(i / 1.0f) + cos(j / 1.0f)) / 1.0f;
         //return ((i - 6) * (i - 6) + (j - 6) * (j - 6)) / 10.0f;
