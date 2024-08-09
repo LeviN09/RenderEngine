@@ -1,5 +1,4 @@
-#ifndef ITAGGEDOBJECTMANAGER_CLASS_HPP
-#define ITAGGEDOBJECTMANAGER_CLASS_HPP
+#pragma once
 
 #include <optional>
 
@@ -10,5 +9,3 @@ class ITaggedObjectManager
     public:
         virtual std::optional<std::reference_wrapper<IdTag>> SearchObject(const std::string& uid) const = 0;
 };
-
-#endif

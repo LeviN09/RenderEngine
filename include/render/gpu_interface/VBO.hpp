@@ -1,5 +1,4 @@
-#ifndef VBO_CLASS_HPP
-#define VBO_CLASS_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -19,6 +18,3 @@ class VBO
     private:
         GLuint m_id;
 };
-
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef EBO_CLASS_HPP
-#define EBO_CLASS_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -19,5 +18,3 @@ class EBO
     private:
         GLuint m_id;
 };
-
-#endif

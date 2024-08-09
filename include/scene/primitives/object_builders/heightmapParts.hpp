@@ -1,5 +1,4 @@
-#ifndef HEIGHTMAPPARTS_CLASS_HPP
-#define HEIGHTMAPPARTS_CLASS_HPP
+#pragma once
 
 #include <cmath>
 #include <cstdint>
@@ -51,5 +50,3 @@ class HeightmapBody : public PhysicsObject
         float_t m_scale;
         std::function<float_t(uint64_t, uint64_t)> m_sampler;
 };
-
-#endif

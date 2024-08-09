@@ -1,5 +1,4 @@
-#ifndef PLANEPARTS_CLASS_HPP
-#define PLANEPARTS_CLASS_HPP
+#pragma once
 
 #include <cmath>
 
@@ -42,5 +41,3 @@ class PlaneBody : public PhysicsObject
     private:
         float_t m_scale;
 };
-
-#endif

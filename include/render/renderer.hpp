@@ -1,5 +1,4 @@
-#ifndef RENDERER_CLASS_HPP
-#define RENDERER_CLASS_HPP
+#pragma once
 
 #include <cstdint>
 #include <memory>
@@ -66,5 +65,3 @@ T& Renderer::GetObject(const std::string& uid)
     }
     throw std::runtime_error("Item [" + uid + "] not found");
 }
-
-#endif

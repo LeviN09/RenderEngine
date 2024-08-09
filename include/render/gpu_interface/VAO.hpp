@@ -1,5 +1,4 @@
-#ifndef VAO_CLASS_HPP
-#define VAO_CLASS_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -26,5 +25,3 @@ class VAO
         GLuint m_id;
 
 };
-
-#endif

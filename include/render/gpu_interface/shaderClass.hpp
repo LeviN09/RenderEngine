@@ -1,5 +1,4 @@
-#ifndef SHADER_CLASS_HPP
-#define SHADER_CLASS_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -61,5 +60,3 @@ class Shader
         const ShaderType m_type;
 
 };
-
-#endif

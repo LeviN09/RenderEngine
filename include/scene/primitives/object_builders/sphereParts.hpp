@@ -1,5 +1,4 @@
-#ifndef SPHEREPARTS_CLASS_HPP
-#define SPHEREPARTS_CLASS_HPP
+#pragma once
 
 #include <glm/matrix.hpp>
 
@@ -49,5 +48,3 @@ class SphereBody : public PhysicsObject
     private:
         float_t m_radius;
 };
-
-#endif

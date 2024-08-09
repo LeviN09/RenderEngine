@@ -1,5 +1,4 @@
-#ifndef HEIGHTMAP_CLASS_HPP
-#define HEIGHTMAP_CLASS_HPP
+#pragma once
 
 #include "scene/sceneObject.hpp"
 #include <cmath>
@@ -26,5 +25,3 @@ class HeightmapObject : public SceneObject
         uint64_t m_resolution{ 0 };
         std::function<float_t(float_t, float_t)> m_sampler;
 };
-
-#endif

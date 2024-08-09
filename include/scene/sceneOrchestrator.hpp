@@ -1,5 +1,4 @@
-#ifndef SCENEORCHESTRATOR_CLASS_HPP
-#define SCENEORCHESTRATOR_CLASS_HPP
+#pragma once
 
 #include <memory>
 #include <unordered_set>
@@ -23,5 +22,3 @@ class SceneOrchestrator
 
         std::unordered_set<std::unique_ptr<SceneObject>> m_objects;
 };
-
-#endif

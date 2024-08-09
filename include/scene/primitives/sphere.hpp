@@ -1,5 +1,4 @@
-#ifndef SPHERE_CLASS_HPP
-#define SPHERE_CLASS_HPP
+#pragma once
 
 #include <glm/ext/matrix_float4x4.hpp>
 
@@ -34,5 +33,3 @@ class SphereObject : public SceneObject
 
         static const uint64_t s_scale_ratio{ 10 }, s_min_detail{ 8 }, s_max_detail{ 100 };
 };
-
-#endif

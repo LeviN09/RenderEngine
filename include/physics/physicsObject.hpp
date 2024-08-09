@@ -1,5 +1,4 @@
-#ifndef PHYSICS_OBJECT_HPP
-#define PHYSICS_OBJECT_HPP
+#pragma once
 
 #include <cmath>
 #include <glm/ext/matrix_float4x4.hpp>
@@ -82,5 +81,3 @@ class PhysicsObject : public IdTag
         bool m_has_collision{ true }, m_has_gravity{ false }, m_has_universal_gravity{ true }, m_has_normal_force{ true };
         bool m_is_colliding;
 };
-
-#endif

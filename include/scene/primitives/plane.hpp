@@ -1,5 +1,4 @@
-#ifndef PLANE_CLASS_HPP
-#define PLANE_CLASS_HPP
+#pragma once
 
 #include "render/gpu_interface/shaderClass.hpp"
 #include "render/renderer.hpp"
@@ -23,5 +22,3 @@ class PlaneObject : public SceneObject
     private:
         float_t m_scale{ 1.0f };
 };
-
-#endif

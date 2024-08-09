@@ -1,5 +1,4 @@
-#ifndef RENDEROBJECT_CLASS_HPP
-#define RENDEROBJECT_CLASS_HPP
+#pragma once
 
 #include <GL/glew.h>
 #include <glm/ext/matrix_float4x4.hpp>
@@ -142,5 +141,3 @@ class RenderObject : public IdTag
         void ConfigureVBO();
         void ConfigureEBO();
 };
-
-#endif

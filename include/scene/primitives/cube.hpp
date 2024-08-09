@@ -1,5 +1,4 @@
-#ifndef CUBE_CLASS_HPP
-#define CUBE_CLASS_HPP
+#pragma once
 
 #include <cmath>
 
@@ -36,5 +35,3 @@ class CubeObject : public SceneObject
         glm::vec3 m_scale{ 1.0f };
         float_t m_mass{ 10.0f };
 };
-
-#endif

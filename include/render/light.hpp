@@ -1,5 +1,4 @@
-#ifndef LIGHT_CLASS_HPP
-#define LIGHT_CLASS_HPP
+#pragma once
 
 #include <glm/ext/vector_float3.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -74,5 +73,3 @@ class PointLight : public Light
     
         void ExportLight(Shader& shader) override;
 };
-
-#endif

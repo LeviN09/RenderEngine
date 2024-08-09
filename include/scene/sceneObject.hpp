@@ -1,5 +1,4 @@
-#ifndef SCENEOBJECT_CLASS_HPP
-#define SCENEOBJECT_CLASS_HPP
+#pragma once
 
 #include <cmath>
 #include <glm/ext/matrix_float4x4.hpp>
@@ -50,5 +49,3 @@ class SceneObject : public IdTag
         Renderer& m_renderer;
         PhysicsEngine& m_physics_engine;
 };
-
-#endif

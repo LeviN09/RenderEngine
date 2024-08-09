@@ -1,5 +1,4 @@
-#ifndef TEXTURE_CLASS_H
-#define TEXTURE_CLASS_H
+#pragma once
 
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -27,4 +26,3 @@ class Texture
 		GLenum m_type;
 		GLenum m_slot;
 };
-#endif

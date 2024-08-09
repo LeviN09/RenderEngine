@@ -1,5 +1,4 @@
-#ifndef CUBEPARTS_CLASS_HPP
-#define CUBEPARTS_CLASS_HPP
+#pragma once
 
 #include <cmath>
 #include <cstdint>
@@ -55,5 +54,3 @@ class CubeBody : public PhysicsObject
         glm::vec3 m_scale;
         glm::vec3 m_half_extent{ m_scale / 2.0f };
 };
-
-#endif

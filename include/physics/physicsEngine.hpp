@@ -1,5 +1,4 @@
-#ifndef PHYSICS_ENGINE_HPP
-#define PHYSICS_ENGINE_HPP
+#pragma once
 
 #include <functional>
 #include <glm/ext/vector_float3.hpp>
@@ -47,5 +46,3 @@ T& PhysicsEngine::GetObject(const std::string& uid)
     }
     throw std::runtime_error("Item [" + uid + "] not found");
 }
-
-#endif

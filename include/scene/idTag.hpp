@@ -1,5 +1,4 @@
-#ifndef IDTAG_CLASS_HPP
-#define IDTAG_CLASS_HPP
+#pragma once
 
 #include <string>
 #include <unordered_set>
@@ -26,5 +25,3 @@ class IdTag
 
         static std::unordered_set<std::string> s_used_ids;
 };
-
-#endif

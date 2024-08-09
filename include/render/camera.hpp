@@ -1,5 +1,4 @@
-#ifndef CAMERA_CLASS_HPP
-#define CAMERA_CLASS_HPP
+#pragma once
 
 #define GLM_ENABLE_EXPERIMENTAL
 
@@ -49,4 +48,3 @@ class Camera : public IdTag
 	    float_t m_speed{ 0.1f };
 	    float_t m_sensitivity{ 100.0f };
 };
-#endif
