@@ -14,6 +14,7 @@
 #include <glm/trigonometric.hpp>
 #include <memory>
 #include <string>
+#include <unistd.h>
 
 #include "physics/physicsEngine.hpp"
 #include "render/gpu_interface/shaderClass.hpp"
@@ -21,6 +22,7 @@
 #include "render/light.hpp"
 #include "render/renderer.hpp"
 #include "scene/generators/heightmapGenerator.hpp"
+#include "scene/generators/perlinNoiseGenerator.hpp"
 #include "scene/primitives/cube.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
 #include "scene/primitives/object_builders/planeParts.hpp"
@@ -163,19 +165,22 @@ int main()
     ground1.AddRenderObject();
     ground1.AddPhysicsObject();
 
+    PerlinNoise perlin(1001);
+
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
+        return 10 * perlin.ocataveNoise(i / 100.0f, j / 100.0f, 8, 0.6f);
         //return 1 / i + 1 / j;
         //return -(i * i + j * j) / 20.0f;
         //return tan(static_cast<float_t>(i) / j);
-        return (j*sin(i / 1.0f) + i*cos(j / 1.0f)) / 100.0f;
+        //return (j*sin(i / 1.0f) + i*cos(j / 1.0f)) / 100.0f;
         //return ((i - 6) * (i - 6) + (j - 6) * (j - 6)) / 10.0f;
     };
 
     HeightmapObject map1(renderer, engine, "map1", glm::vec3(-10.0f, -5.0f, 10.0f), 20.0f, 50, test_map);
     map1.AddRenderObject(ShaderType::Cellshade);
 
-    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(3));
+    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(4));
 
     engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
     engine.GetObject<CubeBody>("p_ground1").SetNormalForce(false);

@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "scene/generators/heightmapGenerator.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "scene/primitives/heightmap.hpp"
 
 void HeightmapGenerator::AllGen()
@@ -95,7 +96,7 @@ void HeightmapGenerator::Update()
                         glm::vec3(tile_pos.x, 0.0f, tile_pos.y),
                         m_tile_size, m_resolution, m_sampler,
                         glm::vec2(tile_pos.x, tile_pos.y)), tile_coord});
-                    m_objects.back().object->AddRenderObject();
+                    m_objects.back().object->AddRenderObject(ShaderType::Cellshade);
                 }
             }
         }
