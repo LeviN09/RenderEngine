@@ -78,7 +78,7 @@ void Renderer::Update(const double_t& delta_time, const double_t& xpos, const do
 
 void Renderer::AddCurrCamera(const std::string& uid)
 {
-    m_cameras.push_back(std::make_shared<Camera>(uid, m_width, m_height, glm::vec3(0.0f, 0.0f, 20.0f)));
+    m_cameras.push_back(std::make_shared<Camera>(uid, m_width, m_height, glm::vec3(0.0f, 0.0f, 10.0f)));
     m_curr_cam = m_cameras.back();
 }
 
@@ -125,6 +125,18 @@ void Renderer::AddObject(std::unique_ptr<RenderObject> object, const ShaderType&
 void Renderer::AddObject(std::unique_ptr<RenderObject> object)
 {
     AddObject(std::move(object), ShaderType::Default);
+}
+
+void Renderer::RemoveObject(const std::string& uid)
+{
+    const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<RenderObject>& item){ return item->GetUid() == uid; });
+
+    if (search == m_objects.end())
+    {
+        return;
+    }
+
+    m_objects.erase(search);
 }
 
 void Renderer::SetCurrCam(const std::shared_ptr<Camera>& cam)

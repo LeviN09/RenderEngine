@@ -20,6 +20,7 @@
 #include "render/gpu_interface/texture.hpp"
 #include "render/light.hpp"
 #include "render/renderer.hpp"
+#include "scene/generators/heightmapGenerator.hpp"
 #include "scene/primitives/cube.hpp"
 #include "scene/primitives/object_builders/cubeParts.hpp"
 #include "scene/primitives/object_builders/planeParts.hpp"
@@ -164,14 +165,17 @@ int main()
 
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
+        //return 1 / i + 1 / j;
         //return -(i * i + j * j) / 20.0f;
         //return tan(static_cast<float_t>(i) / j);
-        return (sin(i / 1.0f) + cos(j / 1.0f)) / 1.0f;
+        return (j*sin(i / 1.0f) + i*cos(j / 1.0f)) / 100.0f;
         //return ((i - 6) * (i - 6) + (j - 6) * (j - 6)) / 10.0f;
     };
 
-    HeightmapObject map1(renderer, engine, "map1", glm::vec3(- 10.0f, -5.0f, 10.0f), 20.0f, 50, test_map);
-    map1.AddRenderObject();
+    HeightmapObject map1(renderer, engine, "map1", glm::vec3(-10.0f, -5.0f, 10.0f), 20.0f, 50, test_map);
+    map1.AddRenderObject(ShaderType::Cellshade);
+
+    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(3));
 
     engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
     engine.GetObject<CubeBody>("p_ground1").SetNormalForce(false);
@@ -187,6 +191,8 @@ int main()
     float_t accumulator{ 0.0f };
     float_t lastTimeFloat{ 0.0f };
     float_t fixedDeltaTime = 1.0f / 60.0f;
+    float_t secondFDT{ 1.0f };
+    float_t secondAcc{ 0.0f };
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
@@ -209,6 +215,7 @@ int main()
         }
 
         accumulator += lastTimeFloat;
+        secondAcc += lastTimeFloat;
 
         time = glfwGetTime();
 
@@ -217,10 +224,16 @@ int main()
 
         glfwGetWindowSize(window, &width, &height);
 
-        while (accumulator >= fixedDeltaTime)
+        if (accumulator >= fixedDeltaTime)
         {
             engine.Update(fixedDeltaTime);
             accumulator -= fixedDeltaTime;
+        }
+
+        if (secondAcc >= secondFDT)
+        {
+            gen.Update();
+            secondAcc -= secondFDT;
         }
 
         renderer.Update(time, mouse_pos_x, mouse_pos_y);

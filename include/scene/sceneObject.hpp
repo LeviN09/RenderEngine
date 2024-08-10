@@ -4,25 +4,28 @@
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/ext/vector_float3.hpp>
 
+#include "physics/physicsEngine.hpp"
 #include "render/gpu_interface/shaderClass.hpp"
+#include "render/renderer.hpp"
 #include "scene/idTag.hpp"
 
-class PhysicsEngine;
-class Renderer;
 
 class SceneObject : public IdTag
 {
     public:
-        ~SceneObject() = default;
+        ~SceneObject();
 
         virtual void AddRenderObject(const ShaderType& type) = 0;
         virtual void AddRenderObject() = 0;
         virtual void AddPhysicsObject() = 0;
+        void RemoveRenderObject();
+        void RemovePhysicsObject();
 
         const std::string& GetRenderUid() const;
         const std::string& GetPhysicsUid() const;
 
         void SetPos(const glm::vec3& pos);
+        const glm::vec3 GetPos();
         void Translate(const glm::vec3& transform);
         void Rotate(float_t rad, const glm::vec3& rotate);
         void Scale(float_t scale);

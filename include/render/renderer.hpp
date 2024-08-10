@@ -31,6 +31,7 @@ class Renderer : public ITaggedObjectManager
         void RemoveLight(const std::string& uid);
         void AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type);
         void AddObject(std::unique_ptr<RenderObject> object);
+        void RemoveObject(const std::string& uid);
         Camera& GetCurrCam() const;
         void SetCurrCam(const std::shared_ptr<Camera>& cam);
         Light& GetLight(const std::string& uid) const;

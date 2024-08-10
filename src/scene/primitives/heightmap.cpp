@@ -5,13 +5,13 @@
 
 void HeightmapObject::AddRenderObject(const ShaderType& type)
 {
-    std::unique_ptr<HeightmapRender> temp = std::make_unique<HeightmapRender>(m_render_uid, m_model_mat, m_scale, m_resolution, m_sampler);
+    std::unique_ptr<HeightmapRender> temp = std::make_unique<HeightmapRender>(m_render_uid, m_model_mat, m_scale, m_resolution, m_displacement, m_sampler, true);
     m_renderer.AddObject(std::move(temp), type);
 }
 
 void HeightmapObject::AddRenderObject()
 {
-    std::unique_ptr<HeightmapRender> temp = std::make_unique<HeightmapRender>(m_render_uid, m_model_mat, m_scale, m_resolution, m_sampler);
+    std::unique_ptr<HeightmapRender> temp = std::make_unique<HeightmapRender>(m_render_uid, m_model_mat, m_scale, m_resolution, m_displacement, m_sampler, true);
     m_renderer.AddObject(std::move(temp));
 }
 

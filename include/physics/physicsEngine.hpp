@@ -20,6 +20,7 @@ class PhysicsEngine : public ITaggedObjectManager
         T& GetObject(const std::string& uid);
 
         void AddObject(std::unique_ptr<PhysicsObject> object);
+        void RemoveObject(const std::string& uid);
         void Update(const double_t& delta_time);
 
     private:
