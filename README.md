@@ -4,6 +4,7 @@ Small render engine written with OpenGL. Basic shapes, textures, lighting, physi
 
 ![Screenshot of the engine](https://github.com/LeviN09/RenderEngine/blob/main/readme/s2.png)
 ![Screenshot of the engine](https://github.com/LeviN09/RenderEngine/blob/main/readme/s3.png)
+![Screenshot of the engine](https://github.com/LeviN09/RenderEngine/blob/main/readme/s4.png)
 
 # Requirements
 
