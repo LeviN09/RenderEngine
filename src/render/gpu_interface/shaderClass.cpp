@@ -68,7 +68,11 @@ Shader::Shader(const ShaderType type): m_type(type)
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+}
 
+Shader::~Shader()
+{
+	Delete();
 }
 
 const GLuint Shader::GetID() const

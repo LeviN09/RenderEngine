@@ -12,7 +12,6 @@ class PlaneRender : public RenderObject
             RenderObject(uid, model_mat), m_scale{ scale }
         {
             Init();
-            Configure();
         }
 
         void Init() override;

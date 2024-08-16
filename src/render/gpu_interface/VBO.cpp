@@ -7,6 +7,11 @@ VBO::VBO(GLfloat* vertices, GLsizeiptr size)
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
+VBO::~VBO()
+{
+	Delete();
+}
+
 GLuint VBO::GetID() const
 {
 	return m_id;

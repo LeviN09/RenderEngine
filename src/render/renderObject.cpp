@@ -56,6 +56,11 @@ void RenderObject::Render(const double_t& delta_time, const float_t& fov, const 
     Render(delta_time, fov, near, far, *m_shader.get());
 }
 
+const glm::vec3 RenderObject::GetPos()
+{
+    return glm::vec3(m_model_mat[3][0], m_model_mat[3][1], m_model_mat[3][2]);;
+}
+
 void RenderObject::ConfigureVBO()
 {
     GLfloat* tvbo = &m_vertices[0];
@@ -102,17 +107,31 @@ void RenderObject::RemoveLight(const std::shared_ptr<Light>& light)
     std::erase(m_lights, light);
 }
 
-void RenderObject::AddShader(const ShaderType& type)
+void RenderObject::SetShaderType(const ShaderType& type)
 {
-    m_shader = std::make_unique<Shader>(type);
+    m_shader_type = type;
+}
+
+void RenderObject::AddShader()
+{
+    m_shader = std::make_unique<Shader>(m_shader_type);
 }
 
 void RenderObject::AddTexture(std::unique_ptr<Texture> texture, const std::string& texUni)
 {
-    m_vao->Bind();
     m_has_color_texture = true;
     m_textures.push_back(std::make_tuple(std::move(texture), texUni));
-    texture->TexUnit(*m_shader, texUni.c_str(), 0);
+}
+
+void RenderObject::ApplyTexture()
+{
+    if (!m_has_color_texture || m_textures.empty())
+    {
+        return;
+    }
+
+    m_vao->Bind();
+    get<0>(m_textures.back())->TexUnit(*m_shader, get<1>(m_textures.back()).c_str(), 0);
 }
 
 const bool& RenderObject::IsConcave() const

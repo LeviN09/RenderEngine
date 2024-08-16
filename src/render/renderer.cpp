@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "render/renderer.hpp"
+#include "render/gpu_interface/shaderClass.hpp"
 #include "render/light.hpp"
 #include "render/renderObject.hpp"
 #include "scene/idTag.hpp"
@@ -40,6 +41,7 @@ void Renderer::Render(const double_t& delta_time)
 
     light->RenderShadowMap();
 
+    m_lock.lock();
     for (const auto& obj : m_objects)
     {
         if (!obj->GetVisible())
@@ -63,17 +65,47 @@ void Renderer::Render(const double_t& delta_time)
         }
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, light->GetShadowMap());
-        obj->Render(delta_time, 90.0f, 0.1f, 500.0f);
+        obj->Render(delta_time, 90.0f, 0.1f, 1000.0f);
     }
+    m_lock.unlock();
 }
 
 void Renderer::Update(const double_t& delta_time, const double_t& xpos, const double_t& ypos)
 {
     m_curr_cam->Inputs(m_window, xpos, ypos);
+    m_lock.lock();
     for (const auto& obj : m_objects)
     {
         obj->Update(delta_time);
     }
+    m_lock.unlock();
+}
+
+void Renderer::UpdateQueues()
+{
+    m_queue_lock.lock();
+    if (!m_object_queue.empty())
+    {
+        m_lock.lock();
+        ConfigureObject(m_object_queue.front());
+        m_objects.push_back(std::move(m_object_queue.front()));
+        m_object_queue.pop();
+        m_lock.unlock();
+    }
+
+    if (!m_to_remove_queue.empty())
+    {
+        m_lock.lock();
+        const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<RenderObject>& item){ return item->GetUid() == m_to_remove_queue.front(); });
+
+        if (search != m_objects.end())
+        {
+            m_objects.erase(search);
+        }
+        m_to_remove_queue.pop();
+        m_lock.unlock();
+    }
+    m_queue_lock.unlock(); 
 }
 
 void Renderer::AddCurrCamera(const std::string& uid)
@@ -109,17 +141,25 @@ void Renderer::DeleteCamera(const std::string& uid)
     std::erase_if(m_cameras, [&](std::shared_ptr<Camera>& item){ return item->GetUid() == uid; });
 }
 
-void Renderer::AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type)
+void Renderer::ConfigureObject(const std::unique_ptr<RenderObject>& object)
 {
-    object->AddShader(type);
+    object->Configure();
+    object->AddShader();
+    object->ApplyTexture();
     object->SetCamera(m_curr_cam);
 
     for (const auto& light : m_lights)
     {
         object->AddLight(light);
     }
+}
 
-    m_objects.push_back(std::move(object));
+void Renderer::AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type)
+{
+    m_queue_lock.lock();
+    object->SetShaderType(type);
+    m_object_queue.push(std::move(object));
+    m_queue_lock.unlock();
 }
 
 void Renderer::AddObject(std::unique_ptr<RenderObject> object)
@@ -129,34 +169,33 @@ void Renderer::AddObject(std::unique_ptr<RenderObject> object)
 
 void Renderer::RemoveObject(const std::string& uid)
 {
-    const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<RenderObject>& item){ return item->GetUid() == uid; });
-
-    if (search == m_objects.end())
-    {
-        return;
-    }
-
-    m_objects.erase(search);
+    m_queue_lock.lock();
+    m_to_remove_queue.push(uid);
+    m_queue_lock.unlock();
 }
 
 void Renderer::SetCurrCam(const std::shared_ptr<Camera>& cam)
 {
     m_curr_cam = cam;
 
+    m_lock.lock();
     for (auto& obj : m_objects)
     {
         obj->SetCamera(m_curr_cam);
     }
+    m_lock.unlock();
 }
 
 void Renderer::AddLight(const std::shared_ptr<Light>& light)
 {
     m_lights.push_back(light);
 
+    m_lock.lock();
     for (const auto& obj : m_objects)
     {
         obj->AddLight(m_lights.back());
     }
+    m_lock.unlock();
 }
 
 void Renderer::RemoveLight(const std::string& uid)
@@ -168,10 +207,12 @@ void Renderer::RemoveLight(const std::string& uid)
         return;
     }
 
+    m_lock.lock();
     for (const auto& obj : m_objects)
     {
         obj->RemoveLight(*search);
     }
+    m_lock.unlock();
 
     m_lights.erase(search);
 }

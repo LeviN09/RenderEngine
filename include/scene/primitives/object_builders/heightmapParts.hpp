@@ -14,13 +14,11 @@ class HeightmapRender : public RenderObject
             RenderObject(uid, model_mat), m_scale{ scale }, m_resolution{ resolution }, m_displacement{ displacement }, m_sampler{ sampler }, m_is_shared{ is_shared }
         {
             Init();
-            Configure();
         }
         HeightmapRender(const std::string& uid, const glm::mat4& model_mat, const float_t& scale, const uint64_t& resolution, const std::function<float_t(float_t, float_t)>& sampler, bool is_shared):
             RenderObject(uid, model_mat), m_scale{ scale }, m_resolution{ resolution }, m_sampler{ sampler }, m_is_shared{ is_shared }
         {
             Init();
-            Configure();
         }
 
         void Init() override;

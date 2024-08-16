@@ -48,6 +48,7 @@ class Shader
 {
     public:
         Shader(const ShaderType type);
+        ~Shader();
 
         const GLuint GetID() const;
         const ShaderType GetType() const;

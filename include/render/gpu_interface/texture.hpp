@@ -11,6 +11,7 @@ class Texture
 {
 	public:
 		Texture(const std::string& image, GLenum tex_type, GLenum slot, GLenum format, GLenum pixel_type);
+		~Texture();
 
 		const GLuint& GetID() const;
 		const GLenum& GetType() const;

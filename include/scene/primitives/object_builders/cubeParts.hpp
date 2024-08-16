@@ -15,7 +15,6 @@ class CubeRender : public RenderObject
             RenderObject(uid, model_mat), m_scale{ scale }, m_is_shared{ is_shared }
         {
             Init();
-            Configure();
         }
 
     private:

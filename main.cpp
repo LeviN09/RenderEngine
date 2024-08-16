@@ -169,7 +169,8 @@ int main()
 
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
-        return 10 * perlin.ocataveNoise(i / 100.0f, j / 100.0f, 8, 0.6f);
+        return 100 * perlin.ocataveNoise(i / 500.0f, j / 500.0f, 8, 0.5f) - 50.0f;
+        //return 10 * perlin.ocataveNoise(i / 100.0f, j / 100.0f, 8, 0.55f);
         //return 1 / i + 1 / j;
         //return -(i * i + j * j) / 20.0f;
         //return tan(static_cast<float_t>(i) / j);
@@ -180,7 +181,7 @@ int main()
     HeightmapObject map1(renderer, engine, "map1", glm::vec3(-10.0f, -5.0f, 10.0f), 20.0f, 50, test_map);
     map1.AddRenderObject(ShaderType::Cellshade);
 
-    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(4));
+    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(5));
 
     engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
     engine.GetObject<CubeBody>("p_ground1").SetNormalForce(false);
@@ -196,8 +197,6 @@ int main()
     float_t accumulator{ 0.0f };
     float_t lastTimeFloat{ 0.0f };
     float_t fixedDeltaTime = 1.0f / 60.0f;
-    float_t secondFDT{ 1.0f };
-    float_t secondAcc{ 0.0f };
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
@@ -206,6 +205,7 @@ int main()
     glPolygonOffset(1.0f, 1.0f);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+    gen.StartUpdate();
     while (!glfwWindowShouldClose(window))
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
@@ -220,7 +220,6 @@ int main()
         }
 
         accumulator += lastTimeFloat;
-        secondAcc += lastTimeFloat;
 
         time = glfwGetTime();
 
@@ -235,12 +234,6 @@ int main()
             accumulator -= fixedDeltaTime;
         }
 
-        if (secondAcc >= secondFDT)
-        {
-            gen.Update();
-            secondAcc -= secondFDT;
-        }
-
         renderer.Update(time, mouse_pos_x, mouse_pos_y);
         
         cubey1.Rotate(glm::radians(1.0f), glm::vec3(1.0f, 1.0f, -1.0f));
@@ -252,6 +245,7 @@ int main()
         //dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->Rotate(glm::radians(0.1f), glm::vec3(1.0f, 0.0f, -1.0f));
         dynamic_cast<DirectionalLight*>(&renderer.GetLight("dirLight"))->SetPosition(renderer.GetCurrCam().GetPosition());
 
+        renderer.UpdateQueues();
         renderer.Render(time);
 
         glfwSwapBuffers(window);
@@ -270,6 +264,7 @@ int main()
             fpsLastUpdate = currentTime;
         }
     }
+    gen.EndUpdate();
 
     glfwDestroyWindow(window);
     glfwTerminate();

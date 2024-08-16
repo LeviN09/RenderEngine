@@ -12,7 +12,6 @@ class SphereRender : public RenderObject
             RenderObject(uid, model_mat), m_radius{ radius }, m_rows{ rows }, m_cols{ cols }
         {
             Init();
-            Configure();
         }
 
     protected:

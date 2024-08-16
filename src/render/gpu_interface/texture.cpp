@@ -27,6 +27,11 @@ Texture::Texture(const std::string& image, GLenum tex_type, GLenum slot, GLenum 
 	glBindTexture(tex_type, 0);
 }
 
+Texture::~Texture()
+{
+	Delete();
+}
+
 const GLuint& Texture::GetID() const
 {
 	return m_id;

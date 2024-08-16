@@ -5,6 +5,11 @@ VAO::VAO()
 	glGenVertexArrays(1, &m_id);
 }
 
+VAO::~VAO()
+{
+	Delete();
+}
+
 GLuint VAO::GetID() const
 {
 	return m_id;

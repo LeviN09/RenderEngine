@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mutex>
 #include <string>
 #include <unordered_set>
 
@@ -24,4 +25,5 @@ class IdTag
         static void RemoveId(const std::string& uid);
 
         static std::unordered_set<std::string> s_used_ids;
+        static std::mutex s_uid_lock;
 };

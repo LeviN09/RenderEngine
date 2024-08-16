@@ -7,6 +7,11 @@ EBO::EBO(GLuint* indices, GLsizeiptr size)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
+EBO::~EBO()
+{
+	Delete();
+}
+
 GLuint EBO::GetID() const
 {
 	return m_id;

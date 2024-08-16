@@ -8,6 +8,7 @@ class VBO
 {
     public:
         VBO(GLfloat* vertices, GLsizeiptr size);
+        ~VBO();
 
         void Bind();
         void Unbind();

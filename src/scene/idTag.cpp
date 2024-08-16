@@ -1,10 +1,13 @@
 #include <chrono>
+#include <iostream>
+#include <mutex>
 #include <sstream>
 #include <stdexcept>
 
 #include "scene/idTag.hpp"
 
 std::unordered_set<std::string> IdTag::s_used_ids;
+std::mutex IdTag::s_uid_lock;
 
 IdTag::IdTag()
 {
@@ -50,15 +53,22 @@ void IdTag::GenerateNewUid()
 
 bool IdTag::IsUidTaken(const std::string &uid)
 {
-    return s_used_ids.contains(uid);
+    s_uid_lock.lock();
+    bool contains = s_used_ids.contains(uid);
+    s_uid_lock.unlock();
+    return contains;
 }
 
 void IdTag::AddId(const std::string& uid)
 {
+    s_uid_lock.lock();
     s_used_ids.insert(uid);
+    s_uid_lock.unlock();
 }
 
 void IdTag::RemoveId(const std::string& uid)
 {
+    s_uid_lock.lock();
     s_used_ids.erase(uid);
+    s_uid_lock.unlock();
 }

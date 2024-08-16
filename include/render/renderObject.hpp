@@ -99,12 +99,15 @@ class RenderObject : public IdTag
         const VBO& GetVBO();
 
         void Configure();
-        void AddShader(const ShaderType& type);
+        void SetShaderType(const ShaderType& type);
+        void AddShader();
         void SetCamera(const std::shared_ptr<Camera>& camera);
         void AddLight(const std::shared_ptr<Light>& light);
         void RemoveLight(const std::shared_ptr<Light>& light);
         void AddTexture(std::unique_ptr<Texture> texture, const std::string& tex_uni);
+        void ApplyTexture();
 
+        const glm::vec3 GetPos();
         const bool& GetVisible() const;
         const bool& IsConcave() const;
         void SetVisible(const bool& is_visible);
@@ -128,6 +131,7 @@ class RenderObject : public IdTag
         std::shared_ptr<Camera> m_camera;
         std::vector<std::shared_ptr<Light>> m_lights;
         std::unique_ptr<Shader> m_shader;
+        ShaderType m_shader_type{ ShaderType::Default };
         std::vector<std::tuple<std::unique_ptr<Texture>, std::string>> m_textures;
 
         bool m_has_color{ true }, m_has_normals, m_has_color_texture{ false };
