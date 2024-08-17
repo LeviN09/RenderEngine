@@ -169,7 +169,7 @@ int main()
 
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
-        return 100 * perlin.ocataveNoise(i / 500.0f, j / 500.0f, 8, 0.5f) - 50.0f;
+        return 250 * perlin.OcataveNoise(i / 2000.0f, j / 2000.0f, 12, 0.5f) - 50.0f;
         //return 10 * perlin.ocataveNoise(i / 100.0f, j / 100.0f, 8, 0.55f);
         //return 1 / i + 1 / j;
         //return -(i * i + j * j) / 20.0f;
