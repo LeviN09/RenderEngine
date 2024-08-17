@@ -88,6 +88,11 @@ void HeightmapGenerator::Update()
                 }
                 m_lock.unlock();
 
+                if (!m_is_running)
+                {
+                    return;
+                }
+
                 if (!exists)
                 {
                     glm::vec2 tile_pos{tile_coord};
