@@ -43,10 +43,10 @@ void HeightmapRender::InitShared()
             glm::vec3 top_r_norm = GetNormal(to_tile(i + 1) + m_displacement.x, to_tile(j    ) + m_displacement.y);
             glm::vec3 bot_r_norm = GetNormal(to_tile(i + 1) + m_displacement.x, to_tile(j + 1) + m_displacement.y);
 
-            PushToVerts({top_l.x, top_l.y, top_l.z,    top_l_norm.x, top_l_norm.y, top_l_norm.z,    top_l.y / 50.0f + 0.5f, top_l.y / 50.0f - 0.3f, -top_l.y / 50.0f - 1.0f,    i       * percent, j       * percent});
-            PushToVerts({bot_l.x, bot_l.y, bot_l.z,    bot_l_norm.x, bot_l_norm.y, bot_l_norm.z,    bot_l.y / 50.0f + 0.5f, bot_l.y / 50.0f - 0.3f, -bot_l.y / 50.0f - 1.0f,    i       * percent, (j + 1) * percent});
-            PushToVerts({bot_r.x, bot_r.y, bot_r.z,    bot_r_norm.x, bot_r_norm.y, bot_r_norm.z,    bot_r.y / 50.0f + 0.5f, bot_r.y / 50.0f - 0.3f, -bot_r.y / 50.0f - 1.0f,    (i + 1) * percent, (j + 1) * percent});
-            PushToVerts({top_r.x, top_r.y, top_r.z,    top_r_norm.x, top_r_norm.y, top_r_norm.z,    top_r.y / 50.0f + 0.5f, top_r.y / 50.0f - 0.3f, -top_r.y / 50.0f - 1.0f,    (i + 1) * percent, j       * percent});
+            PushToVerts({top_l.x, top_l.y, top_l.z,    top_l_norm.x, top_l_norm.y, top_l_norm.z,    glm::clamp(top_l.y / 50.0f + 0.5f, 0.0f, 1.0f), glm::clamp(top_l.y / 50.0f + 1.3f - ((top_l.y + 50.0f)*(top_l.y + 50.0f)) / 1000.0f, 0.0f, 1.0f), glm::clamp(-top_l.y / 50.0f - 1.0f, 0.0f, 1.0f),    i       * percent, j       * percent});
+            PushToVerts({bot_l.x, bot_l.y, bot_l.z,    bot_l_norm.x, bot_l_norm.y, bot_l_norm.z,    glm::clamp(bot_l.y / 50.0f + 0.5f, 0.0f, 1.0f), glm::clamp(bot_l.y / 50.0f + 1.3f - ((bot_l.y + 50.0f)*(bot_l.y + 50.0f)) / 1000.0f, 0.0f, 1.0f), glm::clamp(-bot_l.y / 50.0f - 1.0f, 0.0f, 1.0f),    i       * percent, (j + 1) * percent});
+            PushToVerts({bot_r.x, bot_r.y, bot_r.z,    bot_r_norm.x, bot_r_norm.y, bot_r_norm.z,    glm::clamp(bot_r.y / 50.0f + 0.5f, 0.0f, 1.0f), glm::clamp(bot_r.y / 50.0f + 1.3f - ((bot_r.y + 50.0f)*(bot_r.y + 50.0f)) / 1000.0f, 0.0f, 1.0f), glm::clamp(-bot_r.y / 50.0f - 1.0f, 0.0f, 1.0f),    (i + 1) * percent, (j + 1) * percent});
+            PushToVerts({top_r.x, top_r.y, top_r.z,    top_r_norm.x, top_r_norm.y, top_r_norm.z,    glm::clamp(top_r.y / 50.0f + 0.5f, 0.0f, 1.0f), glm::clamp(top_r.y / 50.0f + 1.3f - ((top_r.y + 50.0f)*(top_r.y + 50.0f)) / 1000.0f, 0.0f, 1.0f), glm::clamp(-top_r.y / 50.0f - 1.0f, 0.0f, 1.0f),    (i + 1) * percent, j       * percent});
 
             PushToInds({verts * (i * corrected_res + j) + 0, verts * (i * corrected_res + j) + 1, verts * (i * corrected_res + j) + 2});
             PushToInds({verts * (i * corrected_res + j) + 0, verts * (i * corrected_res + j) + 2, verts * (i * corrected_res + j) + 3});
