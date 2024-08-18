@@ -24,6 +24,9 @@ class HeightmapObject : public SceneObject
         void AddRenderObject() override;
         void AddPhysicsObject() override;
 
+        uint64_t GetResolution();
+        void ChangeResolution(const uint64_t& resolution);
+
     private:
         float_t m_scale{ 1.0f };
         uint64_t m_resolution{ 0 };
