@@ -74,6 +74,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, 1);
 
     GLFWwindow* window = glfwCreateWindow(width, height, "Engine", NULL, NULL);
 
@@ -166,11 +167,12 @@ int main()
     ground1.AddPhysicsObject();
 
     PerlinNoise perlin(1001);
+    //PerlinNoise perlin(0);
 
     std::function<float_t(float_t, float_t)> test_map = [&](float_t i, float_t j)
     {
         return 250 * perlin.OcataveNoise(i / 2000.0f, j / 2000.0f, 12, 0.5f) - 50.0f;
-        //return 10 * perlin.ocataveNoise(i / 100.0f, j / 100.0f, 8, 0.55f);
+        //return 10 * perlin.OcataveNoise(i / 100.0f, j / 100.0f, 8, 0.55f);
         //return 1 / i + 1 / j;
         //return -(i * i + j * j) / 20.0f;
         //return tan(static_cast<float_t>(i) / j);
@@ -181,7 +183,7 @@ int main()
     HeightmapObject map1(renderer, engine, "map1", glm::vec3(-10.0f, -5.0f, 10.0f), 20.0f, 50, test_map);
     map1.AddRenderObject(ShaderType::Cellshade);
 
-    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(5));
+    HeightmapGenerator gen(renderer, engine, renderer.GetCurrCam(), test_map, glm::ivec2(10), true);
 
     engine.GetObject<CubeBody>("p_ground1").SetUniversalGravity(false);
     engine.GetObject<CubeBody>("p_ground1").SetNormalForce(false);
@@ -200,6 +202,9 @@ int main()
 
     glEnable(GL_DEPTH_TEST);
     glDepthMask(true);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(1.0f, 1.0f);
