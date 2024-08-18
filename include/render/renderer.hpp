@@ -45,6 +45,7 @@ class Renderer : public ITaggedObjectManager
         void DeleteCamera(const std::string& uid);
         void AddLight(const std::shared_ptr<Light>& light);
         void RemoveLight(const std::string& uid);
+        void AddUpdatedObject(std::unique_ptr<RenderObject> object, const ShaderType& type);
         void AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type);
         void AddObject(std::unique_ptr<RenderObject> object);
         void RemoveObject(const std::string& uid);
@@ -69,6 +70,7 @@ class Renderer : public ITaggedObjectManager
         std::vector<std::shared_ptr<Light>> m_lights;
 
         iterable_queue<std::unique_ptr<RenderObject>> m_object_queue;
+        iterable_queue<std::unique_ptr<RenderObject>> m_updates_queue;
         std::queue<std::string> m_to_remove_queue;
 
         std::mutex m_lock;
@@ -91,6 +93,18 @@ T& Renderer::GetObject(const std::string& uid)
         }
     }
     for (const auto& item : m_object_queue)
+    {
+        if (item->GetUid() == uid)
+        {
+            T* castedItem = dynamic_cast<T*>(item.get());
+            if (castedItem)
+            {
+                return *castedItem;
+            }
+            throw std::runtime_error("Item [" + uid + "] found but cast failed");
+        }
+    }
+    for (const auto& item : m_updates_queue)
     {
         if (item->GetUid() == uid)
         {

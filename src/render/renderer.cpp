@@ -84,7 +84,7 @@ void Renderer::Update(const double_t& delta_time, const double_t& xpos, const do
 void Renderer::UpdateQueues()
 {
     m_queue_lock.lock();
-    if (!m_to_remove_queue.empty())
+    while (!m_to_remove_queue.empty())
     {
         m_lock.lock();
         const auto& search = std::find_if(m_objects.begin(), m_objects.end(), [&](const std::unique_ptr<RenderObject>& item){ return item->GetUid() == m_to_remove_queue.front(); });
@@ -96,7 +96,14 @@ void Renderer::UpdateQueues()
         m_to_remove_queue.pop();
         m_lock.unlock();
     }
-
+    if (!m_updates_queue.empty())
+    {
+        m_lock.lock();
+        ConfigureObject(m_updates_queue.front());
+        m_objects.push_back(std::move(m_updates_queue.front()));
+        m_updates_queue.pop();
+        m_lock.unlock();
+    }
     if (!m_object_queue.empty())
     {
         m_lock.lock();
@@ -152,6 +159,14 @@ void Renderer::ConfigureObject(const std::unique_ptr<RenderObject>& object)
     {
         object->AddLight(light);
     }
+}
+
+void Renderer::AddUpdatedObject(std::unique_ptr<RenderObject> object, const ShaderType& type)
+{
+    m_queue_lock.lock();
+    object->SetShaderType(type);
+    m_updates_queue.push(std::move(object));
+    m_queue_lock.unlock();
 }
 
 void Renderer::AddObject(std::unique_ptr<RenderObject> object, const ShaderType& type)
