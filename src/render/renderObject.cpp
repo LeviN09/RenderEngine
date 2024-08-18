@@ -9,6 +9,38 @@
 #include "render/gpu_interface/texture.hpp"
 #include "render/renderObject.hpp"
 
+RenderObject::~RenderObject()
+{
+    Cleanup();
+}
+
+void RenderObject::Cleanup()
+{
+    if (m_shader)
+    {
+        m_shader.reset();
+    }
+    for (auto& texture : m_textures)
+    {
+        if (get<0>(texture))
+        {
+            get<0>(texture).reset();
+        }
+    }
+    if (m_vao)
+    {
+        m_vao.reset();
+    }
+    if (m_vbo)
+    {
+        m_vbo.reset();
+    }
+    if (m_ebo)
+    {
+        m_ebo.reset();
+    }
+}
+
 void RenderObject::Render(const double_t& delta_time, const float_t& fov, const float_t& near, const float_t& far, Shader& used_shader)
 {
     used_shader.Activate();
