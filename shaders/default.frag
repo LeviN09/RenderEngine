@@ -5,6 +5,7 @@ in vec3 color;
 in vec2 texCoord;
 in vec3 normal;
 in vec3 worldPos;
+in vec3 modelViewPos;
 
 in VS_OUT {
     vec3 FragPos;
@@ -75,7 +76,10 @@ float ShadowCalculation(vec3 norm, vec4 fragPosLightSpace)
     }
 
     return shadow;
-} 
+}
+
+float fogFar = 1300.0f;
+float fogNear = 900.0f;
 
 void main()
 {
@@ -84,14 +88,21 @@ void main()
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - worldPos);
 
+    float dist = length(modelViewPos);
+    float fogFactor = (fogFar - dist) / (fogFar - fogNear);
+    fogFactor = clamp(fogFactor, 0.0f, 1.0f);
+
     float shadow = ShadowCalculation(norm, fs_in.FragPosLightSpace); 
-    vec3 result = (ambient + (1.0f - shadow) * (getDiffuse(norm, lightDir) + getSpecular(norm, lightDir))) * color;
+    vec4 result = vec4((ambient + (1.0f - shadow) * (getDiffuse(norm, lightDir) + getSpecular(norm, lightDir))) * color, 1.0f);
+
+    result = mix(vec4(0.0f, 0.0f, 1.0f, 0.0f), result, fogFactor);
+
     if (hasColorTexture == 1)
     {
-        FragColor = texture(tex0, texCoord) * vec4(result, 1.0f);
+        FragColor = texture(tex0, texCoord) * result;
     }
     else
     {
-        FragColor = vec4(result, 1.0);
+        FragColor = result;
     }
 }
