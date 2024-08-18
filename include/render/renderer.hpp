@@ -62,6 +62,7 @@ class Renderer : public ITaggedObjectManager
         std::shared_ptr<Camera> m_curr_cam;
         GLFWwindow& m_window;
         int64_t m_width, m_height;
+        float_t m_far_clip{ 5000.0f };
 
         std::vector<std::unique_ptr<RenderObject>> m_objects;
         std::vector<std::shared_ptr<Camera>> m_cameras;

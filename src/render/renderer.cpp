@@ -49,7 +49,7 @@ void Renderer::Render(const double_t& delta_time)
             continue;
         }
 
-        obj->Render(delta_time, 90.0f, 0.1f, 500.0f, light->GetShadowShader());
+        obj->Render(delta_time, 90.0f, 0.1f, m_far_clip, light->GetShadowShader());
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -65,7 +65,7 @@ void Renderer::Render(const double_t& delta_time)
         }
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, light->GetShadowMap());
-        obj->Render(delta_time, 90.0f, 0.1f, 1000.0f);
+        obj->Render(delta_time, 90.0f, 0.1f, m_far_clip);
     }
     m_lock.unlock();
 }
@@ -84,15 +84,6 @@ void Renderer::Update(const double_t& delta_time, const double_t& xpos, const do
 void Renderer::UpdateQueues()
 {
     m_queue_lock.lock();
-    if (!m_object_queue.empty())
-    {
-        m_lock.lock();
-        ConfigureObject(m_object_queue.front());
-        m_objects.push_back(std::move(m_object_queue.front()));
-        m_object_queue.pop();
-        m_lock.unlock();
-    }
-
     if (!m_to_remove_queue.empty())
     {
         m_lock.lock();
@@ -103,6 +94,15 @@ void Renderer::UpdateQueues()
             m_objects.erase(search);
         }
         m_to_remove_queue.pop();
+        m_lock.unlock();
+    }
+
+    if (!m_object_queue.empty())
+    {
+        m_lock.lock();
+        ConfigureObject(m_object_queue.front());
+        m_objects.push_back(std::move(m_object_queue.front()));
+        m_object_queue.pop();
         m_lock.unlock();
     }
     m_queue_lock.unlock(); 
